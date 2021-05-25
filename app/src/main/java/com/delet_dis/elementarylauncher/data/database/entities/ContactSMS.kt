@@ -21,5 +21,5 @@ data class ContactSMS(
     var id: Int = 0,
 
     @Ignore
-    override var entityType: Any = ActionType.CONTACT
+    override var entityType: Any = ActionType.CONTACT_SMS
 ) : EntitiesParent

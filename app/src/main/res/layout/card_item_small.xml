@@ -31,7 +31,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/imageCardView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="89dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
@@ -43,8 +43,8 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/cardImage"
@@ -63,12 +63,15 @@
 
                     <TextView
                         android:id="@+id/cardText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:fontFamily="@font/manrope_semibold"
                         android:textAlignment="center"
                         android:textColor="@color/defaultFontColor"
-                        android:textSize="65sp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeMaxTextSize="100sp"
+                        app:autoSizeStepGranularity="2sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/cardImage"
                         app:layout_constraintStart_toStartOf="parent"

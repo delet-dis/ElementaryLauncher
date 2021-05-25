@@ -31,11 +31,11 @@
         android:scaleType="center"
         android:scaleX="1.5"
         android:scaleY="1.5"
-        android:tint="@color/purple_500"
         app:layout_constraintBottom_toTopOf="@+id/itemPickRecycler"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
+        app:srcCompat="@drawable/ic_back"
+        app:tint="@color/purple_500" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemPickRecycler"

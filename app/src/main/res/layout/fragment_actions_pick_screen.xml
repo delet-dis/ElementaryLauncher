@@ -18,27 +18,28 @@
         android:scaleType="center"
         android:scaleX="1.5"
         android:scaleY="1.5"
-        android:tint="@color/purple_500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
+        app:srcCompat="@drawable/ic_back"
+        app:tint="@color/purple_500" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actionsPickingRecycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@+id/actionsPickHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
 
     <TextView
         android:id="@+id/actionsPickHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/chooseActionsForHomeScreenText"
         android:textAlignment="center"
@@ -52,21 +53,23 @@
     <Button
         android:id="@+id/nextButton"
         android:layout_width="210dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/purple_200"
         android:fontFamily="@font/manrope_medium"
         android:includeFontPadding="false"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
+        android:maxHeight="90dp"
+        android:minHeight="64dp"
         android:text="@string/nextButtonText"
         android:textColor="@color/purple_500"
         android:textSize="16sp"
         app:cornerRadius="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actionsPickHint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

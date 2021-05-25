@@ -1,6 +1,7 @@
 package com.delet_dis.elementarylauncher.data.repositories
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.concatenate
@@ -164,6 +165,8 @@ class DatabaseRepository(val context: Context) {
 
     suspend fun deleteAtPosition(position: Int) {
         getAllDatabaseRecordingsAsEntitiesParentList().forEach {
+
+            Log.d("test", it.toString())
 
             with(databaseDao) {
                 when (it.entityType) {
