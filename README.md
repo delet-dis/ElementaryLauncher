@@ -33,7 +33,6 @@ This project takes advantage of best practices, many popular libraries and tools
         * [Palette](https://developer.android.com/training/material/palette-colors) -  colors selecting
         * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  implementation of most screens of the application
 * Modern Architecture
-    * Single activity architecture ( with [Navigation component](https://developer.android.com/guide/navigation/navigation-getting-started))
     * MVVM
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
     * [Android KTX](https://developer.android.com/kotlin/ktx) - Jetpack Kotlin extensions
