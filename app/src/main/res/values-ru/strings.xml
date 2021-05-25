@@ -11,7 +11,7 @@
     <string name="finishSetupText">Настройка завершена</string>
     <string name="finishImageDescription">Изображение с галочкой</string>
     <string name="finishButtonText">Закончить</string>
-    <string name="cardAppImageDescription">Иконка приложения</string>
+    <string name="cardAppImageDescription">Иконка действия</string>
     <string name="bottomSheetActionPickingText">Выберите действие</string>
     <string name="actionPickingAppText">Приложение</string>
     <string name="actionPickingAppShortcutText">Действие приложения</string>

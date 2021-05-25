@@ -12,7 +12,7 @@
     <string name="finishSetupText">Setup finished</string>
     <string name="finishImageDescription">Image with check mark</string>
     <string name="finishButtonText">Finish</string>
-    <string name="cardAppImageDescription">Application icon image</string>
+    <string name="cardAppImageDescription">Action image</string>
     <string name="bottomSheetActionPickingText">Pick an action</string>
     <string name="actionPickingAppText">App</string>
     <string name="actionPickingAppShortcutText">App action</string>
