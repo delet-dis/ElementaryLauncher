@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_graph"
+    app:startDestination="@id/welcomeFragment">
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.delet_dis.elementarylauncher.ui.fragments.WelcomeFragment"
+        android:label="WelcomeFragment">
+        <action
+            android:id="@+id/action_welcomeFragment_to_setupDoneFragment"
+            app:destination="@id/setupDoneFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_layoutPickScreenFragment"
+            app:destination="@id/layoutPickScreenFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_actionsPickFragment"
+            app:destination="@id/actionsPickFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_interfaceScalePickFragment"
+            app:destination="@id/interfaceScalePickFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_layoutPickScreenFragment_animated"
+            app:destination="@id/layoutPickScreenFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_appsListFragment"
+            app:destination="@id/appsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/interfaceScalePickFragment"
+        android:name="com.delet_dis.elementarylauncher.ui.fragments.InterfaceScalePickFragment"
+        android:label="fragment_interface_scale_pick_screen"
+        tools:layout="@layout/fragment_interface_scale_pick_screen">
+        <action
+            android:id="@+id/action_interfaceScalePickFragment_to_actionsPickFragment"
+            app:destination="@id/actionsPickFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/layoutPickScreenFragment"
+        android:name="com.delet_dis.elementarylauncher.ui.fragments.LayoutPickScreenFragment"
+        android:label="LayoutPickScreenFragment">
+        <action
+            android:id="@+id/action_layoutPickScreenFragment_to_interfaceScalePickFragment"
+            app:destination="@id/interfaceScalePickFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/actionsPickFragment"
+        android:name="com.delet_dis.elementarylauncher.ui.fragments.ActionsPickFragment"
+        android:label="ActionsPickFragment">
+        <action
+            android:id="@+id/action_actionsPickFragment_to_setAsHomescreenFragment"
+            app:destination="@id/setAsHomescreenFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_actionsPickFragment_to_setupDoneFragment"
+            app:destination="@id/setupDoneFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/setupDoneFragment"
+        android:name="com.delet_dis.elementarylauncher.ui.fragments.SetupDoneFragment"
+        android:label="SetupDoneFragment" />
+    <fragment
+        android:id="@+id/setAsHomescreenFragment"
+        android:name="com.delet_dis.elementarylauncher.ui.fragments.SetAsHomescreenFragment"
+        android:label="SetAsHomescreenFragment">
+        <action
+            android:id="@+id/action_setAsHomescreenFragment_to_setupDoneFragment"
+            app:destination="@id/setupDoneFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/appsListFragment"
+        android:name="com.delet_dis.elementarylauncher.ui.fragments.AppsListFragment"
+        android:label="AppsListFragment" />
+</navigation>

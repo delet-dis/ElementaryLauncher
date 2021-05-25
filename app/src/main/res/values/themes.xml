@@ -1,0 +1,55 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="ElementaryLauncherTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+    </style>
+
+    <style name="OnboardingActivityStyle" parent="ElementaryLauncherTheme">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="materialAlertDialogTheme">@style/MaterialDialogOnboardingStyle</item>
+    </style>
+
+    <style name="MaterialDialogOnboardingStyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogBodyTextStyle">
+            @style/MaterialDialogOnboardingStyle.Body.Text
+        </item>
+        <item name="materialAlertDialogTitleTextStyle">
+            @style/MaterialDialogOnboardingStyle.Title.Text
+        </item>
+        <item name="buttonBarNegativeButtonStyle">
+            @style/MaterialDialogOnboardingStyle.ButtonStyle
+        </item>
+        <item name="buttonBarPositiveButtonStyle">
+            @style/MaterialDialogOnboardingStyle.ButtonStyle
+        </item>
+    </style>
+
+    <style name="MaterialDialogOnboardingStyle.Body.Text" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/manrope_medium</item>
+    </style>
+
+    <style name="MaterialDialogOnboardingStyle.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/manrope_bold</item>
+    </style>
+
+    <style name="MaterialDialogOnboardingStyle.ButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+    </style>
+
+    <style name="LauncherActivityStyle" parent="ElementaryLauncherTheme">
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>

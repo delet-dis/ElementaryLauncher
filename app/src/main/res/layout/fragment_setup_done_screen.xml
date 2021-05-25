@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?android:attr/actionBarItemBackground"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/backButtonContentDescription"
+        android:scaleType="center"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:tint="@color/purple_500"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <ImageView
+        android:id="@+id/finishImage"
+        android:layout_width="235dp"
+        android:layout_height="265dp"
+        android:layout_marginTop="85dp"
+        android:contentDescription="@string/finishImageDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_setup_done"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/finishHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="75dp"
+        android:fontFamily="@font/manrope_semibold"
+        android:text="@string/finishSetupText"
+        android:textAlignment="center"
+        android:textColor="@color/defaultFontColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/finishButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/finishButton"
+        android:layout_width="210dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="88dp"
+        android:backgroundTint="@color/purple_200"
+        android:fontFamily="@font/manrope_medium"
+        android:includeFontPadding="false"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/finishButtonText"
+        android:textColor="@color/purple_500"
+        android:textSize="16sp"
+        app:cornerRadius="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

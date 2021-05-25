@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#D6BEF7</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="purpleLight">#E8DCF9</color>
+
+    <color name="defaultFontColor">@color/black</color>
+    <color name="defaultFontSubColor">#B9000000</color>
+
+    <color name="dividerColor">#D3D3D3</color>
+
+    <color name="white_half_transparent">#8DFFFFFF</color>
+</resources>

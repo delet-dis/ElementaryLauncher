@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="appName" translatable="false">Elementary launcher</string>
+    <string name="getStartedButtonText">Get started</string>
+    <string name="chooseInterfaceScaleText">Choose shortcut elements scale</string>
+    <string name="nextButtonText">Next</string>
+    <string name="chooseGridLayoutText">Choose grid layout</string>
+    <string name="chooseActionsForHomeScreenText">Click on the shortcut \n to configure it</string>
+    <string name="appLogoContentDescription">App logotype</string>
+    <string name="gridImageTwoByThreeDescription">Image of two by three home layout grid</string>
+    <string name="gridImageTwoByTwoDescription">Image of two by two home layout grid</string>
+    <string name="finishSetupText">Setup finished</string>
+    <string name="finishImageDescription">Image with check mark</string>
+    <string name="finishButtonText">Finish</string>
+    <string name="cardAppImageDescription">Application icon image</string>
+    <string name="bottomSheetActionPickingText">Pick an action</string>
+    <string name="actionPickingAppText">App</string>
+    <string name="actionPickingAppShortcutText">App action</string>
+    <string name="actionImageDescription">Image of picking shortcut action</string>
+    <string name="actionPickingWidgetText">Widget</string>
+    <string name="actionPickingContactText">Contact</string>
+    <string name="actionPickingContactCallText">Contact call</string>
+    <string name="actionPickingSettingsActionText">Settings action</string>
+    <string name="contactPermissionRequiredMessage">Access to contacts is required to use this action</string>
+    <string name="permissionRequiredTitle">Permission required</string>
+    <string name="permissionRequiredPositiveButton">OK</string>
+    <string name="permissionRequiredNegativeButton">Cancel</string>
+    <string name="settingsPickingWifiText" translatable="false">WiFi</string>
+    <string name="settingsPickingBluetoothText" translatable="false">Bluetooth</string>
+    <string name="settingsPickingGeolocationText">Geolocation</string>
+    <string name="settingsPickingMobileDataText">Mobile data</string>
+    <string name="settingsPickingBatterySaverText">Battery saver</string>
+    <string name="settingsPickingStorageText">Storage</string>
+    <string name="settingsPickingAirplaneText">Airplane mode</string>
+    <string name="actionPickingContactSMSText">Contact SMS</string>
+    <string name="actionSMSPrefix">SMS:&#160;</string>
+    <string name="actionCallPrefix">Call:&#160;</string>
+    <string name="actionPickingClearText">Clear</string>
+    <string name="incompleteActionPickingButtonText">Choose at least one card setting</string>
+    <string name="setAsHomescreenHintText">To fully enjoy this app, set it as your home screen</string>
+    <string name="skipSetAsHomescreenHintTextSetupButtonText">Skip</string>
+    <string name="goToSettingsSetAsHomescreenHintTextSetupButtonText">Go to settings</string>
+    <string name="alarmImageContentDescription">Alarm image</string>
+    <string name="phonePermissionRequiredMessage">Phone permission is required to use this action</string>
+    <string name="backButtonContentDescription">Back</string>
+    <string name="actionPickingActionsPickText">Configure homescreen shortcuts</string>
+    <string name="actionPickingScalePickText">Configure shortcut scale</string>
+    <string name="actionPickingLayoutPickText">Configure homescreen layout</string>
+    <string name="actionPickingAppsListPickText">Apps list</string>
+    <string name="settingsShowcaseDismissText">Got it</string>
+    <string name="settingsShowcaseInfoText">Hold this widget to open an additional menu</string>
+</resources>
