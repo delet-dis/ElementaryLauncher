@@ -52,13 +52,16 @@ class AppsListFragment : Fragment() {
 
                         itemPickRecycler.adapter =
                             AppsPickingAdapter(mutableList as MutableList<ApplicationInfo>) {
-                                requireActivity().startActivity(
-                                    Intent(
-                                        requireContext().packageManager.getLaunchIntentForPackage(
-                                            it.packageName
+                                with(requireActivity()) {
+                                    startActivity(
+                                        Intent(
+                                            requireContext().packageManager.getLaunchIntentForPackage(
+                                                it.packageName
+                                            )
                                         )
                                     )
-                                )
+                                    finish()
+                                }
                             }
                     })
             }
