@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/layoutPickScreenFragment"
-        android:name="com.delet_dis.elementarylauncher.ui.fragments.LayoutPickScreenFragment"
+        android:name="com.delet_dis.elementarylauncher.ui.fragments.ScreenLayoutPickFragment"
         android:label="LayoutPickScreenFragment">
         <action
             android:id="@+id/action_layoutPickScreenFragment_to_interfaceScalePickFragment"

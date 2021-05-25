@@ -177,7 +177,7 @@ class DatabaseRepository(val context: Context) {
                         removeContactCallByPosition(position)
 
                     ActionType.CONTACT_SMS ->
-                        removeContactCallByPosition(position)
+                        removeContactSMSByPosition(position)
 
                     ActionType.SETTINGS_ACTION ->
                         removeSettingsActionByPosition(position)
