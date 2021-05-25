@@ -40,7 +40,7 @@
     <string name="alarmImageContentDescription">Изображение будильника</string>
     <string name="phonePermissionRequiredMessage">Для использования этого действия необходимо разрешение на вызовы</string>
     <string name="backButtonContentDescription">Назад</string>
-    <string name="actionPickingActionsPickText">Настроить ярлыки дмоашнего экрана</string>
+    <string name="actionPickingActionsPickText">Настроить ярлыки домашнего экрана</string>
     <string name="actionPickingScalePickText">Настроить размер элементов ярлыка</string>
     <string name="actionPickingLayoutPickText">Настроить сетку домашнего экрана</string>
     <string name="actionPickingAppsListPickText">Список приложений</string>
