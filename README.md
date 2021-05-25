@@ -3,10 +3,10 @@
 <img src="https://user-images.githubusercontent.com/47276603/119395950-6ceb3100-bcfe-11eb-81fd-e3c3946f19b4.png" height = "220" align="right" hspace="50">
 
 
-[![Android CI](https://github.com/delet-dis/Elementary-launcher/actions/workflows/android.yml/badge.svg)](https://github.com/delet-dis/Elementary-launcher/actions/workflows/android.yml)
+[![Android CI](https://github.com/delet-dis/ElementaryLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/delet-dis/ElementaryLauncher/actions/workflows/android.yml)
 
-[![codebeat badge](https://codebeat.co/badges/57a680c8-af18-44ad-a7a3-1a897214a2a4)](https://codebeat.co/projects/github-com-delet-dis-elementary-launcher-main)
-[![CodeFactor](https://www.codefactor.io/repository/github/delet-dis/elementary-launcher/badge)](https://www.codefactor.io/repository/github/delet-dis/elementary-launcher)
+[![codebeat badge](https://codebeat.co/badges/2f55c8e1-58ae-4e35-a454-27602b58e910)](https://codebeat.co/projects/github-com-delet-dis-elementarylauncher-main)
+[![CodeFactor](https://www.codefactor.io/repository/github/delet-dis/elementarylauncher/badge)](https://www.codefactor.io/repository/github/delet-dis/elementarylauncher)
 
 Elementary launcher is an [Android](https://en.wikipedia.org/wiki/Android_(operating_system)) app that helps people with vision problems interact with their home screen.
 
@@ -32,7 +32,6 @@ This project takes advantage of best practices, many popular libraries and tools
         * [Android KTX](https://developer.android.com/kotlin/ktx) -  set of Kotlin extensions
         * [Palette](https://developer.android.com/training/material/palette-colors) -  colors selecting
         * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  implementation of most screens of the application
-        * [ViewBinding](https://developer.android.com/topic/libraries/view-binding) -  views access
 * Modern Architecture
     * Single activity architecture ( with [Navigation component](https://developer.android.com/guide/navigation/navigation-getting-started))
     * MVVM
@@ -45,20 +44,20 @@ This project takes advantage of best practices, many popular libraries and tools
     * [Material design](https://material.io/design)
 
 ### More project screenshots
-<img src="https://user-images.githubusercontent.com/47276603/119395044-2fd26f00-bcfd-11eb-86a5-1b051b98ca3d.jpg" width="200" hspace="5" align="left" vspace ="10">
-<img src="https://user-images.githubusercontent.com/47276603/119395047-306b0580-bcfd-11eb-881c-b3181a286f61.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395044-2fd26f00-bcfd-11eb-86a5-1b051b98ca3d.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395047-306b0580-bcfd-11eb-881c-b3181a286f61.jpg" width="200" hspace="5" align="left" vspace ="10">
 <br/>
-<img src="https://user-images.githubusercontent.com/47276603/119395048-31039c00-bcfd-11eb-9688-afe7b3c71d86.jpg" width="200" hspace="5" align="left" vspace ="10">
-<img src="https://user-images.githubusercontent.com/47276603/119395051-31039c00-bcfd-11eb-9b41-fec92c8b39e6.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395048-31039c00-bcfd-11eb-9688-afe7b3c71d86.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395051-31039c00-bcfd-11eb-9b41-fec92c8b39e6.jpg" width="200" hspace="5" align="left" vspace ="10">
 <br/>
-<img src="https://user-images.githubusercontent.com/47276603/119395053-319c3280-bcfd-11eb-823e-46d802a6410a.jpg" width="200" hspace="5" align="left" vspace ="10">
-<img src="https://user-images.githubusercontent.com/47276603/119395054-319c3280-bcfd-11eb-8c12-cdc442c89d7e.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395053-319c3280-bcfd-11eb-823e-46d802a6410a.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395054-319c3280-bcfd-11eb-8c12-cdc442c89d7e.jpg" width="200" hspace="5" align="left" vspace ="10">
 <br/>
-<img src="https://user-images.githubusercontent.com/47276603/119395055-3234c900-bcfd-11eb-8dc9-2c9afaa1fd4b.jpg" width="200" hspace="5" align="left" vspace ="10">
-<img src="https://user-images.githubusercontent.com/47276603/119395057-32cd5f80-bcfd-11eb-9b8c-f1e04f25b9cc.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395055-3234c900-bcfd-11eb-8dc9-2c9afaa1fd4b.jpg" width="200" hspace="5"  vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395057-32cd5f80-bcfd-11eb-9b8c-f1e04f25b9cc.jpg" width="200" hspace="5" align="left" vspace ="10">
 <br/>
-<img src="https://user-images.githubusercontent.com/47276603/119395059-32cd5f80-bcfd-11eb-9f94-2aee2f779a50.jpg" width="200" hspace="5" align="left" vspace ="10">
-<img src="https://user-images.githubusercontent.com/47276603/119395062-3365f600-bcfd-11eb-9ece-84d8a95be347.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395059-32cd5f80-bcfd-11eb-9f94-2aee2f779a50.jpg" width="200" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/119395062-3365f600-bcfd-11eb-9ece-84d8a95be347.jpg" width="200" hspace="5" align="left" vspace ="10">
 <br/>
 <img src="https://user-images.githubusercontent.com/47276603/119395063-33fe8c80-bcfd-11eb-8016-ab6206b28834.jpg" width="200" hspace="5" vspace ="10">
 
