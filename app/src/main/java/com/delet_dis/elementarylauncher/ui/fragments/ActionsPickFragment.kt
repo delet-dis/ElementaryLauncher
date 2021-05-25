@@ -103,6 +103,7 @@ class ActionsPickFragment : Fragment() {
             context?.let {
                 if (isAvailable) {
                     nextButton.text = it.getString(R.string.nextButtonText)
+                    backButton.isEnabled = true
                 }
 
                 if (isOnboardingPassed(requireContext())) {
@@ -112,6 +113,7 @@ class ActionsPickFragment : Fragment() {
 
                 if (!isAvailable) {
                     nextButton.text = it.getString(R.string.incompleteActionPickingButtonText)
+                    backButton.isEnabled = false
                 }
             }
 
