@@ -130,8 +130,6 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
     override fun onBackPressed() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        } else {
-            super.onBackPressed()
         }
     }
 }
