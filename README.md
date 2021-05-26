@@ -32,6 +32,7 @@ This project takes advantage of best practices, many popular libraries and tools
         * [Android KTX](https://developer.android.com/kotlin/ktx) -  set of Kotlin extensions
         * [Palette](https://developer.android.com/training/material/palette-colors) -  colors selecting
         * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  implementation of most screens of the application
+        * [ViewBinding](https://developer.android.com/topic/libraries/view-binding) -  getting links to interface elements
 * Modern Architecture
     * MVVM
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
