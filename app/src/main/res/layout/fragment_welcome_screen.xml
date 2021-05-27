@@ -11,6 +11,7 @@
         android:layout_height="265dp"
         android:layout_marginTop="85dp"
         android:contentDescription="@string/appLogoContentDescription"
+        app:layout_constraintBottom_toTopOf="@+id/appName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

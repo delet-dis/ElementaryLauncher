@@ -18,11 +18,11 @@
         android:scaleType="center"
         android:scaleX="1.5"
         android:scaleY="1.5"
-        android:tint="@color/purple_500"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
+        app:srcCompat="@drawable/ic_back"
+        app:tint="@color/purple_500" />
 
     <ImageView
         android:id="@+id/finishImage"
@@ -30,6 +30,7 @@
         android:layout_height="265dp"
         android:layout_marginTop="85dp"
         android:contentDescription="@string/finishImageDescription"
+        app:layout_constraintBottom_toTopOf="@+id/finishHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
