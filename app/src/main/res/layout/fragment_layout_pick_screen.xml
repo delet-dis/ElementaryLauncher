@@ -129,36 +129,40 @@
     </RadioGroup>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/firstGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/secondGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.6" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/firstGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
     <TextView
         android:id="@+id/layoutPickHint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/chooseGridLayoutText"
         android:textAlignment="center"
         android:textColor="@color/defaultFontColor"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/firstGuideline" />
+        app:layout_constraintTop_toTopOf="@+id/firstGuideline"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/nextButton"
         android:layout_width="210dp"
         android:layout_height="64dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/purple_200"
         android:fontFamily="@font/manrope_medium"
         android:includeFontPadding="false"

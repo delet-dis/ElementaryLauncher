@@ -23,15 +23,16 @@
 
     <ImageView
         android:id="@+id/launcherSettingsImage"
-        tools:ignore="ImageContrastCheck"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="230dp"
         android:contentDescription="@string/finishImageDescription"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/hint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/homescreen_picking_layout" />
+        app:srcCompat="@drawable/homescreen_picking_layout"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/hint"
@@ -40,7 +41,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="250dp"
+        android:ellipsize="end"
         android:fontFamily="@font/manrope_semibold"
+        android:maxLines="5"
         android:text="@string/setAsHomescreenHintText"
         android:textAlignment="center"
         android:textColor="@color/defaultFontColor"

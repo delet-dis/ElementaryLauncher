@@ -12,10 +12,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
         android:contentDescription="@string/appLogoContentDescription"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/appName"
+        app:layout_constraintBottom_toTopOf="@+id/halfScreenGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,11 +23,18 @@
         app:layout_constraintWidth_percent="0.5"
         app:srcCompat="@drawable/ic_logo" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/halfScreenGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
     <TextView
         android:id="@+id/appName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="64dp"
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/appName"
         android:textAlignment="center"
@@ -36,13 +42,15 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/getStartedButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/halfScreenGuideline"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/getStartedButton"
         android:layout_width="210dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/purple_200"
         android:fontFamily="@font/manrope_medium"
         android:includeFontPadding="false"
@@ -56,6 +64,7 @@
         app:cornerRadius="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
