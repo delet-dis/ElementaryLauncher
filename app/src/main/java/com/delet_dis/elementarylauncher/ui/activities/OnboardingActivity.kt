@@ -23,12 +23,13 @@ import com.delet_dis.elementarylauncher.common.models.ContactActionType
 import com.delet_dis.elementarylauncher.common.models.HomescreenActionType
 import com.delet_dis.elementarylauncher.data.contracts.WidgetConfiguringContract
 import com.delet_dis.elementarylauncher.data.contracts.WidgetPickingContract
-import com.delet_dis.elementarylauncher.data.database.entities.*
 import com.delet_dis.elementarylauncher.data.repositories.ConstantsRepository
 import com.delet_dis.elementarylauncher.data.repositories.SharedPreferencesRepository
 import com.delet_dis.elementarylauncher.databinding.ActivityOnboardingBinding
 import com.delet_dis.elementarylauncher.helpers.buildPermissionAlertDialog
-import com.delet_dis.elementarylauncher.recyclerViewAdapters.*
+import com.delet_dis.elementarylauncher.recyclerViewAdapters.ActionsPickingAdapter
+import com.delet_dis.elementarylauncher.recyclerViewAdapters.AppsPickingAdapter
+import com.delet_dis.elementarylauncher.recyclerViewAdapters.SettingsActionPickingAdapter
 import com.delet_dis.elementarylauncher.ui.fragments.ActionsPickFragment
 import com.delet_dis.elementarylauncher.viewmodels.OnboardingActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
