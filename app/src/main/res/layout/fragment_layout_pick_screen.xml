@@ -8,8 +8,8 @@
 
     <ImageButton
         android:id="@+id/backButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="?android:attr/actionBarItemBackground"
@@ -19,15 +19,17 @@
         android:scaleX="1.5"
         android:scaleY="1.5"
         app:layout_constraintEnd_toStartOf="@+id/twoByThreeCard"
+        app:layout_constraintHeight_percent="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.09"
         app:srcCompat="@drawable/ic_back"
         app:tint="@color/purple_500" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/twoByThreeCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="10dp"
         android:clickable="true"
@@ -36,9 +38,11 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/twoByTwoCard"
+        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85">
+        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintWidth_percent="0.35">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -46,9 +50,10 @@
 
             <ImageView
                 android:id="@+id/gridImageTwoByThree"
-                android:layout_width="140dp"
-                android:layout_height="293dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:contentDescription="@string/gridImageTwoByThreeDescription"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +65,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/twoByTwoCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
@@ -70,9 +75,11 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toEndOf="@+id/twoByThreeCard"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85">
+        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintWidth_percent="0.35">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -80,9 +87,10 @@
 
             <ImageView
                 android:id="@+id/gridImageTwoByTwo"
-                android:layout_width="140dp"
-                android:layout_height="293dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:contentDescription="@string/gridImageTwoByTwoDescription"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +144,7 @@
 
     <TextView
         android:id="@+id/layoutPickHint"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/chooseGridLayoutText"
