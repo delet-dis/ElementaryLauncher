@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.findHomescreenAction
+import com.delet_dis.elementarylauncher.common.extensions.findPickedFragmentProgress
 import com.delet_dis.elementarylauncher.common.extensions.isOnboardingPassed
 import com.delet_dis.elementarylauncher.common.models.ActionType
 import com.delet_dis.elementarylauncher.common.models.ContactActionType
@@ -186,13 +187,8 @@ class OnboardingActivity : AppCompatActivity(),
         supportFragmentManager.findFragmentById(binding.navigationOnboardingControllerContainerView.id)
             ?.findNavController()
             ?.addOnDestinationChangedListener { _, destination, _ ->
-                when (destination.id) {
-                    R.id.welcomeFragment -> animateProgressbarProgressToInt(0)
-                    R.id.layoutPickScreenFragment -> animateProgressbarProgressToInt(20)
-                    R.id.interfaceScalePickFragment -> animateProgressbarProgressToInt(40)
-                    R.id.actionsPickFragment -> animateProgressbarProgressToInt(60)
-                    R.id.setAsHomescreenFragment -> animateProgressbarProgressToInt(80)
-                    R.id.setupDoneFragment -> animateProgressbarProgressToInt(100)
+                findPickedFragmentProgress(destination.id)?.let {
+                    animateProgressbarProgressToInt(it.progress)
                 }
             }
     }
