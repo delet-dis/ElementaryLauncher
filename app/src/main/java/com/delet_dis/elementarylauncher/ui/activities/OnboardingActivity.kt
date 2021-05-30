@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProviderInfo
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
@@ -399,4 +400,11 @@ class OnboardingActivity : AppCompatActivity(),
         ) { (::callActionPickPositiveMaterialDialogButtonFunction)(itemId) }
     }
 
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//
+//        supportFragmentManager.findFragmentById(binding.navigationOnboardingControllerContainerView.id)
+//            ?.findNavController()
+//            ?.
+//    }
 }

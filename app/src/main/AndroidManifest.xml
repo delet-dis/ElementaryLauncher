@@ -22,28 +22,29 @@
         android:theme="@style/ElementaryLauncherTheme"
         tools:replace="android:supportsRtl,android:allowBackup,icon,label">
 
-    <activity
-        android:name=".ui.activities.OnboardingActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/OnboardingActivityStyle"
-        tools:ignore="LockedOrientationActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".ui.activities.OnboardingActivity"
+            android:configChanges="density|fontScale|keyboard|keyboardHidden|locale|orientation|screenLayout|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/OnboardingActivityStyle"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
 
-            <category android:name="android.intent.category.LAUNCHER" />
-            <category android:name="android.intent.category.HOME" />
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
-    </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
-    <activity
-        android:name=".ui.activities.LauncherActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/LauncherActivityStyle"
-        tools:ignore="LockedOrientationActivity">
+        <activity
+            android:name=".ui.activities.LauncherActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LauncherActivityStyle"
+            tools:ignore="LockedOrientationActivity">
 
-    </activity>
-</application>
+        </activity>
+    </application>
 
-    </manifest>
+</manifest>
