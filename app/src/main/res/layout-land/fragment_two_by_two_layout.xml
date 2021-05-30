@@ -24,15 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.333" />
+        app:layout_constraintGuide_percent="0.5" />
 
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/secondHorizontalGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.666" />
 
     <com.delet_dis.elementarylauncher.common.view.ClockView
         android:layout_width="0dp"
@@ -48,7 +41,7 @@
         android:id="@+id/cardsGroup"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:constraint_referenced_ids="firstCardView,secondCardView,thirdCardView,fourthCardView,fifthCardView,sixthCardView"
+        app:constraint_referenced_ids="firstCardView,secondCardView,thirdCardView,fourthCardView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,49 +57,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.delet_dis.elementarylauncher.common.view.AppCardView
-        android:id="@+id/thirdCardView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/secondHorizontalGuideline"
-        app:layout_constraintEnd_toStartOf="@+id/secondVerticalGuideline"
-        app:layout_constraintStart_toStartOf="@+id/firstVerticalGuideline"
-        app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
-
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
-        android:id="@+id/fifthCardView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/secondVerticalGuideline"
-        app:layout_constraintStart_toStartOf="@+id/firstVerticalGuideline"
-        app:layout_constraintTop_toTopOf="@+id/secondHorizontalGuideline" />
-
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
         android:id="@+id/secondCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/firstHorizontalGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/secondVerticalGuideline"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </com.delet_dis.elementarylauncher.common.view.AppCardView>
+    <com.delet_dis.elementarylauncher.common.view.AppCardView
+        android:id="@+id/thirdCardView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/secondVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@+id/firstVerticalGuideline"
+        app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
 
     <com.delet_dis.elementarylauncher.common.view.AppCardView
         android:id="@+id/fourthCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/secondHorizontalGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/secondVerticalGuideline"
         app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
-        android:id="@+id/sixthCardView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/secondVerticalGuideline"
-        app:layout_constraintTop_toTopOf="@+id/secondHorizontalGuideline" />
 </androidx.constraintlayout.widget.ConstraintLayout>
