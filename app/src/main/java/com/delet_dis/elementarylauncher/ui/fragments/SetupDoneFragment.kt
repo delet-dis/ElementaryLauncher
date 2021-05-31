@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.checkIfAppIsDefaultLauncher
+import com.delet_dis.elementarylauncher.common.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.data.repositories.SharedPreferencesRepository
 import com.delet_dis.elementarylauncher.databinding.FragmentSetupDoneScreenBinding
 import com.delet_dis.elementarylauncher.ui.activities.LauncherActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class SetupDoneFragment : Fragment() {
+class SetupDoneFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentSetupDoneScreenBinding
 
     override fun onCreateView(
@@ -61,5 +62,9 @@ class SetupDoneFragment : Fragment() {
             requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
                 .popBackStack()
         }
+    }
+
+    override fun getFragmentId(): Int {
+        return R.id.setupDoneFragment
     }
 }

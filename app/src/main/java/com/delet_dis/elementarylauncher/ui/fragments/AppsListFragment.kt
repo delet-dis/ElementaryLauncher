@@ -8,13 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.delet_dis.elementarylauncher.R
+import com.delet_dis.elementarylauncher.common.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.databinding.FragmentAppsListScreenBinding
 import com.delet_dis.elementarylauncher.recyclerViewAdapters.AppsPickingAdapter
 import com.delet_dis.elementarylauncher.viewmodels.AppsListFragmentViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class AppsListFragment : Fragment() {
+class AppsListFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentAppsListScreenBinding
 
     private lateinit var appListFragmentViewModel: AppsListFragmentViewModel
@@ -103,5 +105,9 @@ class AppsListFragment : Fragment() {
         backButton.setOnClickListener {
             requireActivity().finish()
         }
+    }
+
+    override fun getFragmentId(): Int {
+        return R.id.appsListFragment
     }
 }

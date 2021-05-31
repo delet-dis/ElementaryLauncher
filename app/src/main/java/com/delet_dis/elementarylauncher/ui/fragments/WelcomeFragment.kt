@@ -9,10 +9,11 @@ import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.checkIfAppIsDefaultLauncher
 import com.delet_dis.elementarylauncher.common.extensions.isOnboardingPassed
+import com.delet_dis.elementarylauncher.common.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.data.repositories.SharedPreferencesRepository
 import com.delet_dis.elementarylauncher.databinding.FragmentWelcomeScreenBinding
 
-class WelcomeFragment : Fragment() {
+class WelcomeFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentWelcomeScreenBinding
 
     override fun onCreateView(
@@ -56,5 +57,9 @@ class WelcomeFragment : Fragment() {
             requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
                 .navigate(R.id.action_welcomeFragment_to_layoutPickScreenFragment_animated)
         }
+    }
+
+    override fun getFragmentId(): Int {
+        return R.id.welcomeFragment
     }
 }

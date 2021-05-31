@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.isOnboardingPassed
+import com.delet_dis.elementarylauncher.common.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.common.models.LayoutType
 import com.delet_dis.elementarylauncher.data.repositories.SharedPreferencesRepository
 import com.delet_dis.elementarylauncher.databinding.FragmentLayoutPickScreenBinding
 
-class ScreenLayoutPickFragment : Fragment() {
+class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentLayoutPickScreenBinding
 
     override fun onCreateView(
@@ -89,5 +90,9 @@ class ScreenLayoutPickFragment : Fragment() {
         twoByTwoCard.setOnClickListener {
             binding.twoByTwoRadio.isChecked = true
         }
+    }
+
+    override fun getFragmentId(): Int {
+        return R.id.screenLayoutPickFragment
     }
 }
