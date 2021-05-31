@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.checkIfAppIsDefaultLauncher
+import com.delet_dis.elementarylauncher.common.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.databinding.FragmentSetAsHomescreenScreenBinding
 
-class SetAsHomescreenFragment : Fragment() {
+class SetAsHomescreenFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentSetAsHomescreenScreenBinding
 
     override fun onCreateView(
@@ -95,5 +96,9 @@ class SetAsHomescreenFragment : Fragment() {
             requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
                 .navigate(R.id.action_setAsHomescreenFragment_to_setupDoneFragment)
         }
+    }
+
+    override fun getFragmentId(): Int {
+        return R.id.setAsHomescreenFragment
     }
 }

@@ -7,17 +7,20 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProviderInfo
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.findHomescreenAction
 import com.delet_dis.elementarylauncher.common.extensions.findPickedFragmentProgress
 import com.delet_dis.elementarylauncher.common.extensions.isOnboardingPassed
+import com.delet_dis.elementarylauncher.common.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.common.models.ActionType
 import com.delet_dis.elementarylauncher.common.models.ContactActionType
 import com.delet_dis.elementarylauncher.common.models.HomescreenActionType
@@ -30,7 +33,7 @@ import com.delet_dis.elementarylauncher.helpers.buildPermissionAlertDialog
 import com.delet_dis.elementarylauncher.recyclerViewAdapters.ActionsPickingAdapter
 import com.delet_dis.elementarylauncher.recyclerViewAdapters.AppsPickingAdapter
 import com.delet_dis.elementarylauncher.recyclerViewAdapters.SettingsActionPickingAdapter
-import com.delet_dis.elementarylauncher.ui.fragments.ActionsPickFragment
+import com.delet_dis.elementarylauncher.ui.fragments.*
 import com.delet_dis.elementarylauncher.viewmodels.OnboardingActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,6 +56,8 @@ class OnboardingActivity : AppCompatActivity(),
     private lateinit var appWidgetManager: AppWidgetManager
 
     private lateinit var appWidgetHost: AppWidgetHost
+
+    private var hostFragment: Fragment? = null
 
     private val requestContactsPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -123,6 +128,10 @@ class OnboardingActivity : AppCompatActivity(),
 
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
 
+        hostFragment =
+            supportFragmentManager
+                .findFragmentById(binding.navigationOnboardingControllerContainerView.id)
+
         onboardingActivityViewModel = OnboardingActivityViewModel(application)
 
         appWidgetManager = AppWidgetManager.getInstance(this)
@@ -132,32 +141,7 @@ class OnboardingActivity : AppCompatActivity(),
         setContentView(binding.root)
 
         if (intent.extras != null) {
-            with(
-                supportFragmentManager
-                    .findFragmentById(binding.navigationOnboardingControllerContainerView.id)
-                    ?.findNavController()
-            ) {
-                when (intent.extras!!.getString(ConstantsRepository.SCREEN_TO_NAVIGATE)?.let {
-                    findHomescreenAction(
-                        it
-                    )
-                }) {
-                    HomescreenActionType.ACTIONS_PICK -> {
-                        this?.navigate(R.id.action_welcomeFragment_to_actionsPickFragment)
-                    }
-                    HomescreenActionType.LAYOUT_PICK -> {
-                        this?.navigate(R.id.action_welcomeFragment_to_layoutPickScreenFragment)
-                    }
-                    HomescreenActionType.INTERFACE_SCALE_PICK -> {
-                        this?.navigate(R.id.action_welcomeFragment_to_interfaceScalePickFragment)
-                    }
-                    HomescreenActionType.APPS_LIST -> {
-                        this?.navigate(R.id.action_welcomeFragment_to_appsListFragment)
-                    }
-                }
-
-                binding.progressIndicator.visibility = View.INVISIBLE
-            }
+            navigateToIntentExtrasFragment()
         } else {
             checkIfOnboardingPassed()
         }
@@ -177,6 +161,33 @@ class OnboardingActivity : AppCompatActivity(),
         }
     }
 
+    private fun navigateToIntentExtrasFragment() {
+        with(
+            hostFragment?.findNavController()
+        ) {
+            when (intent.extras!!.getString(ConstantsRepository.SCREEN_TO_NAVIGATE)?.let {
+                findHomescreenAction(
+                    it
+                )
+            }) {
+                HomescreenActionType.ACTIONS_PICK -> {
+                    this?.navigate(R.id.action_welcomeFragment_to_actionsPickFragment)
+                }
+                HomescreenActionType.LAYOUT_PICK -> {
+                    this?.navigate(R.id.action_welcomeFragment_to_layoutPickScreenFragment)
+                }
+                HomescreenActionType.INTERFACE_SCALE_PICK -> {
+                    this?.navigate(R.id.action_welcomeFragment_to_interfaceScalePickFragment)
+                }
+                HomescreenActionType.APPS_LIST -> {
+                    this?.navigate(R.id.action_welcomeFragment_to_appsListFragment)
+                }
+            }
+
+            binding.progressIndicator.visibility = View.INVISIBLE
+        }
+    }
+
     private fun checkIfOnboardingPassed() {
         if (SharedPreferencesRepository(applicationContext).isOnboardingPassed()) {
             startActivity(Intent(this, LauncherActivity::class.java))
@@ -185,8 +196,7 @@ class OnboardingActivity : AppCompatActivity(),
     }
 
     private fun initBottomProgressAnimationValues() {
-        supportFragmentManager.findFragmentById(binding.navigationOnboardingControllerContainerView.id)
-            ?.findNavController()
+        hostFragment?.findNavController()
             ?.addOnDestinationChangedListener { _, destination, _ ->
                 findPickedFragmentProgress(destination.id)?.let {
                     animateProgressbarProgressToInt(it.progress)
@@ -399,11 +409,15 @@ class OnboardingActivity : AppCompatActivity(),
         ) { (::callActionPickPositiveMaterialDialogButtonFunction)(itemId) }
     }
 
-//    override fun onConfigurationChanged(newConfig: Configuration) {
-//        super.onConfigurationChanged(newConfig)
-//
-//        supportFragmentManager.findFragmentById(binding.navigationOnboardingControllerContainerView.id)
-//            ?.findNavController()
-//            ?.
-//    }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        val currentFragment =
+            hostFragment
+                ?.childFragmentManager
+                ?.primaryNavigationFragment
+
+        hostFragment?.findNavController()
+            ?.navigate((currentFragment as FragmentParentInterface).getFragmentId())
+    }
 }

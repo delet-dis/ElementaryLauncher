@@ -17,7 +17,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_welcomeFragment_to_layoutPickScreenFragment"
-            app:destination="@id/layoutPickScreenFragment" />
+            app:destination="@id/screenLayoutPickFragment" />
         <action
             android:id="@+id/action_welcomeFragment_to_actionsPickFragment"
             app:destination="@id/actionsPickFragment" />
@@ -26,7 +26,7 @@
             app:destination="@id/interfaceScalePickFragment" />
         <action
             android:id="@+id/action_welcomeFragment_to_layoutPickScreenFragment_animated"
-            app:destination="@id/layoutPickScreenFragment"
+            app:destination="@id/screenLayoutPickFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -49,7 +49,7 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/layoutPickScreenFragment"
+        android:id="@+id/screenLayoutPickFragment"
         android:name="com.delet_dis.elementarylauncher.ui.fragments.ScreenLayoutPickFragment"
         android:label="LayoutPickScreenFragment">
         <action

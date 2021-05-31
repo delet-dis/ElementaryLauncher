@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.isOnboardingPassed
+import com.delet_dis.elementarylauncher.common.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.common.mappers.mapEntityToCard
 import com.delet_dis.elementarylauncher.common.models.SizeType
 import com.delet_dis.elementarylauncher.data.database.entities.App
 import com.delet_dis.elementarylauncher.data.repositories.SharedPreferencesRepository
 import com.delet_dis.elementarylauncher.databinding.FragmentInterfaceScalePickScreenBinding
 
-class InterfaceScalePickFragment : Fragment() {
+class InterfaceScalePickFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentInterfaceScalePickScreenBinding
 
     override fun onCreateView(
@@ -115,5 +116,9 @@ class InterfaceScalePickFragment : Fragment() {
                 ), requireContext()
             )
         }
+    }
+
+    override fun getFragmentId(): Int {
+        return R.id.interfaceScalePickFragment
     }
 }

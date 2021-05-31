@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.checkIfAppIsDefaultLauncher
 import com.delet_dis.elementarylauncher.common.extensions.isOnboardingPassed
+import com.delet_dis.elementarylauncher.common.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.data.repositories.SharedPreferencesRepository
 import com.delet_dis.elementarylauncher.databinding.FragmentActionsPickScreenBinding
 import com.delet_dis.elementarylauncher.recyclerViewAdapters.SmallCardAdapter
@@ -18,7 +19,7 @@ import com.delet_dis.elementarylauncher.viewmodels.ActionsPickFragmentViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class ActionsPickFragment : Fragment() {
+class ActionsPickFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentActionsPickScreenBinding
 
     private lateinit var actionsPickFragmentViewModel: ActionsPickFragmentViewModel
@@ -146,5 +147,9 @@ class ActionsPickFragment : Fragment() {
 
     interface ParentActivityCallback {
         fun callItemPicking(itemId: Int)
+    }
+
+    override fun getFragmentId(): Int {
+        return R.id.actionsPickFragment
     }
 }
