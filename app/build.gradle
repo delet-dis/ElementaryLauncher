@@ -23,7 +23,7 @@ android {
         viewBinding true
     }
 
-    lintOptions{
+    lintOptions {
         abortOnError false
     }
 
