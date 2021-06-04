@@ -12,8 +12,7 @@ import com.delet_dis.elementarylauncher.databinding.RecyclerviewItemActionBindin
 class AppsPickingAdapter(
     private val values: MutableList<ApplicationInfo>,
     val clickListener: (ApplicationInfo) -> Unit
-) :
-    RecyclerView.Adapter<AppsPickingAdapter.AppHolder>() {
+) : RecyclerView.Adapter<AppsPickingAdapter.AppHolder>() {
 
 
     override fun onCreateViewHolder(

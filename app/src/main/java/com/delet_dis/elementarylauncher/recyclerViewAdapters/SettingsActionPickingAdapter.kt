@@ -10,8 +10,7 @@ import com.delet_dis.elementarylauncher.databinding.RecyclerviewItemActionBindin
 class SettingsActionPickingAdapter(
     private val values: Array<SettingsActionType>,
     val clickListener: (SettingsActionType) -> Unit
-) :
-    RecyclerView.Adapter<SettingsActionPickingAdapter.ToggleHolder>() {
+) : RecyclerView.Adapter<SettingsActionPickingAdapter.ToggleHolder>() {
 
     private lateinit var binding: RecyclerviewItemActionBinding
 
