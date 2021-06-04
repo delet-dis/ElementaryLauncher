@@ -22,8 +22,8 @@ class ClockView @JvmOverloads constructor(
     private var parentActivityCallback: ParentActivityCallback
 
     init {
-        inflate(context, R.layout.clock_view, this).also {
-            binding = ClockViewBinding.bind(it)
+        inflate(context, R.layout.clock_view, this).also { view ->
+            binding = ClockViewBinding.bind(view)
         }
 
         parentActivityCallback = context as ParentActivityCallback
@@ -51,26 +51,26 @@ class ClockView @JvmOverloads constructor(
     }
 
     private fun initDateObserver() {
-        clockViewViewModel.dateLiveData.observe(context as LifecycleOwner, {
-            binding.dateStamp.text = it
+        clockViewViewModel.dateLiveData.observe(context as LifecycleOwner, { dateStamp ->
+            binding.dateStamp.text = dateStamp
         })
     }
 
     private fun initTimeObserver() {
-        clockViewViewModel.timeLiveData.observe(context as LifecycleOwner, {
-            binding.timeStamp.text = it
+        clockViewViewModel.timeLiveData.observe(context as LifecycleOwner, { timeStamp ->
+            binding.timeStamp.text = timeStamp
         })
     }
 
     private fun initIsAlarmEnabledObserver() {
-        clockViewViewModel.isAlarmEnabled.observe(context as LifecycleOwner, {
-            binding.alarmImage.visibility = if (it) {
+        clockViewViewModel.isAlarmEnabled.observe(context as LifecycleOwner, { isAlarmEnabled ->
+            binding.alarmImage.visibility = if (isAlarmEnabled) {
                 View.VISIBLE
             } else {
                 View.GONE
             }
 
-            binding.alarmStamp.visibility = if (it) {
+            binding.alarmStamp.visibility = if (isAlarmEnabled) {
                 View.VISIBLE
             } else {
                 View.GONE
@@ -79,8 +79,8 @@ class ClockView @JvmOverloads constructor(
     }
 
     private fun initAlarmTimeObserver() {
-        clockViewViewModel.nextAlarmTriggerTime.observe(context as LifecycleOwner, {
-            binding.alarmStamp.text = it
+        clockViewViewModel.nextAlarmTriggerTime.observe(context as LifecycleOwner, { alarmStamp ->
+            binding.alarmStamp.text = alarmStamp
         })
     }
 

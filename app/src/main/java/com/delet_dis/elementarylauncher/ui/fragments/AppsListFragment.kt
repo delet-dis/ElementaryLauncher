@@ -53,12 +53,12 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
                     .observe(viewLifecycleOwner, { mutableList ->
 
                         itemPickRecycler.adapter =
-                            AppsPickingAdapter(mutableList as MutableList<ApplicationInfo>) {
+                            AppsPickingAdapter(mutableList as MutableList<ApplicationInfo>) { applicationInfo ->
                                 with(requireActivity()) {
                                     startActivity(
                                         Intent(
                                             requireContext().packageManager.getLaunchIntentForPackage(
-                                                it.packageName
+                                                applicationInfo.packageName
                                             )
                                         )
                                     )
@@ -71,8 +71,8 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
     }
 
     private fun initIsLoadingObserver() {
-        appListFragmentViewModel.isLoading.observe(viewLifecycleOwner, {
-            if (it) {
+        appListFragmentViewModel.isLoading.observe(viewLifecycleOwner, { isLoading ->
+            if (isLoading) {
                 showListLoading()
             } else {
                 hideListLoading()

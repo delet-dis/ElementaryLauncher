@@ -48,8 +48,8 @@ class AppCardView @JvmOverloads constructor(
             context,
             R.layout.card_item_big,
             this
-        ).also {
-            binding = CardItemBigBinding.bind(it)
+        ).also { view ->
+            binding = CardItemBigBinding.bind(view)
         }
 
         applySize(SharedPreferencesRepository(context).getSizeType())
@@ -64,14 +64,14 @@ class AppCardView @JvmOverloads constructor(
                     widgetHost = AppWidgetHost(context, binding.cardView.id)
                     widgetManager = AppWidgetManager.getInstance(context)
 
-                    card.widgetId?.let {
+                    card.widgetId?.let { widgetId ->
                         val appWidgetInfo: AppWidgetProviderInfo =
-                            widgetManager.getAppWidgetInfo(it)
+                            widgetManager.getAppWidgetInfo(widgetId)
 
                         val hostView: AppWidgetHostView =
-                            widgetHost.createView(context, it, appWidgetInfo)
+                            widgetHost.createView(context, widgetId, appWidgetInfo)
 
-                        hostView.setAppWidget(it, appWidgetInfo)
+                        hostView.setAppWidget(widgetId, appWidgetInfo)
 
                         cardView.addView(hostView)
 
@@ -81,8 +81,8 @@ class AppCardView @JvmOverloads constructor(
                     cardConstraint.visibility = View.GONE
 
                 } else {
-                    name?.let {
-                        cardText.text = it
+                    name?.let { name ->
+                        cardText.text = name
                     }
 
                     if (icon == null) {
@@ -93,10 +93,10 @@ class AppCardView @JvmOverloads constructor(
                         cardImage.setImageDrawable(drawable)
 
                         Palette.Builder(drawable.toBitmap())
-                            .generate {
-                                if (it != null) {
+                            .generate { palette ->
+                                if (palette != null) {
                                     cardView.setCardBackgroundColor(
-                                        it.getLightVibrantColor(
+                                        palette.getLightVibrantColor(
                                             defaultColor
                                         )
                                     )

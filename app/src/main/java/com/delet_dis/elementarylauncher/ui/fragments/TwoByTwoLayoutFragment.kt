@@ -38,13 +38,15 @@ class TwoByTwoLayoutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (savedInstanceState == null) {
-            binding.clockView?.let { createIntro(this, requireActivity(), it) }
+            binding.clockView?.let { clockView ->
+                createIntro(this, requireActivity(), clockView)
+            }
 
             twoByTwoLayoutFragmentViewModel.databaseRecordingsLiveData.observe(viewLifecycleOwner)
             { list ->
                 binding.cardsGroup.referencedIds.forEachIndexed { index, i ->
-                    list[index]?.let {
-                        requireView().findViewById<AppCardView>(i).card = it
+                    list[index]?.let { card ->
+                        requireView().findViewById<AppCardView>(i).card = card
                     }
                 }
             }

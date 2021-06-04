@@ -17,9 +17,9 @@ class PackagesRepository(private val context: Context) {
 
         with(context) {
             packageManager
-                .getInstalledApplications(PackageManager.GET_META_DATA).forEach {
-                    if (context.packageManager.getLaunchIntentForPackage(it.packageName) != null) {
-                        launchableInstalledApps.add(it)
+                .getInstalledApplications(PackageManager.GET_META_DATA).forEach { applicationInfo ->
+                    if (context.packageManager.getLaunchIntentForPackage(applicationInfo.packageName) != null) {
+                        launchableInstalledApps.add(applicationInfo)
 
                     }
                 }

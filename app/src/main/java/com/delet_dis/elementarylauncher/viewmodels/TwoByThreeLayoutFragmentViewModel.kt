@@ -24,9 +24,10 @@ class TwoByThreeLayoutFragmentViewModel(application: Application) : AndroidViewM
 
     private fun loadDatabaseRecordingsAsCards() {
         viewModelScope.launch(Dispatchers.IO) {
-            DatabaseRepository(getApplication()).getNonEmptyDatabaseRecordingsAsCards().collect {
-                _databaseRecordingsLiveData.postValue(it)
-            }
+            DatabaseRepository(getApplication()).getNonEmptyDatabaseRecordingsAsCards()
+                .collect { arrayOfCards ->
+                    _databaseRecordingsLiveData.postValue(arrayOfCards)
+                }
         }
     }
 }

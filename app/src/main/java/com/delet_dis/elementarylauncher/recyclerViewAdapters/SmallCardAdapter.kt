@@ -45,8 +45,8 @@ class SmallCardAdapter(private val values: List<Card>, val clickListener: (Int) 
             }
 
             if (data.icon == null) {
-                data.text?.let {
-                    cardText.text = it
+                data.text?.let { text ->
+                    cardText.text = text
                 }
             }
 
@@ -58,10 +58,10 @@ class SmallCardAdapter(private val values: List<Card>, val clickListener: (Int) 
                 cardImage.setImageDrawable(drawable)
 
                 Palette.Builder(drawable.toBitmap())
-                    .generate {
-                        if (it != null) {
+                    .generate { palette ->
+                        if (palette != null) {
                             cardView.setCardBackgroundColor(
-                                it.getLightVibrantColor(
+                                palette.getLightVibrantColor(
                                     defaultColor
                                 )
                             )

@@ -93,17 +93,17 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
 
     private fun FragmentActionsPickScreenBinding.initDatabaseRecordingsLiveDataObserver() {
         actionsPickFragmentViewModel.databaseRecordingsLiveData.observe(viewLifecycleOwner) { list ->
-            actionsPickingRecycler.adapter = SmallCardAdapter(list) {
-                parentActivityCallback.callItemPicking(it)
+            actionsPickingRecycler.adapter = SmallCardAdapter(list) { itemPosition ->
+                parentActivityCallback.callItemPicking(itemPosition)
             }
         }
     }
 
     private fun FragmentActionsPickScreenBinding.initIsAvailableToEndFirstSetupObserver() {
         actionsPickFragmentViewModel.isAvailableToEndFirstSetup.observe(viewLifecycleOwner) { isAvailable ->
-            context?.let {
+            context?.let { context ->
                 if (isAvailable) {
-                    nextButton.text = it.getString(R.string.nextButtonText)
+                    nextButton.text = context.getString(R.string.nextButtonText)
                     backButton.isEnabled = true
                 }
 
@@ -113,7 +113,7 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
                 }
 
                 if (!isAvailable) {
-                    nextButton.text = it.getString(R.string.incompleteActionPickingButtonText)
+                    nextButton.text = context.getString(R.string.incompleteActionPickingButtonText)
                     backButton.isEnabled = false
                 }
             }

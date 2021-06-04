@@ -1,7 +1,6 @@
 package com.delet_dis.elementarylauncher.data.repositories
 
 import android.content.Context
-import android.util.Log
 import androidx.core.content.ContextCompat
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.common.extensions.concatenate
@@ -77,14 +76,14 @@ class DatabaseRepository(val context: Context) {
         val processingList = results
             .toList()
             .flatten()
-            .map { mapEntityToCard(it, context) }
+            .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
             .toMutableList()
 
 
         for (i in 1..SharedPreferencesRepository(context).getLayoutType().numberOfRows * 2) {
             run loop@{
-                processingList.forEach {
-                    if (it.position == i) {
+                processingList.forEach { card ->
+                    if (card.position == i) {
                         return@loop
                     }
                 }
@@ -126,14 +125,14 @@ class DatabaseRepository(val context: Context) {
         val processingList = results
             .toList()
             .flatten()
-            .map { mapEntityToCard(it, context) }
+            .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
             .toMutableList()
 
 
         val listToReturn = arrayOfNulls<Card>(6)
 
-        processingList.forEach {
-            listToReturn[it.position!!-1] = it
+        processingList.forEach { card ->
+            listToReturn[card.position!!-1] = card
         }
 
         listToReturn
@@ -143,8 +142,8 @@ class DatabaseRepository(val context: Context) {
         entity: Any?,
         position: Int
     ) {
-        getAllDatabaseRecordingsAsEntitiesParentList().forEach {
-            if (it.position == position) {
+        getAllDatabaseRecordingsAsEntitiesParentList().forEach { entitiesParent ->
+            if (entitiesParent.position == position) {
                 deleteAtPosition(position)
             }
         }
@@ -164,12 +163,10 @@ class DatabaseRepository(val context: Context) {
 
 
     suspend fun deleteAtPosition(position: Int) {
-        getAllDatabaseRecordingsAsEntitiesParentList().forEach {
-
-            Log.d("test", it.toString())
+        getAllDatabaseRecordingsAsEntitiesParentList().forEach { entitiesParent ->
 
             with(databaseDao) {
-                when (it.entityType) {
+                when (entitiesParent.entityType) {
                     ActionType.APP ->
                         removeAppByPosition(position)
 
@@ -184,9 +181,6 @@ class DatabaseRepository(val context: Context) {
 
                     ActionType.SETTINGS_ACTION ->
                         removeSettingsActionByPosition(position)
-
-//                    ActionType.SHORTCUT ->
-//                        removeShortcutByPosition(position)
 
                     ActionType.WIDGET ->
                         removeWidgetByPosition(position)

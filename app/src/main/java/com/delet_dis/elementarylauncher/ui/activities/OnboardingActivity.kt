@@ -71,38 +71,37 @@ class OnboardingActivity : AppCompatActivity(),
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            pickedItemId?.let { checkForContactPermission(it) }
+            pickedItemId?.let { pickedItemId -> checkForContactPermission(pickedItemId) }
         }
     }
 
     private var pickContactContract: ActivityResultLauncher<Void>? =
-        registerForActivityResult(ActivityResultContracts.PickContact()) {
-            it?.let {
-                pickedItemId?.let { position ->
-                    pickedContactAction?.let { contactActionType ->
-                        onboardingActivityViewModel.insertContact(
-                            contactActionType,
-                            it.toString(),
-                            position
-                        )
-                    }
+        registerForActivityResult(ActivityResultContracts.PickContact()) { uri ->
+            pickedItemId?.let { position ->
+                pickedContactAction?.let { contactActionType ->
+                    onboardingActivityViewModel.insertContact(
+                        contactActionType,
+                        uri.toString(),
+                        position
+                    )
                 }
+
             }
         }
 
     private var widgetsContract =
-        registerForActivityResult(WidgetPickingContract()) {
-            if (it.first) {
-                if (it.second != null) {
+        registerForActivityResult(WidgetPickingContract()) { pair ->
+            if (pair.first) {
+                if (pair.second != null) {
                     val appWidgetInfo: AppWidgetProviderInfo =
-                        appWidgetManager.getAppWidgetInfo(it.second!!)
+                        appWidgetManager.getAppWidgetInfo(pair.second!!)
 
                     if (appWidgetInfo.configure != null) {
-                        widgetsConfiguringContract.launch(it.second)
+                        widgetsConfiguringContract.launch(pair.second)
                     }
 
                     pickedItemId?.let { pickedItemId ->
-                        onboardingActivityViewModel.insertWidget(it.second!!, pickedItemId)
+                        onboardingActivityViewModel.insertWidget(pair.second!!, pickedItemId)
                     }
                 }
             } else {
@@ -115,11 +114,11 @@ class OnboardingActivity : AppCompatActivity(),
         }
 
     private var widgetsConfiguringContract =
-        registerForActivityResult(WidgetConfiguringContract()) {
-            if (it.first) {
-                if (it.second != null) {
+        registerForActivityResult(WidgetConfiguringContract()) { pair ->
+            if (pair.first) {
+                if (pair.second != null) {
                     pickedItemId?.let { pickedItemId ->
-                        onboardingActivityViewModel.insertWidget(it.second!!, pickedItemId)
+                        onboardingActivityViewModel.insertWidget(pair.second!!, pickedItemId)
                     }
                 }
             } else {
@@ -173,11 +172,12 @@ class OnboardingActivity : AppCompatActivity(),
         with(
             hostFragment?.findNavController()
         ) {
-            when (intent.extras!!.getString(ConstantsRepository.SCREEN_TO_NAVIGATE)?.let {
-                findHomescreenAction(
-                    it
-                )
-            }) {
+            when (intent.extras!!.getString(ConstantsRepository.SCREEN_TO_NAVIGATE)
+                ?.let { screenToNavigate ->
+                    findHomescreenAction(
+                        screenToNavigate
+                    )
+                }) {
                 HomescreenActionType.ACTIONS_PICK -> {
                     this?.navigate(R.id.action_welcomeFragment_to_actionsPickFragment)
                 }
@@ -206,8 +206,8 @@ class OnboardingActivity : AppCompatActivity(),
     private fun initBottomProgressAnimationValues() {
         hostFragment?.findNavController()
             ?.addOnDestinationChangedListener { _, destination, _ ->
-                findPickedFragmentProgress(destination.id)?.let {
-                    animateProgressbarProgressToInt(it.progress)
+                findPickedFragmentProgress(destination.id)?.let { pickedFragmentProgressType ->
+                    animateProgressbarProgressToInt(pickedFragmentProgressType.progress)
                 }
             }
     }
@@ -229,18 +229,20 @@ class OnboardingActivity : AppCompatActivity(),
     }
 
     private fun initBottomSheetStateObserver() {
-        onboardingActivityViewModel.isBottomSheetHidden.observe(this@OnboardingActivity, {
-            if (it) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            } else {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            }
-        })
+        onboardingActivityViewModel.isBottomSheetHidden.observe(
+            this@OnboardingActivity,
+            { isBottomSheetHidden ->
+                if (isBottomSheetHidden) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                } else {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                }
+            })
     }
 
     private fun initLoadingObserver() {
-        onboardingActivityViewModel.isLoading.observe(this@OnboardingActivity, {
-            if (it) {
+        onboardingActivityViewModel.isLoading.observe(this@OnboardingActivity, { isLoading ->
+            if (isLoading) {
                 showBottomSheetLoading()
             } else {
                 hideBottomSheetLoading()
@@ -271,43 +273,29 @@ class OnboardingActivity : AppCompatActivity(),
     override fun callItemPicking(itemId: Int) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-        binding.itemPickRecycler.adapter = ActionsPickingAdapter(ActionType.values()) {
-            callSubItemPicking(it, itemId)
-        }
+        binding.itemPickRecycler.adapter =
+            ActionsPickingAdapter(ActionType.values()) { actionType ->
+                callSubItemPicking(actionType, itemId)
+            }
 
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun callSubItemPicking(it: ActionType, itemPosition: Int) {
+    private fun callSubItemPicking(actionType: ActionType, itemPosition: Int) {
         with(onboardingActivityViewModel) {
             with(binding) {
-                when (it) {
+                when (actionType) {
                     ActionType.APP -> {
                         loadApplicationsPackages()
                         applicationsPackagesLiveData
                             .observe(this@OnboardingActivity, { mutableList ->
 
                                 itemPickRecycler.adapter =
-                                    AppsPickingAdapter(mutableList as MutableList<ApplicationInfo>) {
-                                        insertApp(it.packageName, itemPosition)
+                                    AppsPickingAdapter(mutableList as MutableList<ApplicationInfo>) { applicationInfo ->
+                                        insertApp(applicationInfo.packageName, itemPosition)
                                     }
                             })
                     }
-
-//                    ActionType.SHORTCUT -> {
-//                        loadShortcutsPackages()
-//                        shortcutsPackagesLiveData
-//                            .observe(this@OnboardingActivity, { mutableList ->
-//
-//                                itemPickRecycler.adapter =
-//                                    ShortcutsPickingAdapter(mutableList) {
-//                                        insertShortcut(
-//                                            it.resolvePackageName,
-//                                            itemId
-//                                        )
-//                                    }
-//                            })
-//                    }
 
                     ActionType.CONTACT -> {
                         pickedContactAction = ContactActionType.CARD
@@ -349,8 +337,11 @@ class OnboardingActivity : AppCompatActivity(),
 
                                 itemPickRecycler.adapter =
                                     mutableList?.let { arrayOfSettingsActionTypes ->
-                                        SettingsActionPickingAdapter(arrayOfSettingsActionTypes) {
-                                            insertSettingsAction(it.action, itemPosition)
+                                        SettingsActionPickingAdapter(arrayOfSettingsActionTypes) { settingsActionType ->
+                                            insertSettingsAction(
+                                                settingsActionType.action,
+                                                itemPosition
+                                            )
                                         }
                                     }
                             })

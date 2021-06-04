@@ -40,9 +40,9 @@ fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
                 position = inputDataClass.position
 
                 onClickAction = {
-                    context.startActivity(inputDataClass.packageName?.let {
+                    context.startActivity(inputDataClass.packageName?.let { packageName ->
                         packageManager.getLaunchIntentForPackage(
-                            it
+                            packageName
                         )
                     })
                 }
@@ -149,11 +149,11 @@ fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
 
         is SettingsAction -> {
             with(cardToReturn) {
-                with(inputDataClass.actionName?.let { findSettingsAction(it) }) {
-                    name = this?.stringId?.let { context.getString(it) }
+                with(inputDataClass.actionName?.let { actionName -> findSettingsAction(actionName) }) {
+                    name = this?.stringId?.let { stringId -> context.getString(stringId) }
 
-                    icon = this?.imageId?.let {
-                        ContextCompat.getDrawable(context, it)?.toBitmap()
+                    icon = this?.imageId?.let { imageId ->
+                        ContextCompat.getDrawable(context, imageId)?.toBitmap()
                             ?.addPadding(50, 50, 50, 50, Color.WHITE)
                             ?.toDrawable(context.resources)
                     }
@@ -174,15 +174,15 @@ fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
             val packageManager = context.packageManager
 
             val appWidgetProviderInfo =
-                inputDataClass.widgetId?.let {
+                inputDataClass.widgetId?.let { widgetId ->
                     AppWidgetManager.getInstance(context).getAppWidgetInfo(
-                        it
+                        widgetId
                     )
                 }
 
-            appWidgetProviderInfo?.let {
+            appWidgetProviderInfo?.let { providerInfo ->
                 val processingApplicationInfo =
-                    packageManager.getApplicationInfo(it.provider.packageName, 0)
+                    packageManager.getApplicationInfo(providerInfo.provider.packageName, 0)
 
                 with(cardToReturn) {
                     name = processingApplicationInfo.loadLabel(packageManager).toString()
@@ -204,10 +204,13 @@ private fun getContactName(contactUri: Uri, context: Context): String? {
     val cursor: Cursor? = context.contentResolver
         .query(contactUri, null, null, null, null)
 
-    cursor?.let {
-        if (it.moveToFirst()) {
+    cursor?.let { notNullCursor ->
+        if (notNullCursor.moveToFirst()) {
             contactName =
-                it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                notNullCursor.getString(
+                    notNullCursor
+                        .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                )
         }
 
         cursor.close()
@@ -222,12 +225,18 @@ private fun getContactPhoneNumber(contactUri: Uri, context: Context): String? {
     val cursor: Cursor? = context.contentResolver
         .query(contactUri, null, null, null, null)
 
-    cursor?.let {
-        if (it.moveToFirst()) {
+    cursor?.let { notNullCursor ->
+        if (notNullCursor.moveToFirst()) {
 
-            val contactId: String = it.getString(it.getColumnIndex(ContactsContract.Contacts._ID))
+            val contactId: String = notNullCursor.getString(
+                notNullCursor
+                    .getColumnIndex(ContactsContract.Contacts._ID)
+            )
             val hasNumber: String =
-                it.getString(it.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+                notNullCursor.getString(
+                    notNullCursor
+                        .getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
+                )
 
             if (hasNumber.toInt() == 1) {
                 val numbers: Cursor = context.contentResolver.query(
@@ -239,7 +248,12 @@ private fun getContactPhoneNumber(contactUri: Uri, context: Context): String? {
                 )!!
                 while (numbers.moveToNext()) {
                     contactPhone =
-                        numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                        numbers.getString(
+                            numbers.getColumnIndex(
+                                ContactsContract
+                                    .CommonDataKinds.Phone.NUMBER
+                            )
+                        )
                 }
                 numbers.close()
             }
@@ -257,9 +271,12 @@ private fun getContactId(contactUri: Uri, context: Context): Long? {
 
     var id: String? = null
 
-    cursor?.let {
-        if (it.moveToFirst()) {
-            id = it.getString(it.getColumnIndex(ContactsContract.Contacts._ID))
+    cursor?.let { notNullCursor ->
+        if (notNullCursor.moveToFirst()) {
+            id = notNullCursor.getString(
+                notNullCursor
+                    .getColumnIndex(ContactsContract.Contacts._ID)
+            )
         }
         cursor.close()
     }
@@ -273,10 +290,10 @@ private fun getContactPhoto(contactUri: Uri, context: Context): Bitmap? {
     try {
         val inputStream = ContactsContract.Contacts.openContactPhotoInputStream(
             context.contentResolver,
-            getContactId(contactUri, context)?.let {
+            getContactId(contactUri, context)?.let { contactId ->
                 ContentUris.withAppendedId(
                     ContactsContract.Contacts.CONTENT_URI,
-                    it
+                    contactId
                 )
             }
         )

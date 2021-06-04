@@ -87,8 +87,8 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
     override fun callHomescreenBottomSheet() {
         binding.itemPickRecycler.adapter = OnHomescreenActionsPickingAdapter(
             HomescreenActionType.values()
-        ) {
-            callHomescreenAction(it)
+        ) { homescreenActionType ->
+            callHomescreenAction(homescreenActionType)
         }
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }

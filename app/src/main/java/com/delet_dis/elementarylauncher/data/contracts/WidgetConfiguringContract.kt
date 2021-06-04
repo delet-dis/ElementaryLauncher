@@ -12,7 +12,9 @@ class WidgetConfiguringContract : ActivityResultContract<Int, Pair<Boolean, Int?
     override fun createIntent(context: Context, input: Int?): Intent {
 
         val appWidgetInfo: AppWidgetProviderInfo? =
-            input?.let { AppWidgetManager.getInstance(context).getAppWidgetInfo(it) }
+            input?.let { notNullInput ->
+                AppWidgetManager.getInstance(context).getAppWidgetInfo(notNullInput)
+            }
 
         return Intent(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE).apply {
             if (appWidgetInfo != null) {
@@ -24,16 +26,16 @@ class WidgetConfiguringContract : ActivityResultContract<Int, Pair<Boolean, Int?
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Pair<Boolean, Int?> {
-        intent?.let {
+        intent?.let { notNullIntent ->
             if (resultCode == Activity.RESULT_OK) {
                 return Pair(
-                    true, it.extras?.getInt(
+                    true, notNullIntent.extras?.getInt(
                         AppWidgetManager.EXTRA_APPWIDGET_ID, -1
                     )
                 )
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 return Pair(
-                    false, it.extras?.getInt(
+                    false, notNullIntent.extras?.getInt(
                         AppWidgetManager.EXTRA_APPWIDGET_ID, -1
                     )
                 )

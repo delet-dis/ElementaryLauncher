@@ -26,9 +26,9 @@ class ClockViewViewModel(application: Application) : AndroidViewModel(applicatio
         get() = _isAlarmEnabled
 
     private val _nextAlarmTriggerTime =
-        MutableLiveData(AlarmsRepository(getApplication()).nextAlarm?.let {
+        MutableLiveData(AlarmsRepository(getApplication()).nextAlarm?.let { nextAlarmTime ->
             formatToDigitalClock(
-                it
+                nextAlarmTime
             )
         })
     val nextAlarmTriggerTime: LiveData<String>
@@ -56,12 +56,13 @@ class ClockViewViewModel(application: Application) : AndroidViewModel(applicatio
     private fun initAlarmChangedBroadcastReceiver() {
         val alarmChangedBroadcastReceiver = object : AlarmChangedBroadcastReceiver() {
             override fun onAlarmChanged() {
-                _nextAlarmTriggerTime.postValue(AlarmsRepository(getApplication()).nextAlarm?.let {
-                    formatToDigitalClock(
-                        it
-                    )
+                _nextAlarmTriggerTime.postValue(AlarmsRepository(getApplication())
+                    .nextAlarm?.let { nextAlarmTime ->
+                        formatToDigitalClock(
+                            nextAlarmTime
+                        )
 
-                })
+                    })
                 _isAlarmEnabled.postValue(AlarmsRepository(getApplication()).isAlarmEnabled)
             }
         }

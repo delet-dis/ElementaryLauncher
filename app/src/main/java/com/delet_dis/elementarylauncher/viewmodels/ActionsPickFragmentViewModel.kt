@@ -37,8 +37,8 @@ class ActionsPickFragmentViewModel(application: Application) : AndroidViewModel(
                 DatabaseRepository(getApplication()).deleteAtPosition(6)
             }
 
-            DatabaseRepository(getApplication()).getAllDatabaseRecordingsAsCards().collect {
-                _databaseRecordingsLiveData.postValue(it)
+            DatabaseRepository(getApplication()).getAllDatabaseRecordingsAsCards().collect { list ->
+                _databaseRecordingsLiveData.postValue(list)
             }
         }
     }
@@ -46,8 +46,8 @@ class ActionsPickFragmentViewModel(application: Application) : AndroidViewModel(
     private fun loadDatabaseRecordingsAsEntitiesParent() {
         viewModelScope.launch {
             DatabaseRepository(getApplication()).getAllDatabaseRecordingsAsEntitiesParentListFlow()
-                .collect {
-                    if (it.isNotEmpty()) {
+                .collect { list ->
+                    if (list.isNotEmpty()) {
                         _isAvailableToEndFirstSetup.postValue(true)
                     } else {
                         _isAvailableToEndFirstSetup.postValue(false)
