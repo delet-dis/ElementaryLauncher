@@ -39,7 +39,7 @@ This project takes advantage of best practices, many popular libraries and tools
     * [Android KTX](https://developer.android.com/kotlin/ktx) - Jetpack Kotlin extensions
 * CI 
   * [GitHub Actions](https://github.com/features/actions)
-  * Automatic code analyzing by 3rd online tools
+  * Automatic code analyzing by 3rd party online tools
 * UI
     * [Material design](https://material.io/design)
 
