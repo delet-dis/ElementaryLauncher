@@ -51,60 +51,64 @@ class InterfaceScalePickFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    private fun FragmentInterfaceScalePickScreenBinding.initBackButtonOnClickListener() {
-        backButton.setOnClickListener {
+    private fun initBackButtonOnClickListener() =
+        with(binding) {
+            backButton.setOnClickListener {
+                if (isOnboardingPassed(requireContext())) {
+                    requireActivity().finish()
+                } else {
+                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                        .popBackStack()
+                }
+            }
+        }
+
+    private fun initNextButtonParams() =
+        with(binding) {
             if (isOnboardingPassed(requireContext())) {
-                requireActivity().finish()
-            } else {
-                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                    .popBackStack()
-            }
-        }
-    }
-
-    private fun FragmentInterfaceScalePickScreenBinding.initNextButtonParams() {
-        if (isOnboardingPassed(requireContext())) {
-            nextButton.text = getString(R.string.ok)
-        }
-
-        nextButton.setOnClickListener {
-            if (isOnboardingPassed(requireContext())) {
-                requireActivity().finish()
-            } else {
-                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                    .navigate(R.id.action_interfaceScalePickFragment_to_actionsPickFragment)
-
-            }
-        }
-    }
-
-    private fun FragmentInterfaceScalePickScreenBinding.initSeekBarOnChangeListener() {
-        interfaceScaleSeekBar.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: SeekBar?,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                val size = SizeType.values()[progress]
-                exampleCard.size = size
-
-                SharedPreferencesRepository(requireContext()).setScale(size)
+                nextButton.text = getString(R.string.ok)
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+            nextButton.setOnClickListener {
+                if (isOnboardingPassed(requireContext())) {
+                    requireActivity().finish()
+                } else {
+                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                        .navigate(R.id.action_interfaceScalePickFragment_to_actionsPickFragment)
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+                }
+            }
         }
-        )
-    }
 
-    private fun FragmentInterfaceScalePickScreenBinding.applySeekBarPreferences() {
-        interfaceScaleSeekBar.apply {
-            max = SizeType.values().size - 1
-            progress = max / 2
+    private fun initSeekBarOnChangeListener() =
+        with(binding) {
+            interfaceScaleSeekBar.setOnSeekBarChangeListener(object :
+                SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    val size = SizeType.values()[progress]
+                    this@with.exampleCard.size = size
+
+                    SharedPreferencesRepository(requireContext()).setScale(size)
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+            }
+            )
         }
-    }
+
+    private fun applySeekBarPreferences() =
+        with(binding) {
+            interfaceScaleSeekBar.apply {
+                max = SizeType.values().size - 1
+                progress = max / 2
+            }
+        }
 
     private fun initExampleCard(
         fragmentInterfaceScalePickScreenBinding: FragmentInterfaceScalePickScreenBinding

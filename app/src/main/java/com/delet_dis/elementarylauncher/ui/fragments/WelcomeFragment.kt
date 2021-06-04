@@ -52,12 +52,13 @@ class WelcomeFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    private fun FragmentWelcomeScreenBinding.initNextButtonOnClickListener() {
-        getStartedButton.setOnClickListener {
-            requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                .navigate(R.id.action_welcomeFragment_to_layoutPickScreenFragment_animated)
+    private fun initNextButtonOnClickListener() =
+        with(binding) {
+            getStartedButton.setOnClickListener {
+                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                    .navigate(R.id.action_welcomeFragment_to_layoutPickScreenFragment_animated)
+            }
         }
-    }
 
     override fun getFragmentId(): Int {
         return R.id.welcomeFragment

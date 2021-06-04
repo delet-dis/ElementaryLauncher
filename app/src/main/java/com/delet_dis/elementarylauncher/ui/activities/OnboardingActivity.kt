@@ -212,21 +212,23 @@ class OnboardingActivity : AppCompatActivity(),
             }
     }
 
-    private fun ActivityOnboardingBinding.initItemPickRecycler() {
-        itemPickRecycler.layoutManager = LinearLayoutManager(
-            applicationContext,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-    }
+    private fun initItemPickRecycler() =
+        with(binding) {
+            itemPickRecycler.layoutManager = LinearLayoutManager(
+                applicationContext,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+        }
 
-    private fun ActivityOnboardingBinding.setOutOfBottomSheetClickListener() {
-        mainLayout.setOnClickListener {
-            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    private fun setOutOfBottomSheetClickListener() =
+        with(binding) {
+            mainLayout.setOnClickListener {
+                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                }
             }
         }
-    }
 
     private fun initBottomSheetStateObserver() {
         onboardingActivityViewModel.isBottomSheetHidden.observe(

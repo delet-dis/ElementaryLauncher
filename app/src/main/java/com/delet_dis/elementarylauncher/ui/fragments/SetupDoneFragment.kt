@@ -44,25 +44,27 @@ class SetupDoneFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    private fun FragmentSetupDoneScreenBinding.initFinishButtonOnClickListener() {
-        finishButton.apply {
-            visibility = View.VISIBLE
+    private fun initFinishButtonOnClickListener() =
+        with(binding) {
+            finishButton.apply {
+                visibility = View.VISIBLE
 
-            this.setOnClickListener {
-                SharedPreferencesRepository(requireContext()).setOnboardingPassed()
+                this.setOnClickListener {
+                    SharedPreferencesRepository(requireContext()).setOnboardingPassed()
 
-                startActivity(Intent(activity, LauncherActivity::class.java))
-                activity?.finish()
+                    startActivity(Intent(activity, LauncherActivity::class.java))
+                    activity?.finish()
+                }
             }
         }
-    }
 
-    private fun FragmentSetupDoneScreenBinding.initBackButtonOnClickListener() {
-        backButton.setOnClickListener {
-            requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                .popBackStack()
+    private fun initBackButtonOnClickListener() =
+        with(binding) {
+            backButton.setOnClickListener {
+                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                    .popBackStack()
+            }
         }
-    }
 
     override fun getFragmentId(): Int {
         return R.id.setupDoneFragment

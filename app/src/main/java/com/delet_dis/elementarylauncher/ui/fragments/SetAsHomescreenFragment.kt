@@ -44,22 +44,24 @@ class SetAsHomescreenFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    private fun FragmentSetAsHomescreenScreenBinding.checkIfAppIsLauncher() {
-        if (checkIfAppIsDefaultLauncher(requireContext())) {
-            makeGoToSettingsButtonAsNextButton()
-        } else {
-            goToSettingsButton.setOnClickListener {
-                startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+    private fun checkIfAppIsLauncher() =
+        with(binding) {
+            if (checkIfAppIsDefaultLauncher(requireContext())) {
+                makeGoToSettingsButtonAsNextButton()
+            } else {
+                goToSettingsButton.setOnClickListener {
+                    startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+                }
             }
         }
-    }
 
-    private fun FragmentSetAsHomescreenScreenBinding.initBackButtonOnClickListener() {
-        backButton.setOnClickListener {
-            requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                .popBackStack()
+    private fun initBackButtonOnClickListener() =
+        with(binding) {
+            backButton.setOnClickListener {
+                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                    .popBackStack()
+            }
         }
-    }
 
     override fun onResume() {
         super.onResume()
@@ -91,12 +93,13 @@ class SetAsHomescreenFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    private fun FragmentSetAsHomescreenScreenBinding.setSkipButtonOnClickListener() {
-        skipButton.setOnClickListener {
-            requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                .navigate(R.id.action_setAsHomescreenFragment_to_setupDoneFragment)
+    private fun setSkipButtonOnClickListener() =
+        with(binding) {
+            skipButton.setOnClickListener {
+                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                    .navigate(R.id.action_setAsHomescreenFragment_to_setupDoneFragment)
+            }
         }
-    }
 
     override fun getFragmentId(): Int {
         return R.id.setAsHomescreenFragment

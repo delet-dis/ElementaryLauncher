@@ -44,53 +44,56 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    private fun FragmentLayoutPickScreenBinding.initBackButtonOnClickListener() {
-        if (isOnboardingPassed(requireContext())) {
-            backButton.setOnClickListener {
-                requireActivity().finish()
-            }
-        } else {
-            backButton.setOnClickListener {
-                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                    .popBackStack()
-            }
-        }
-    }
-
-    private fun FragmentLayoutPickScreenBinding.initNextButtonParams() {
-        if (isOnboardingPassed(requireContext())) {
-            nextButton.text = getString(R.string.ok)
-        }
-
-        nextButton.setOnClickListener {
-            var pickedLayout = LayoutType.TWO_BY_THREE
-
-            when (binding.radioGroup.checkedRadioButtonId) {
-                twoByThreeRadio.id -> pickedLayout = LayoutType.TWO_BY_THREE
-                twoByTwoRadio.id -> pickedLayout = LayoutType.TWO_BY_TWO
-            }
-
-            SharedPreferencesRepository(requireContext())
-                .setLayoutType(pickedLayout)
-
+    private fun initBackButtonOnClickListener() =
+        with(binding) {
             if (isOnboardingPassed(requireContext())) {
-                requireActivity().finish()
+                backButton.setOnClickListener {
+                    requireActivity().finish()
+                }
             } else {
-                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                    .navigate(R.id.action_layoutPickScreenFragment_to_interfaceScalePickFragment)
+                backButton.setOnClickListener {
+                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                        .popBackStack()
+                }
             }
         }
-    }
 
-    private fun FragmentLayoutPickScreenBinding.initLayoutCardsListeners() {
-        twoByThreeCard.setOnClickListener {
-            binding.twoByThreeRadio.isChecked = true
+    private fun initNextButtonParams() =
+        with(binding) {
+            if (isOnboardingPassed(requireContext())) {
+                nextButton.text = getString(R.string.ok)
+            }
+
+            nextButton.setOnClickListener {
+                var pickedLayout = LayoutType.TWO_BY_THREE
+
+                when (binding.radioGroup.checkedRadioButtonId) {
+                    twoByThreeRadio.id -> pickedLayout = LayoutType.TWO_BY_THREE
+                    twoByTwoRadio.id -> pickedLayout = LayoutType.TWO_BY_TWO
+                }
+
+                SharedPreferencesRepository(requireContext())
+                    .setLayoutType(pickedLayout)
+
+                if (isOnboardingPassed(requireContext())) {
+                    requireActivity().finish()
+                } else {
+                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                        .navigate(R.id.action_layoutPickScreenFragment_to_interfaceScalePickFragment)
+                }
+            }
         }
 
-        twoByTwoCard.setOnClickListener {
-            binding.twoByTwoRadio.isChecked = true
+    private fun initLayoutCardsListeners() =
+        with(binding) {
+            twoByThreeCard.setOnClickListener {
+                binding.twoByThreeRadio.isChecked = true
+            }
+
+            twoByTwoCard.setOnClickListener {
+                binding.twoByTwoRadio.isChecked = true
+            }
         }
-    }
 
     override fun getFragmentId(): Int {
         return R.id.screenLayoutPickFragment

@@ -69,81 +69,88 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    private fun FragmentActionsPickScreenBinding.initBackButtonOnClickListener() {
-        backButton.setOnClickListener {
-            if (isOnboardingPassed(requireContext())) {
-                requireActivity().finish()
-            } else {
-                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                    .popBackStack()
-            }
-        }
-    }
-
-    private fun FragmentActionsPickScreenBinding.checkIfAppIsAlreadyPickedAsHomescreen() {
-        if (!isOnboardingPassed(requireContext())) {
-            if (checkIfAppIsDefaultLauncher(requireContext())) {
-                nextButton.setOnClickListener {
-                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                        .navigate(R.id.action_actionsPickFragment_to_setupDoneFragment)
-                }
-            }
-        }
-    }
-
-    private fun FragmentActionsPickScreenBinding.initDatabaseRecordingsLiveDataObserver() {
-        actionsPickFragmentViewModel.databaseRecordingsLiveData.observe(viewLifecycleOwner) { list ->
-            actionsPickingRecycler.adapter = SmallCardAdapter(list) { itemPosition ->
-                parentActivityCallback.callItemPicking(itemPosition)
-            }
-        }
-    }
-
-    private fun FragmentActionsPickScreenBinding.initIsAvailableToEndFirstSetupObserver() {
-        actionsPickFragmentViewModel.isAvailableToEndFirstSetup.observe(viewLifecycleOwner) { isAvailable ->
-            context?.let { context ->
-                if (isAvailable) {
-                    nextButton.text = context.getString(R.string.nextButtonText)
-                    backButton.isEnabled = true
-                }
-
+    private fun initBackButtonOnClickListener() =
+        with(binding) {
+            backButton.setOnClickListener {
                 if (isOnboardingPassed(requireContext())) {
-                    nextButton.text = getString(R.string.ok)
-
-                }
-
-                if (!isAvailable) {
-                    nextButton.text = context.getString(R.string.incompleteActionPickingButtonText)
-                    backButton.isEnabled = false
+                    requireActivity().finish()
+                } else {
+                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                        .popBackStack()
                 }
             }
-
-            nextButton.isEnabled = isAvailable
         }
-    }
 
-    private fun FragmentActionsPickScreenBinding.initNextButtonOnClickListener() {
-        nextButton.setOnClickListener {
-            if (isOnboardingPassed(requireContext())) {
-                requireActivity().finish()
-            } else {
-                SharedPreferencesRepository(requireContext()).setActionsPicked()
-
-                requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                    .navigate(R.id.action_actionsPickFragment_to_setAsHomescreenFragment)
-
+    private fun checkIfAppIsAlreadyPickedAsHomescreen() =
+        with(binding) {
+            if (!isOnboardingPassed(requireContext())) {
+                if (checkIfAppIsDefaultLauncher(requireContext())) {
+                    nextButton.setOnClickListener {
+                        requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                            .navigate(R.id.action_actionsPickFragment_to_setupDoneFragment)
+                    }
+                }
             }
         }
-    }
 
-    private fun FragmentActionsPickScreenBinding.initActionsPickingRecycler() {
-        actionsPickingRecycler.layoutManager = GridLayoutManager(
-            requireContext(),
-            2,
-            GridLayoutManager.VERTICAL,
-            false
-        )
-    }
+    private fun initDatabaseRecordingsLiveDataObserver() =
+        with(binding) {
+            actionsPickFragmentViewModel.databaseRecordingsLiveData.observe(viewLifecycleOwner) { list ->
+                actionsPickingRecycler.adapter = SmallCardAdapter(list) { itemPosition ->
+                    parentActivityCallback.callItemPicking(itemPosition)
+                }
+            }
+        }
+
+    private fun initIsAvailableToEndFirstSetupObserver() =
+        with(binding) {
+            actionsPickFragmentViewModel.isAvailableToEndFirstSetup.observe(viewLifecycleOwner) { isAvailable ->
+                context?.let { context ->
+                    if (isAvailable) {
+                        nextButton.text = context.getString(R.string.nextButtonText)
+                        backButton.isEnabled = true
+                    }
+
+                    if (isOnboardingPassed(requireContext())) {
+                        nextButton.text = getString(R.string.ok)
+
+                    }
+
+                    if (!isAvailable) {
+                        nextButton.text =
+                            context.getString(R.string.incompleteActionPickingButtonText)
+                        backButton.isEnabled = false
+                    }
+                }
+
+                nextButton.isEnabled = isAvailable
+            }
+        }
+
+    private fun initNextButtonOnClickListener() =
+        with(binding) {
+            nextButton.setOnClickListener {
+                if (isOnboardingPassed(requireContext())) {
+                    requireActivity().finish()
+                } else {
+                    SharedPreferencesRepository(requireContext()).setActionsPicked()
+
+                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                        .navigate(R.id.action_actionsPickFragment_to_setAsHomescreenFragment)
+
+                }
+            }
+        }
+
+    private fun initActionsPickingRecycler() =
+        with(binding) {
+            actionsPickingRecycler.layoutManager = GridLayoutManager(
+                requireContext(),
+                2,
+                GridLayoutManager.VERTICAL,
+                false
+            )
+        }
 
     interface ParentActivityCallback {
         fun callItemPicking(itemId: Int)

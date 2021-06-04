@@ -37,8 +37,6 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
 
         recalculateWindowInsets()
 
-        recalculateLayout()
-
         setContentView(binding.root)
 
         with(binding) {
@@ -80,10 +78,6 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         }
     }
 
-    private fun recalculateLayout() {
-//        binding.actionPickingHeader.setMargin(24.dpToPx, 0.dpToPx)
-    }
-
     override fun callHomescreenBottomSheet() {
         binding.itemPickRecycler.adapter = OnHomescreenActionsPickingAdapter(
             HomescreenActionType.values()
@@ -119,13 +113,14 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         }
     }
 
-    private fun ActivityLauncherBinding.setOutOfBottomSheetClickListener() {
-        mainLayout.setOnClickListener {
-            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    private fun setOutOfBottomSheetClickListener() =
+        with(binding) {
+            mainLayout.setOnClickListener {
+                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                }
             }
         }
-    }
 
     override fun onBackPressed() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {

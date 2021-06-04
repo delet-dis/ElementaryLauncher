@@ -92,20 +92,22 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun FragmentAppsListScreenBinding.initItemPickRecycler() {
-        itemPickRecycler.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-    }
-
-
-    private fun FragmentAppsListScreenBinding.initBackButtonOnClickListener() {
-        backButton.setOnClickListener {
-            requireActivity().finish()
+    private fun initItemPickRecycler() =
+        with(binding) {
+            itemPickRecycler.layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
         }
-    }
+
+
+    private fun initBackButtonOnClickListener() =
+        with(binding) {
+            backButton.setOnClickListener {
+                requireActivity().finish()
+            }
+        }
 
     override fun getFragmentId(): Int {
         return R.id.appsListFragment
