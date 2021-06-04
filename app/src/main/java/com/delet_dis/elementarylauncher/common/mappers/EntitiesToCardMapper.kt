@@ -18,11 +18,11 @@ import com.delet_dis.elementarylauncher.common.extensions.addPadding
 import com.delet_dis.elementarylauncher.common.extensions.findSettingsAction
 import com.delet_dis.elementarylauncher.common.extensions.getResizedDrawable
 import com.delet_dis.elementarylauncher.common.models.Card
+import com.delet_dis.elementarylauncher.data.database.EntitiesParent
 import com.delet_dis.elementarylauncher.data.database.entities.*
 import java.io.IOException
 
-
-fun mapEntityToCard(inputDataClass: Any, context: Context): Card {
+fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
     val cardToReturn = Card()
 
     when (inputDataClass) {
@@ -30,8 +30,8 @@ fun mapEntityToCard(inputDataClass: Any, context: Context): Card {
             val packageManager = context.packageManager
 
             val processingApplicationInfo =
-                inputDataClass.packageName?.let {
-                    packageManager.getApplicationInfo(it, 0)
+                inputDataClass.packageName?.let { packageName ->
+                    packageManager.getApplicationInfo(packageName, 0)
                 }
 
             with(cardToReturn) {
@@ -52,29 +52,31 @@ fun mapEntityToCard(inputDataClass: Any, context: Context): Card {
         is Contact -> {
             val uri: Uri = Uri.parse(inputDataClass.contactURI)
 
-            with(cardToReturn) {
-                val fetchedName = getContactName(
-                    uri,
-                    context
-                )
+            val fetchedName = getContactName(
+                uri,
+                context
+            )
 
+            with(cardToReturn) {
                 name = fetchedName
 
                 text = fetchedName?.subSequence(0, 2).toString()
 
-                getContactPhoto(uri, context)?.let {
-                    icon = it.toDrawable(context.resources).getResizedDrawable(2f)
+                getContactPhoto(uri, context)?.let { bitmap ->
+                    icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
                 }
 
                 position = inputDataClass.position
 
                 onClickAction = {
                     val contactCardIntent = Intent(Intent.ACTION_VIEW)
+
                     contactCardIntent.data = Uri.withAppendedPath(
                         ContactsContract.Contacts.CONTENT_URI,
                         getContactId(uri, context).toString()
                     )
                     contactCardIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
                     context.startActivity(contactCardIntent)
                 }
             }
@@ -83,18 +85,18 @@ fun mapEntityToCard(inputDataClass: Any, context: Context): Card {
         is ContactCall -> {
             val uri: Uri = Uri.parse(inputDataClass.contactURI)
 
-            with(cardToReturn) {
-                val fetchedName = getContactName(
-                    uri,
-                    context
-                )
+            val fetchedName = getContactName(
+                uri,
+                context
+            )
 
+            with(cardToReturn) {
                 name = context.getString(R.string.actionCallPrefix) + fetchedName
 
                 text = fetchedName?.subSequence(0, 2).toString()
 
-                getContactPhoto(uri, context)?.let {
-                    icon = it.toDrawable(context.resources).getResizedDrawable(2f)
+                getContactPhoto(uri, context)?.let { bitmap ->
+                    icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
                 }
 
                 position = inputDataClass.position
@@ -103,8 +105,10 @@ fun mapEntityToCard(inputDataClass: Any, context: Context): Card {
                     val phoneToCall = getContactPhoneNumber(uri, context)
 
                     val callIntent = Intent(Intent.ACTION_CALL)
+
                     callIntent.data = Uri.parse("tel:$phoneToCall")
                     callIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
                     context.startActivity(callIntent)
                 }
             }
@@ -113,19 +117,19 @@ fun mapEntityToCard(inputDataClass: Any, context: Context): Card {
         is ContactSMS -> {
             val uri: Uri = Uri.parse(inputDataClass.contactURI)
 
-            with(cardToReturn) {
-                val fetchedName = getContactName(
-                    uri,
-                    context
-                )
+            val fetchedName = getContactName(
+                uri,
+                context
+            )
 
+            with(cardToReturn) {
                 name =
                     context.getString(R.string.actionSMSPrefix) + fetchedName
 
                 text = fetchedName?.subSequence(0, 2).toString()
 
-                getContactPhoto(uri, context)?.let {
-                    icon = it.toDrawable(context.resources).getResizedDrawable(2f)
+                getContactPhoto(uri, context)?.let { bitmap ->
+                    icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
                 }
 
                 position = inputDataClass.position
@@ -134,8 +138,10 @@ fun mapEntityToCard(inputDataClass: Any, context: Context): Card {
                     val phoneToCall = getContactPhoneNumber(uri, context)
 
                     val callIntent = Intent(Intent.ACTION_VIEW)
+
                     callIntent.data = Uri.parse("sms:$phoneToCall")
                     callIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
                     context.startActivity(callIntent)
                 }
             }
@@ -161,21 +167,6 @@ fun mapEntityToCard(inputDataClass: Any, context: Context): Card {
                         )
                     }
                 }
-            }
-        }
-
-        is Shortcut -> {
-            val packageManager = context.packageManager
-
-            val processingApplicationInfo =
-                inputDataClass.packageName?.let {
-                    packageManager.getApplicationInfo(it, 0)
-                }
-
-            with(cardToReturn) {
-                name = processingApplicationInfo?.loadLabel(packageManager).toString()
-                icon = processingApplicationInfo?.loadIcon(packageManager)
-                position = inputDataClass.position
             }
         }
 
@@ -296,5 +287,6 @@ private fun getContactPhoto(contactUri: Uri, context: Context): Bitmap? {
     } catch (e: IOException) {
         e.printStackTrace()
     }
+
     return photo
 }
