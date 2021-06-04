@@ -81,17 +81,6 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
         }
     }
 
-    fun insertShortcut(activityShortcutName: String, position: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            DatabaseRepository(getApplication()).insertWithOverride(
-                Shortcut(activityShortcutName, position),
-                position
-            )
-
-            _isBottomSheetHidden.postValue(true)
-        }
-    }
-
     fun loadWidgetsPackages() {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)

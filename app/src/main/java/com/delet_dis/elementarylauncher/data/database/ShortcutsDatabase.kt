@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.delet_dis.elementarylauncher.data.database.daos.*
 import com.delet_dis.elementarylauncher.data.database.entities.*
 
 
 @Database(
     entities = [App::class,
-        Shortcut::class,
         Widget::class,
         Contact::class,
         ContactCall::class,
@@ -19,7 +19,12 @@ import com.delet_dis.elementarylauncher.data.database.entities.*
     exportSchema = false
 )
 abstract class ShortcutsDatabase : RoomDatabase() {
-    abstract fun shortcutsDao(): ShortcutsDAO
+    abstract fun appDao(): AppDAO
+    abstract fun contactCallDao(): ContactCallDAO
+    abstract fun contactSmsDao(): ContactSMSDAO
+    abstract fun contactDao(): ContactDAO
+    abstract fun settingsActionDao(): SettingsActionDAO
+    abstract fun widgetDao(): WidgetDAO
 
     companion object {
         private var INSTANCE: ShortcutsDatabase? = null

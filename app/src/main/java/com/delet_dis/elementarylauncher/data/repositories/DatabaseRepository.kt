@@ -8,8 +8,8 @@ import com.delet_dis.elementarylauncher.common.mappers.mapEntityToCard
 import com.delet_dis.elementarylauncher.common.models.ActionType
 import com.delet_dis.elementarylauncher.common.models.Card
 import com.delet_dis.elementarylauncher.data.database.EntitiesParent
-import com.delet_dis.elementarylauncher.data.database.ShortcutsDAO
 import com.delet_dis.elementarylauncher.data.database.ShortcutsDatabase
+import com.delet_dis.elementarylauncher.data.database.daos.*
 import com.delet_dis.elementarylauncher.data.database.entities.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -18,43 +18,88 @@ import kotlinx.coroutines.flow.*
 class DatabaseRepository(val context: Context) {
 
     companion object {
-        private var INSTANCE: ShortcutsDAO? = null
-
-        fun getShortcutsDao(context: Context): ShortcutsDAO {
-            if (INSTANCE == null) {
-                synchronized(ShortcutsDAO::class) {
-                    INSTANCE = ShortcutsDatabase.getAppDatabase(context).shortcutsDao()
+        private var appDAO: AppDAO? = null
+        fun getAppDao(context: Context): AppDAO {
+            if (appDAO == null) {
+                synchronized(AppDAO::class) {
+                    appDAO = ShortcutsDatabase.getAppDatabase(context).appDao()
                 }
             }
-            return INSTANCE!!
+            return appDAO!!
+        }
+
+        private var contactCallDAO: ContactCallDAO? = null
+        fun getContactCallDao(context: Context): ContactCallDAO {
+            if (contactCallDAO == null) {
+                synchronized(AppDAO::class) {
+                    contactCallDAO = ShortcutsDatabase.getAppDatabase(context).contactCallDao()
+                }
+            }
+            return contactCallDAO!!
+        }
+
+        private var contactSMSDAO: ContactSMSDAO? = null
+        fun getContactSMSDao(context: Context): ContactSMSDAO {
+            if (contactSMSDAO == null) {
+                synchronized(AppDAO::class) {
+                    contactSMSDAO = ShortcutsDatabase.getAppDatabase(context).contactSmsDao()
+                }
+            }
+            return contactSMSDAO!!
+        }
+
+        private var contactDAO: ContactDAO? = null
+        fun getContactDao(context: Context): ContactDAO {
+            if (contactDAO == null) {
+                synchronized(AppDAO::class) {
+                    contactDAO = ShortcutsDatabase.getAppDatabase(context).contactDao()
+                }
+            }
+            return contactDAO!!
+        }
+
+        private var settingsActionDAO: SettingsActionDAO? = null
+        fun getSettingsActionDao(context: Context): SettingsActionDAO {
+            if (settingsActionDAO == null) {
+                synchronized(AppDAO::class) {
+                    settingsActionDAO =
+                        ShortcutsDatabase.getAppDatabase(context).settingsActionDao()
+                }
+            }
+            return settingsActionDAO!!
+        }
+
+        private var widgetDAO: WidgetDAO? = null
+        fun getWidgetDao(context: Context): WidgetDAO {
+            if (widgetDAO == null) {
+                synchronized(AppDAO::class) {
+                    widgetDAO =
+                        ShortcutsDatabase.getAppDatabase(context).widgetDao()
+                }
+            }
+            return widgetDAO!!
         }
     }
 
-    private val databaseDao = getShortcutsDao(context)
-
     private fun getAllDatabaseRecordingsAsEntitiesParentList(): List<EntitiesParent> {
-        with(databaseDao) {
-            return concatenate(
-                getAllAppsAsList(),
-                getAllContactsAsList(),
-                getAllContactCallsAsList(),
-                getAllContactSMSAsList(),
-                getAllSettingsActionsAsList(),
-                getAllShortcutsAsList(),
-                getAllWidgetsAsList()
-            )
-        }
+        return concatenate(
+            getAppDao(context).getAllAppsAsList(),
+            getContactDao(context).getAllContactsAsList(),
+            getContactCallDao(context).getAllContactCallsAsList(),
+            getContactSMSDao(context).getAllContactSMSAsList(),
+            getSettingsActionDao(context).getAllSettingsActionsAsList(),
+            getWidgetDao(context).getAllWidgetsAsList()
+        )
     }
 
     fun getAllDatabaseRecordingsAsEntitiesParentListFlow(): Flow<List<EntitiesParent>> =
         combine(
-            databaseDao.getAllAppsAsFlow(),
-            databaseDao.getAllContactCallsAsFlow(),
-            databaseDao.getAllContactSMSAsFlow(),
-            databaseDao.getAllContactsAsFlow(),
-            databaseDao.getAllSettingsActionsAsFlow(),
-            databaseDao.getAllShortcutsAsFlow(),
-            databaseDao.getAllWidgetsAsFlow()
+            getAppDao(context).getAllAppsAsFlow(),
+            getContactDao(context).getAllContactsAsFlow(),
+            getContactCallDao(context).getAllContactCallsAsFlow(),
+            getContactSMSDao(context).getAllContactSMSAsFlow(),
+            getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
+            getWidgetDao(context).getAllWidgetsAsFlow()
         ) { results ->
 
             results
@@ -64,13 +109,12 @@ class DatabaseRepository(val context: Context) {
         }
 
     fun getAllDatabaseRecordingsAsCards(): Flow<List<Card>> = combine(
-        databaseDao.getAllAppsAsFlow(),
-        databaseDao.getAllContactCallsAsFlow(),
-        databaseDao.getAllContactSMSAsFlow(),
-        databaseDao.getAllContactsAsFlow(),
-        databaseDao.getAllSettingsActionsAsFlow(),
-        databaseDao.getAllShortcutsAsFlow(),
-        databaseDao.getAllWidgetsAsFlow()
+        getAppDao(context).getAllAppsAsFlow(),
+        getContactDao(context).getAllContactsAsFlow(),
+        getContactCallDao(context).getAllContactCallsAsFlow(),
+        getContactSMSDao(context).getAllContactSMSAsFlow(),
+        getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
+        getWidgetDao(context).getAllWidgetsAsFlow()
     ) { results ->
 
         val processingList = results
@@ -113,13 +157,12 @@ class DatabaseRepository(val context: Context) {
     }
 
     fun getNonEmptyDatabaseRecordingsAsCards(): Flow<Array<Card?>> = combine(
-        databaseDao.getAllAppsAsFlow(),
-        databaseDao.getAllContactCallsAsFlow(),
-        databaseDao.getAllContactSMSAsFlow(),
-        databaseDao.getAllContactsAsFlow(),
-        databaseDao.getAllSettingsActionsAsFlow(),
-        databaseDao.getAllShortcutsAsFlow(),
-        databaseDao.getAllWidgetsAsFlow()
+        getAppDao(context).getAllAppsAsFlow(),
+        getContactDao(context).getAllContactsAsFlow(),
+        getContactCallDao(context).getAllContactCallsAsFlow(),
+        getContactSMSDao(context).getAllContactSMSAsFlow(),
+        getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
+        getWidgetDao(context).getAllWidgetsAsFlow()
     ) { results ->
 
         val processingList = results
@@ -132,7 +175,7 @@ class DatabaseRepository(val context: Context) {
         val listToReturn = arrayOfNulls<Card>(6)
 
         processingList.forEach { card ->
-            listToReturn[card.position!!-1] = card
+            listToReturn[card.position!! - 1] = card
         }
 
         listToReturn
@@ -148,45 +191,42 @@ class DatabaseRepository(val context: Context) {
             }
         }
 
-        with(databaseDao) {
-            when (entity) {
-                is App -> insert(entity)
-                is Contact -> insert(entity)
-                is ContactCall -> insert(entity)
-                is ContactSMS -> insert(entity)
-                is SettingsAction -> insert(entity)
-                is Shortcut -> insert(entity)
-                is Widget -> insert(entity)
-            }
+
+        when (entity) {
+            is App -> getAppDao(context).insert(entity)
+            is Contact -> getContactDao(context).insert(entity)
+            is ContactCall -> getContactCallDao(context).insert(entity)
+            is ContactSMS -> getContactSMSDao(context).insert(entity)
+            is SettingsAction -> getSettingsActionDao(context).insert(entity)
+            is Widget -> getWidgetDao(context).insert(entity)
         }
+
     }
 
 
     suspend fun deleteAtPosition(position: Int) {
         getAllDatabaseRecordingsAsEntitiesParentList().forEach { entitiesParent ->
 
-            with(databaseDao) {
-                when (entitiesParent.entityType) {
-                    ActionType.APP ->
-                        removeAppByPosition(position)
 
-                    ActionType.CONTACT ->
-                        removeContactByPosition(position)
+            when (entitiesParent.entityType) {
+                ActionType.APP ->
+                    getAppDao(context).removeAppByPosition(position)
 
-                    ActionType.CONTACT_CALL ->
-                        removeContactCallByPosition(position)
+                ActionType.CONTACT ->
+                    getContactDao(context).removeContactByPosition(position)
 
-                    ActionType.CONTACT_SMS ->
-                        removeContactSMSByPosition(position)
+                ActionType.CONTACT_CALL ->
+                    getContactCallDao(context).removeContactCallByPosition(position)
 
-                    ActionType.SETTINGS_ACTION ->
-                        removeSettingsActionByPosition(position)
+                ActionType.CONTACT_SMS ->
+                    getContactSMSDao(context).removeContactSMSByPosition(position)
 
-                    ActionType.WIDGET ->
-                        removeWidgetByPosition(position)
-                }
+                ActionType.SETTINGS_ACTION ->
+                    getSettingsActionDao(context).removeSettingsActionByPosition(position)
+
+                ActionType.WIDGET ->
+                    getWidgetDao(context).removeWidgetByPosition(position)
             }
-
         }
     }
 }
