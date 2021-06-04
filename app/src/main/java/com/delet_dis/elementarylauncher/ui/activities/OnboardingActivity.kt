@@ -79,9 +79,9 @@ class OnboardingActivity : AppCompatActivity(),
         registerForActivityResult(ActivityResultContracts.PickContact()) {
             it?.let {
                 pickedItemId?.let { position ->
-                    pickedContactAction?.let { it1 ->
+                    pickedContactAction?.let { contactActionType ->
                         onboardingActivityViewModel.insertContact(
-                            it1,
+                            contactActionType,
                             it.toString(),
                             position
                         )
@@ -101,12 +101,16 @@ class OnboardingActivity : AppCompatActivity(),
                         widgetsConfiguringContract.launch(it.second)
                     }
 
-                    pickedItemId?.let { it1 ->
-                        onboardingActivityViewModel.insertWidget(it.second!!, it1)
+                    pickedItemId?.let { pickedItemId ->
+                        onboardingActivityViewModel.insertWidget(it.second!!, pickedItemId)
                     }
                 }
             } else {
-                pickedItemId?.let { it1 -> onboardingActivityViewModel.deleteAtPosition(it1) }
+                pickedItemId?.let { pickedItemId ->
+                    onboardingActivityViewModel.deleteAtPosition(
+                        pickedItemId
+                    )
+                }
             }
         }
 
@@ -114,12 +118,16 @@ class OnboardingActivity : AppCompatActivity(),
         registerForActivityResult(WidgetConfiguringContract()) {
             if (it.first) {
                 if (it.second != null) {
-                    pickedItemId?.let { it1 ->
-                        onboardingActivityViewModel.insertWidget(it.second!!, it1)
+                    pickedItemId?.let { pickedItemId ->
+                        onboardingActivityViewModel.insertWidget(it.second!!, pickedItemId)
                     }
                 }
             } else {
-                pickedItemId?.let { it1 -> onboardingActivityViewModel.deleteAtPosition(it1) }
+                pickedItemId?.let { pickedItemId ->
+                    onboardingActivityViewModel.deleteAtPosition(
+                        pickedItemId
+                    )
+                }
             }
         }
 
@@ -339,11 +347,12 @@ class OnboardingActivity : AppCompatActivity(),
                         settingsActionsLiveData
                             .observe(this@OnboardingActivity, { mutableList ->
 
-                                itemPickRecycler.adapter = mutableList?.let { it1 ->
-                                    SettingsActionPickingAdapter(it1) {
-                                        insertSettingsAction(it.action, itemPosition)
+                                itemPickRecycler.adapter =
+                                    mutableList?.let { arrayOfSettingsActionTypes ->
+                                        SettingsActionPickingAdapter(arrayOfSettingsActionTypes) {
+                                            insertSettingsAction(it.action, itemPosition)
+                                        }
                                     }
-                                }
                             })
                     }
 
