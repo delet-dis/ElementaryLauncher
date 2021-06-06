@@ -40,7 +40,6 @@
 
         <activity
             android:name=".ui.activities.launcherActivity.LauncherActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/LauncherActivityStyle"
             tools:ignore="LockedOrientationActivity">
 
