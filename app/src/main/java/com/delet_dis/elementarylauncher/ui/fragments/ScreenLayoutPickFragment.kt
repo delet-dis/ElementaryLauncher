@@ -34,13 +34,11 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
         super.onViewCreated(view, savedInstanceState)
 
         if (savedInstanceState == null) {
-            with(binding) {
-                initLayoutCardsListeners()
+            initLayoutCardsListeners()
 
-                initBackButtonOnClickListener()
+            initBackButtonOnClickListener()
 
-                initNextButtonParams()
-            }
+            initNextButtonParams()
         }
     }
 

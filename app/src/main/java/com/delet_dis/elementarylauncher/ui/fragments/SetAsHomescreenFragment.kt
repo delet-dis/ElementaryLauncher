@@ -34,13 +34,11 @@ class SetAsHomescreenFragment : Fragment(), FragmentParentInterface {
         super.onViewCreated(view, savedInstanceState)
 
         if (savedInstanceState == null) {
-            with(binding) {
-                checkIfAppIsLauncher()
+            checkIfAppIsLauncher()
 
-                initBackButtonOnClickListener()
+            initBackButtonOnClickListener()
 
-                setSkipButtonOnClickListener()
-            }
+            setSkipButtonOnClickListener()
         }
     }
 

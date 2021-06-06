@@ -36,12 +36,10 @@ class SetupDoneFragment : Fragment(), FragmentParentInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
-            if (!checkIfAppIsDefaultLauncher(requireContext())) {
-                initBackButtonOnClickListener()
-            }
-            initFinishButtonOnClickListener()
+        if (!checkIfAppIsDefaultLauncher(requireContext())) {
+            initBackButtonOnClickListener()
         }
+        initFinishButtonOnClickListener()
     }
 
     private fun initFinishButtonOnClickListener() =

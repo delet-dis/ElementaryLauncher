@@ -53,19 +53,17 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
         super.onViewCreated(view, savedInstanceState)
 
         if (savedInstanceState == null) {
-            with(binding) {
-                initActionsPickingRecycler()
+            initActionsPickingRecycler()
 
-                initDatabaseRecordingsLiveDataObserver()
+            initDatabaseRecordingsLiveDataObserver()
 
-                initIsAvailableToEndFirstSetupObserver()
+            initIsAvailableToEndFirstSetupObserver()
 
-                initBackButtonOnClickListener()
+            initBackButtonOnClickListener()
 
-                initNextButtonOnClickListener()
+            initNextButtonOnClickListener()
 
-                checkIfAppIsAlreadyPickedAsHomescreen()
-            }
+            checkIfAppIsAlreadyPickedAsHomescreen()
         }
     }
 

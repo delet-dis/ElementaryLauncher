@@ -36,9 +36,7 @@ class WelcomeFragment : Fragment(), FragmentParentInterface {
         checkIfSetupIsDone()
 
         if (savedInstanceState == null) {
-            with(binding) {
-                initNextButtonOnClickListener()
-            }
+            initNextButtonOnClickListener()
         }
     }
 
