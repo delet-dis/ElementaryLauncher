@@ -23,7 +23,7 @@
         tools:replace="android:supportsRtl,android:allowBackup,icon,label">
 
         <activity
-            android:name=".ui.activities.OnboardingActivity"
+            android:name=".ui.activities.onboardingActivity.OnboardingActivity"
             android:configChanges="density|fontScale|keyboard|keyboardHidden|locale|orientation|screenLayout|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/OnboardingActivityStyle"
@@ -39,7 +39,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.LauncherActivity"
+            android:name=".ui.activities.launcherActivity.LauncherActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LauncherActivityStyle"
             tools:ignore="LockedOrientationActivity">

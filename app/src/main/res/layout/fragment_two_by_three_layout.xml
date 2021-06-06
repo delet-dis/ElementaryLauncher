@@ -34,7 +34,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.75" />
 
-    <com.delet_dis.elementarylauncher.common.view.ClockView
+    <com.delet_dis.elementarylauncher.ui.views.clockView.ClockView
         android:id="@+id/clockView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -53,7 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
+    <com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView
         android:id="@+id/firstCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -62,7 +62,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
+    <com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView
         android:id="@+id/secondCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -71,7 +71,7 @@
         app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
         app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
+    <com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView
         android:id="@+id/thirdCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -80,7 +80,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/secondHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
+    <com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView
         android:id="@+id/fourthCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -89,9 +89,9 @@
         app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
         app:layout_constraintTop_toTopOf="@+id/secondHorizontalGuideline">
 
-    </com.delet_dis.elementarylauncher.common.view.AppCardView>
+    </com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView>
 
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
+    <com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView
         android:id="@+id/fifthCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -100,7 +100,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/thirdHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.common.view.AppCardView
+    <com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView
         android:id="@+id/sixthCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
