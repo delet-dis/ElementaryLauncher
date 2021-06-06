@@ -25,7 +25,6 @@
         <activity
             android:name=".ui.activities.onboardingActivity.OnboardingActivity"
             android:configChanges="density|fontScale|keyboard|keyboardHidden|locale|orientation|screenLayout|screenSize"
-            android:screenOrientation="portrait"
             android:theme="@style/OnboardingActivityStyle"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
@@ -41,9 +40,7 @@
         <activity
             android:name=".ui.activities.launcherActivity.LauncherActivity"
             android:theme="@style/LauncherActivityStyle"
-            tools:ignore="LockedOrientationActivity">
-
-        </activity>
+            tools:ignore="LockedOrientationActivity"/>
     </application>
 
 </manifest>

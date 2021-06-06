@@ -4,22 +4,30 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/Elementary-launcher/app/src/main/res/layout/recyclerview_item_action.xml" value="0.2056159420289855" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/activity_onboarding.xml" value="0.1920374707259953" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/clock_view.xml" value="0.25992990654205606" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/fragment_actions_pick_screen.xml" value="0.1920374707259953" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/fragment_interface_scale_pick_screen.xml" value="0.14462081128747795" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/fragment_layout_pick_screen.xml" value="0.14462081128747795" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/fragment_set_as_homescreen_screen.xml" value="0.14462081128747795" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/fragment_setup_done_screen.xml" value="0.14462081128747795" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/fragment_two_by_three_layout.xml" value="0.21516754850088182" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/fragment_two_by_two_layout.xml" value="0.21516754850088182" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout-land/fragment_welcome_screen.xml" value="0.152" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/activity_launcher.xml" value="0.2296195652173913" />
-        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/activity_onboarding.xml" value="0.2" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/activity_onboarding.xml" value="0.264" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/card_item_big.xml" value="0.8" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/card_item_small.xml" value="0.283373786407767" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/clock_view.xml" value="0.8" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_actions_pick_screen.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_apps_list_screen.xml" value="0.15301724137931033" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_interface_scale_pick_screen.xml" value="0.283373786407767" />
-        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_layout_pick_screen.xml" value="0.2115036231884058" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_layout_pick_screen.xml" value="0.17083333333333334" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_set_as_homescreen_screen.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_setup_done_screen.xml" value="0.18125" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_two_by_three_layout.xml" value="0.15301724137931033" />
-        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_two_by_two_layout.xml" value="0.22509057971014493" />
-        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_welcome_screen.xml" value="0.283373786407767" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_two_by_two_layout.xml" value="0.8" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_welcome_screen.xml" value="0.25625" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/home_grid_layout.xml" value="0.15301724137931033" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/recyclerview_item_action.xml" value="0.1" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2324074074074074" />
