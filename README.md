@@ -34,6 +34,7 @@ This project takes advantage of best practices, many popular libraries and tools
         * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  implementation of most screens of the application
         * [ViewBinding](https://developer.android.com/topic/libraries/view-binding) -  getting links to interface elements
 * Modern Architecture
+    * Clean Architecture
     * MVVM
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
     * [Android KTX](https://developer.android.com/kotlin/ktx) - Jetpack Kotlin extensions
