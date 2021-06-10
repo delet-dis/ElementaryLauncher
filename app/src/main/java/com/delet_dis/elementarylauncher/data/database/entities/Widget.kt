@@ -2,7 +2,7 @@ package com.delet_dis.elementarylauncher.data.database.entities
 
 import android.graphics.drawable.Drawable
 import androidx.room.*
-import com.delet_dis.elementarylauncher.common.models.ActionType
+import com.delet_dis.elementarylauncher.data.models.ActionType
 import com.delet_dis.elementarylauncher.data.database.EntitiesParent
 
 @Entity(indices = [Index(value = ["position"], unique = true)])

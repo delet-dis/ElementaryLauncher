@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.activities.onboardingActivity.fragments.InterfaceScalePickFragment">
+    tools:context=".presentation.activities.onboardingActivity.fragments.InterfaceScalePickFragment">
 
     <ImageButton
         android:id="@+id/backButton"
@@ -25,7 +25,7 @@
         app:srcCompat="@drawable/ic_back"
         app:tint="@color/purple_500" />
 
-    <com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView
+    <com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
         android:id="@+id/exampleCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.delet_dis.elementarylauncher.ui.views.appCardView.AppCardView>
+    </com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/halfScreenGuideline"

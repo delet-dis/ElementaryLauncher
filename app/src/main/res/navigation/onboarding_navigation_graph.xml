@@ -6,7 +6,7 @@
     app:startDestination="@id/welcomeFragment">
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.delet_dis.elementarylauncher.ui.activities.onboardingActivity.fragments.WelcomeFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.WelcomeFragment"
         android:label="WelcomeFragment">
         <action
             android:id="@+id/action_welcomeFragment_to_setupDoneFragment"
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/interfaceScalePickFragment"
-        android:name="com.delet_dis.elementarylauncher.ui.activities.onboardingActivity.fragments.InterfaceScalePickFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.InterfaceScalePickFragment"
         android:label="fragment_interface_scale_pick_screen"
         tools:layout="@layout/fragment_interface_scale_pick_screen">
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/screenLayoutPickFragment"
-        android:name="com.delet_dis.elementarylauncher.ui.activities.onboardingActivity.fragments.ScreenLayoutPickFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.ScreenLayoutPickFragment"
         android:label="LayoutPickScreenFragment">
         <action
             android:id="@+id/action_layoutPickScreenFragment_to_interfaceScalePickFragment"
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/actionsPickFragment"
-        android:name="com.delet_dis.elementarylauncher.ui.activities.onboardingActivity.fragments.actionsPickFragment.ActionsPickFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.actionsPickFragment.ActionsPickFragment"
         android:label="ActionsPickFragment">
         <action
             android:id="@+id/action_actionsPickFragment_to_setAsHomescreenFragment"
@@ -81,11 +81,11 @@
     </fragment>
     <fragment
         android:id="@+id/setupDoneFragment"
-        android:name="com.delet_dis.elementarylauncher.ui.activities.onboardingActivity.fragments.SetupDoneFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.SetupDoneFragment"
         android:label="SetupDoneFragment" />
     <fragment
         android:id="@+id/setAsHomescreenFragment"
-        android:name="com.delet_dis.elementarylauncher.ui.activities.onboardingActivity.fragments.SetAsHomescreenFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.SetAsHomescreenFragment"
         android:label="SetAsHomescreenFragment">
         <action
             android:id="@+id/action_setAsHomescreenFragment_to_setupDoneFragment"
@@ -97,6 +97,6 @@
     </fragment>
     <fragment
         android:id="@+id/appsListFragment"
-        android:name="com.delet_dis.elementarylauncher.ui.activities.onboardingActivity.fragments.appsListFragment.AppsListFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.appsListFragment.AppsListFragment"
         android:label="AppsListFragment" />
 </navigation>
