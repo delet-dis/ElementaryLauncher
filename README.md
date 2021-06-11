@@ -44,7 +44,33 @@ This project takes advantage of best practices, many popular libraries and tools
 * UI
     * [Material design](https://material.io/design)
 
-### More project screenshots
+## Architecture
+The entire application follows `clean architecture`.
+
+It contains components that strictly fulfill their functions, as well as parts that are not part of them.
+<img src="https://user-images.githubusercontent.com/47276603/121673738-6bca4a00-cadb-11eb-8e9b-2c868401df39.png" width="700" hspace="5" vspace ="10">
+
+## Data flows
+The architecture of interaction between presentation and lower layers in both activities is similar.
+
+All interaction occurs through the `ViewModel` of each `Activity` / `Fragment`, which then receives data from the repositories and notifies the view of the change.
+
+Repositories, in turn, interact with the data layer
+
+> In fact, everything works through the `AndroidViewModel`, but this method differs only in that it can receive the `Application` inside itself. This is used when a `Context` is needed.
+### 🛬 OnboardingActivity
+<img src="https://user-images.githubusercontent.com/47276603/121676245-9bc71c80-cade-11eb-89ae-d3e2851f3793.png" width="600" hspace="5" vspace ="10">
+
+> Dashed lines - async operations </br>
+> Solid lines - sync operations
+
+### 📱 LauncherActivity
+
+<img src="https://user-images.githubusercontent.com/47276603/121676378-bf8a6280-cade-11eb-8e44-2f28ffe67927.png" width="600" hspace="5" vspace ="10">
+
+> Dashed lines - async operations </br>
+> Solid lines - sync operations
+## More project screenshots
 <img src="https://user-images.githubusercontent.com/47276603/119395044-2fd26f00-bcfd-11eb-86a5-1b051b98ca3d.jpg" width="200" hspace="5" vspace ="10">
 <img src="https://user-images.githubusercontent.com/47276603/119395047-306b0580-bcfd-11eb-881c-b3181a286f61.jpg" width="200" hspace="5" align="left" vspace ="10">
 <br/>
