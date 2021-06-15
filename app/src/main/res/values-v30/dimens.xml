@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--It defined due to troubles with navigation on Android 11+-->
+    <dimen name="actionPickingHeaderTopMargin">-20dp</dimen>
+</resources>
