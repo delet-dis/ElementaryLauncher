@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetHostView
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProviderInfo
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -58,84 +59,90 @@ class AppCardView @JvmOverloads constructor(
     }
 
     private fun applyCard(card: Card) {
-        val defaultColor = context.getColor(R.color.white)
-        with(card) {
-            with(binding) {
-                cardView.visibility = View.VISIBLE
-                if (card.isWidget) {
-                    widgetHost = AppWidgetHost(context, binding.cardView.id)
-                    widgetManager = AppWidgetManager.getInstance(context)
 
-                    card.widgetId?.let { widgetId ->
-                        val appWidgetInfo: AppWidgetProviderInfo =
-                            widgetManager.getAppWidgetInfo(widgetId)
+        with(binding) {
+            cardView.visibility = View.VISIBLE
 
-                        val hostView: AppWidgetHostView =
-                            widgetHost.createView(context, widgetId, appWidgetInfo)
+            if (card.isWidget) {
+                cardConstraint.visibility = View.GONE
 
-                        hostView.setAppWidget(widgetId, appWidgetInfo)
+                card.widgetId?.let { widgetId ->
+                    addWidget(widgetId)
+                }
+            } else {
+                card.name?.let { name ->
+                    cardText.text = name
+                }
 
-                        cardView.addView(hostView)
+                card.icon?.let { drawable ->
+                    cardImage.setImageDrawable(drawable)
 
-                        widgetHost.startListening()
-                    }
+                    setCardBackgroundColorBasedOnDrawable(drawable)
+                }
 
-                    cardConstraint.visibility = View.GONE
+                if (card.icon == null) {
+                    cardSubText.text = card.text
+                }
 
-                } else {
-                    name?.let { name ->
-                        cardText.text = name
-                    }
-
-                    if (icon == null) {
-                        cardSubText.text = text
-                    }
-
-                    icon?.let { drawable ->
-                        cardImage.setImageDrawable(drawable)
-
-                        Palette.Builder(drawable.toBitmap())
-                            .generate { palette ->
-                                if (palette != null) {
-                                    cardView.setCardBackgroundColor(
-                                        palette.getLightVibrantColor(
-                                            defaultColor
-                                        )
-                                    )
-                                }
-                            }
-                    }
-
-                    onClickAction?.let { action ->
-                        cardView.setOnClickListener {
-                            action()
-                        }
+                card.onClickAction?.let { action ->
+                    cardView.setOnClickListener {
+                        action()
                     }
                 }
             }
         }
     }
 
+    private fun setCardBackgroundColorBasedOnDrawable(
+        drawable: Drawable
+    ) = with(binding) {
+        Palette.Builder(drawable.toBitmap())
+            .generate { palette ->
+                if (palette != null) {
+                    cardView.setCardBackgroundColor(
+                        palette.getLightVibrantColor(
+                            context.getColor(R.color.white)
+                        )
+                    )
+                }
+            }
+    }
+
+    private fun addWidget(widgetId: Int) = with(binding) {
+        widgetHost = AppWidgetHost(context, binding.cardView.id)
+        widgetManager = AppWidgetManager.getInstance(context)
+
+        val appWidgetInfo: AppWidgetProviderInfo =
+            widgetManager.getAppWidgetInfo(widgetId)
+
+        val hostView: AppWidgetHostView =
+            widgetHost.createView(context, widgetId, appWidgetInfo)
+
+        hostView.setAppWidget(widgetId, appWidgetInfo)
+
+        cardView.addView(hostView)
+
+        widgetHost.startListening()
+    }
+
     private fun applySize(sizeType: SizeType) = with(binding) {
         val scale = sizeType.scaleCoefficient
 
-        animateFirstGuideline(sizeType)
-
-        animateSecondGuideline(sizeType)
+        animateGuidelines(sizeType)
 
         animateCardText(scale)
     }
 
-    private fun animateFirstGuideline(
-        sizeType: SizeType
-    ) = with(binding) {
+    private fun animateGuidelines(sizeType: SizeType) = with(binding) {
+        val animationsDuration:Long = 300
+
         val valueAnimatorForFirstGuideline = ValueAnimator.ofFloat(
             (firstGuideline.layoutParams as LayoutParams).guidePercent,
             sizeType.firstGuidelinePercentage
         )
 
         with(valueAnimatorForFirstGuideline) {
-            duration = 300
+            duration = animationsDuration
 
             interpolator = AccelerateDecelerateInterpolator()
 
@@ -150,18 +157,14 @@ class AppCardView @JvmOverloads constructor(
             }
             start()
         }
-    }
 
-    private fun animateSecondGuideline(
-        sizeType: SizeType
-    ) = with(binding) {
         val valueAnimatorForSecondGuideline = ValueAnimator.ofFloat(
             (secondGuideline.layoutParams as LayoutParams).guidePercent,
             sizeType.secondGuidelinePercentage
         )
 
         with(valueAnimatorForSecondGuideline) {
-            duration = 300
+            duration = animationsDuration
 
             interpolator = AccelerateDecelerateInterpolator()
 
