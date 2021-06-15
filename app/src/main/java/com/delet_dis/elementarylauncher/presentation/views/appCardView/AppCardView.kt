@@ -108,14 +108,14 @@ class AppCardView @JvmOverloads constructor(
     }
 
     private fun addWidget(widgetId: Int) = with(binding) {
-        widgetHost = AppWidgetHost(context, binding.cardView.id)
-        widgetManager = AppWidgetManager.getInstance(context)
+        widgetHost = AppWidgetHost(context.applicationContext, binding.cardView.id)
+        widgetManager = AppWidgetManager.getInstance(context.applicationContext)
 
         val appWidgetInfo: AppWidgetProviderInfo =
             widgetManager.getAppWidgetInfo(widgetId)
 
         val hostView: AppWidgetHostView =
-            widgetHost.createView(context, widgetId, appWidgetInfo)
+            widgetHost.createView(context.applicationContext, widgetId, appWidgetInfo)
 
         hostView.setAppWidget(widgetId, appWidgetInfo)
 
