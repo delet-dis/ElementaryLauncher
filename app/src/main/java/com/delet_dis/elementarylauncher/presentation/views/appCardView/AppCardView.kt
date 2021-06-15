@@ -33,6 +33,8 @@ class AppCardView @JvmOverloads constructor(
 
     private val defaultIconSize = 55
 
+    private val scaleCorrectionCoefficient = 1.5f
+
     var size: SizeType = SizeType.MEDIUM
         set(value) {
             applySize(value)
@@ -178,7 +180,10 @@ class AppCardView @JvmOverloads constructor(
 
     private fun animateCardText(scale: Float) = with(binding) {
         val valueAnimator =
-            ValueAnimator.ofFloat(cardText.textSize, defaultIconSize * scale / 1.5f)
+            ValueAnimator.ofFloat(
+                cardText.textSize,
+                defaultIconSize * scale / scaleCorrectionCoefficient
+            )
 
         with(valueAnimator) {
             duration = 200
