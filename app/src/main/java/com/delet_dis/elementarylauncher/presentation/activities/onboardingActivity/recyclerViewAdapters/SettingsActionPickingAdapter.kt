@@ -10,24 +10,24 @@ import com.delet_dis.elementarylauncher.databinding.RecyclerviewItemActionBindin
 class SettingsActionPickingAdapter(
     private val values: Array<SettingsActionType>,
     val clickListener: (SettingsActionType) -> Unit
-) : RecyclerView.Adapter<SettingsActionPickingAdapter.ToggleHolder>() {
+) : RecyclerView.Adapter<SettingsActionPickingAdapter.ActionHolder>() {
 
     private lateinit var binding: RecyclerviewItemActionBinding
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ToggleHolder {
+    ): ActionHolder {
         binding = RecyclerviewItemActionBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
 
-        return ToggleHolder(binding)
+        return ActionHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ToggleHolder, position: Int) {
+    override fun onBindViewHolder(holder: ActionHolder, position: Int) {
         with(values[position]) {
             with(binding) {
                 actionImage.setImageDrawable(
@@ -46,6 +46,6 @@ class SettingsActionPickingAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    inner class ToggleHolder(binding: RecyclerviewItemActionBinding) :
+    inner class ActionHolder(binding: RecyclerviewItemActionBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
