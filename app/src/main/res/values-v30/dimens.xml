@@ -2,4 +2,5 @@
 <resources>
     <!--It defined due to troubles with navigation on Android 11+-->
     <dimen name="actionPickingHeaderTopMargin">-20dp</dimen>
+    <dimen name="itemPickRecyclerTopMargin">0dp</dimen>
 </resources>
