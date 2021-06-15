@@ -59,7 +59,6 @@ class AppCardView @JvmOverloads constructor(
     }
 
     private fun applyCard(card: Card) {
-
         with(binding) {
             cardView.visibility = View.VISIBLE
 

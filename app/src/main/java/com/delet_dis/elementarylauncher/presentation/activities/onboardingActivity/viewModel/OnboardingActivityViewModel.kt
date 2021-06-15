@@ -1,10 +1,8 @@
 package com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.viewModel
 
 import android.app.Application
-import android.appwidget.AppWidgetProviderInfo
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -34,21 +32,9 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
     val applicationsPackagesLiveData: LiveData<List<ApplicationInfo>>
         get() = _applicationsPackagesLiveData
 
-    private val _shortcutsPackagesLiveData = MutableLiveData<MutableList<ResolveInfo>>()
-    val shortcutsPackagesLiveData: LiveData<MutableList<ResolveInfo>>
-        get() = _shortcutsPackagesLiveData
-
-    private val _widgetsPackagesLiveData = MutableLiveData<MutableList<AppWidgetProviderInfo>?>()
-    val widgetsPackagesLiveData: LiveData<MutableList<AppWidgetProviderInfo>?>
-        get() = _widgetsPackagesLiveData
-
     private val _settingsActionsLiveData = MutableLiveData<Array<SettingsActionType>>()
     val settingsActionsLiveData: LiveData<Array<SettingsActionType>>
         get() = _settingsActionsLiveData
-
-    private val _pickedWidgetIdLiveData = MutableLiveData<Int>(null)
-    val pickedWidgetIdLiveData: LiveData<Int>
-        get() = _pickedWidgetIdLiveData
 
     fun loadApplicationsPackages() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -68,26 +54,6 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
             )
 
             _isBottomSheetHidden.postValue(true)
-        }
-    }
-
-    fun loadShortcutsPackages() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _isLoading.postValue(true)
-            _shortcutsPackagesLiveData.postValue(
-                PackagesRepository(getApplication()).loadShortcutsPackages()
-            )
-            _isLoading.postValue(false)
-        }
-    }
-
-    fun loadWidgetsPackages() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _isLoading.postValue(true)
-            _widgetsPackagesLiveData.postValue(
-                PackagesRepository(getApplication()).loadWidgetsPackages()
-            )
-            _isLoading.postValue(false)
         }
     }
 
