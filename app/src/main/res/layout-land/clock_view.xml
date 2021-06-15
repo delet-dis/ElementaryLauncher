@@ -28,6 +28,13 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/firstGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.03" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/secondGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,39 +43,51 @@
 
             <TextView
                 android:id="@+id/timeStamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:fontFamily="@font/manrope_medium"
+                android:gravity="bottom|center"
+                android:maxLines="1"
                 android:textColor="@color/defaultFontColor"
-                android:textSize="70sp"
+                app:autoSizeMaxTextSize="80sp"
+                app:autoSizeMinTextSize="50sp"
+                app:autoSizeStepGranularity="2sp"
                 app:autoSizeTextType="uniform"
                 app:layout_constraintBottom_toTopOf="@+id/secondGuideline"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/firstGuideline"
+                app:layout_constraintVertical_bias="1.0" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="center|top"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/secondGuideline">
+                app:layout_constraintTop_toTopOf="@+id/secondGuideline"
+                app:layout_constraintVertical_bias="0.0">
 
                 <TextView
                     android:id="@+id/dateStamp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_weight="0"
                     android:fontFamily="@font/manrope_medium"
+                    android:gravity="center|top"
                     android:textColor="@color/defaultFontSubColor"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeMinTextSize="2sp"
+                    app:autoSizeTextType="uniform" />
 
                 <ImageView
                     android:id="@+id/alarmImage"
                     android:layout_width="22dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center|top"
                     android:layout_marginStart="5dp"
                     android:layout_weight="0"
                     android:contentDescription="@string/alarmImageContentDescription"
@@ -78,13 +97,17 @@
                 <TextView
                     android:id="@+id/alarmStamp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_marginStart="2dp"
                     android:layout_weight="0"
                     android:fontFamily="@font/manrope_medium"
+                    android:gravity="center|top"
                     android:textColor="@color/defaultFontSubColor"
                     android:textSize="20sp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeMinTextSize="2sp"
+                    app:autoSizeTextType="uniform" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
