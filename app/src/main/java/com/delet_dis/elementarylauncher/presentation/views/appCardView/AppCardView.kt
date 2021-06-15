@@ -124,9 +124,9 @@ class AppCardView @JvmOverloads constructor(
         animateCardText(scale)
     }
 
-    private fun CardItemBigBinding.animateFirstGuideline(
+    private fun animateFirstGuideline(
         sizeType: SizeType
-    ) {
+    ) = with(binding) {
         val valueAnimatorForFirstGuideline = ValueAnimator.ofFloat(
             (firstGuideline.layoutParams as LayoutParams).guidePercent,
             sizeType.firstGuidelinePercentage
@@ -150,9 +150,9 @@ class AppCardView @JvmOverloads constructor(
         }
     }
 
-    private fun CardItemBigBinding.animateSecondGuideline(
+    private fun animateSecondGuideline(
         sizeType: SizeType
-    ) {
+    ) = with(binding) {
         val valueAnimatorForSecondGuideline = ValueAnimator.ofFloat(
             (secondGuideline.layoutParams as LayoutParams).guidePercent,
             sizeType.secondGuidelinePercentage
@@ -176,7 +176,7 @@ class AppCardView @JvmOverloads constructor(
         }
     }
 
-    private fun CardItemBigBinding.animateCardText(scale: Float) {
+    private fun animateCardText(scale: Float) = with(binding) {
         val valueAnimator =
             ValueAnimator.ofFloat(cardText.textSize, defaultIconSize * scale / 1.5f)
 
