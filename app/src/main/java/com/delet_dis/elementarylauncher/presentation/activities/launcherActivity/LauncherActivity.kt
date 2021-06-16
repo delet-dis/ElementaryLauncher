@@ -19,7 +19,6 @@ import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment.TwoByTwoLayoutFragment
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.recyclerViewAdapters.OnHomescreenActionsPickingAdapter
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.OnboardingActivity
-import com.delet_dis.elementarylauncher.presentation.views.clockView.ClockView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,7 +27,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Suppress("DEPRECATION")
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
+class LauncherActivity : AppCompatActivity(), TwoByThreeLayoutFragment.ParentActivityCallback,
+    TwoByTwoLayoutFragment.ParentActivityCallback {
     private lateinit var binding: ActivityLauncherBinding
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
@@ -81,7 +81,7 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         }
     }
 
-    override fun callHomescreenBottomSheet() {
+    override fun callHomescreenBottomSheetToParentActivity() {
         binding.itemPickRecycler.adapter = OnHomescreenActionsPickingAdapter(
             HomescreenActionType.values()
         ) { homescreenActionType ->
@@ -90,7 +90,7 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    override fun callToHideHomescreenBottomSheet() {
+    override fun callToHideHomescreenBottomSheetToParentActivity() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 

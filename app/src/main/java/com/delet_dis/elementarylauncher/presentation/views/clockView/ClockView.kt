@@ -19,14 +19,14 @@ class ClockView @JvmOverloads constructor(
 
     private val clockViewViewModel: ClockViewViewModel
 
-    private var parentActivityCallback: ParentActivityCallback
+    private var parentFragmentCallback: ParentFragmentCallback
 
     init {
         inflate(context, R.layout.clock_view, this).also { view ->
             binding = ClockViewBinding.bind(view)
         }
 
-        parentActivityCallback = context as ParentActivityCallback
+        parentFragmentCallback = context as ParentFragmentCallback
 
         clockViewViewModel = ClockViewViewModel(context.applicationContext as Application)
 
@@ -41,10 +41,10 @@ class ClockView @JvmOverloads constructor(
     private fun initCardViewOnClicksCallbacks() {
         with(binding.cardView) {
             setOnClickListener {
-                parentActivityCallback.callToHideHomescreenBottomSheet()
+                parentFragmentCallback.callToHideHomescreenBottomSheet()
             }
             setOnLongClickListener {
-                parentActivityCallback.callHomescreenBottomSheet()
+                parentFragmentCallback.callHomescreenBottomSheet()
                 true
             }
         }
@@ -84,7 +84,7 @@ class ClockView @JvmOverloads constructor(
         })
     }
 
-    interface ParentActivityCallback {
+    interface ParentFragmentCallback {
         fun callHomescreenBottomSheet()
         fun callToHideHomescreenBottomSheet()
     }
