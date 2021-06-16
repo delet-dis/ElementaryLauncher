@@ -5,17 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.delet_dis.elementarylauncher.databinding.FragmentTwoByTwoLayoutBinding
 import com.delet_dis.elementarylauncher.domain.helpers.createIntro
-import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment.viewModel.TwoByTwoLayoutFragmentViewModel
+import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByThreeLayoutFragment.viewModel.TwoByThreeLayoutFragmentViewModel
 import com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class TwoByTwoLayoutFragment : Fragment() {
     private lateinit var binding: FragmentTwoByTwoLayoutBinding
 
-    private lateinit var twoByTwoLayoutFragmentViewModel: TwoByTwoLayoutFragmentViewModel
+    private val twoByTwoLayoutFragmentViewModel by viewModels<TwoByThreeLayoutFragmentViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,9 +27,6 @@ class TwoByTwoLayoutFragment : Fragment() {
     ): View? {
         return if (savedInstanceState == null) {
             binding = FragmentTwoByTwoLayoutBinding.inflate(layoutInflater)
-
-            twoByTwoLayoutFragmentViewModel =
-                TwoByTwoLayoutFragmentViewModel(requireActivity().application)
 
             binding.root
         } else {

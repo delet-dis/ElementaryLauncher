@@ -9,13 +9,19 @@ import com.delet_dis.elementarylauncher.data.models.Card
 import com.delet_dis.elementarylauncher.data.models.LayoutType
 import com.delet_dis.elementarylauncher.domain.repositories.DatabaseRepository
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class ActionsPickFragmentViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class ActionsPickFragmentViewModel @Inject constructor(
+    application: Application,
+    private val databaseRepository: DatabaseRepository
+) : AndroidViewModel(application) {
     private val _databaseRecordingsLiveData = MutableLiveData<List<Card>>()
     val databaseRecordingsLiveData: LiveData<List<Card>>
         get() = _databaseRecordingsLiveData
@@ -33,11 +39,11 @@ class ActionsPickFragmentViewModel(application: Application) : AndroidViewModel(
         viewModelScope.launch(Dispatchers.IO) {
 
             if (SharedPreferencesRepository(getApplication()).getLayoutType() == LayoutType.TWO_BY_TWO) {
-                DatabaseRepository(getApplication()).deleteAtPosition(5)
-                DatabaseRepository(getApplication()).deleteAtPosition(6)
+                databaseRepository.deleteAtPosition(5)
+                databaseRepository.deleteAtPosition(6)
             }
 
-            DatabaseRepository(getApplication()).getAllDatabaseRecordingsAsCards().collect { list ->
+            databaseRepository.getAllDatabaseRecordingsAsCards(getApplication()).collect { list ->
                 _databaseRecordingsLiveData.postValue(list)
             }
         }
@@ -45,7 +51,7 @@ class ActionsPickFragmentViewModel(application: Application) : AndroidViewModel(
 
     private fun loadDatabaseRecordingsAsEntitiesParent() {
         viewModelScope.launch {
-            DatabaseRepository(getApplication()).getAllDatabaseRecordingsAsEntitiesParentListFlow()
+            databaseRepository.getAllDatabaseRecordingsAsEntitiesParentListFlow()
                 .collect { list ->
                     if (list.isNotEmpty()) {
                         _isAvailableToEndFirstSetup.postValue(true)

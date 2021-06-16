@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -37,10 +38,12 @@ import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivi
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.SettingsActionPickingAdapter
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.viewModel.OnboardingActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class OnboardingActivity : AppCompatActivity(),
     ActionsPickFragment.ParentActivityCallback {
 
@@ -50,7 +53,7 @@ class OnboardingActivity : AppCompatActivity(),
 
     private lateinit var binding: ActivityOnboardingBinding
 
-    private lateinit var onboardingActivityViewModel: OnboardingActivityViewModel
+    private val onboardingActivityViewModel by viewModels<OnboardingActivityViewModel>()
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
@@ -138,8 +141,6 @@ class OnboardingActivity : AppCompatActivity(),
         hostFragment =
             supportFragmentManager
                 .findFragmentById(binding.navigationOnboardingControllerContainerView.id)
-
-        onboardingActivityViewModel = OnboardingActivityViewModel(application)
 
         appWidgetManager = AppWidgetManager.getInstance(this)
 

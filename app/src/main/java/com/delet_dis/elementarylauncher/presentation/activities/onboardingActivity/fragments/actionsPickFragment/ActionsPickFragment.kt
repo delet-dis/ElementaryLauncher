@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.delet_dis.elementarylauncher.R
@@ -16,13 +17,15 @@ import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.actionsPickFragment.viewModel.ActionsPickFragmentViewModel
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.SmallCardAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class ActionsPickFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentActionsPickScreenBinding
 
-    private lateinit var actionsPickFragmentViewModel: ActionsPickFragmentViewModel
+    private val actionsPickFragmentViewModel by viewModels<ActionsPickFragmentViewModel>()
 
     private lateinit var parentActivityCallback: ParentActivityCallback
 
@@ -33,9 +36,6 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
     ): View? {
         return if (savedInstanceState == null) {
             binding = FragmentActionsPickScreenBinding.inflate(layoutInflater)
-
-            actionsPickFragmentViewModel =
-                ActionsPickFragmentViewModel(requireActivity().application)
 
             binding.root
         } else {
