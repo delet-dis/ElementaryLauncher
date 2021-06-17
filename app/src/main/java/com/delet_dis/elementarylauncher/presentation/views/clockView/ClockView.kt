@@ -9,9 +9,12 @@ import androidx.lifecycle.LifecycleOwner
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.databinding.ClockViewBinding
 import com.delet_dis.elementarylauncher.presentation.views.clockView.viewModel.ClockViewViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
 
+@AndroidEntryPoint
 class ClockView @JvmOverloads constructor(
-    context: Context,
+    @ApplicationContext context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
@@ -22,13 +25,13 @@ class ClockView @JvmOverloads constructor(
     private var parentFragmentCallback: ParentFragmentCallback
 
     init {
-        inflate(context, R.layout.clock_view, this).also { view ->
+        inflate(context.applicationContext, R.layout.clock_view, this).also { view ->
             binding = ClockViewBinding.bind(view)
         }
 
         parentFragmentCallback = context as ParentFragmentCallback
 
-        clockViewViewModel = ClockViewViewModel(context.applicationContext as Application)
+        clockViewViewModel = ClockViewViewModel(context as Application)
 
         initCardViewOnClicksCallbacks()
 
