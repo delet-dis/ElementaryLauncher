@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name=".data.common.di.ElementaryLauncherApplication"
+        android:name=".ElementaryLauncherApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/appName"
