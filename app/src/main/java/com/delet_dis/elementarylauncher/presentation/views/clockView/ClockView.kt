@@ -1,6 +1,5 @@
 package com.delet_dis.elementarylauncher.presentation.views.clockView
 
-import android.app.Application
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
@@ -11,6 +10,7 @@ import com.delet_dis.elementarylauncher.databinding.ClockViewBinding
 import com.delet_dis.elementarylauncher.presentation.views.clockView.viewModel.ClockViewViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ClockView @JvmOverloads constructor(
@@ -20,7 +20,8 @@ class ClockView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private val binding: ClockViewBinding
 
-    private val clockViewViewModel: ClockViewViewModel
+    @Inject
+    lateinit var clockViewViewModel:ClockViewViewModel
 
     private var parentFragmentCallback: ParentFragmentCallback
 
@@ -30,8 +31,6 @@ class ClockView @JvmOverloads constructor(
         }
 
         parentFragmentCallback = context as ParentFragmentCallback
-
-        clockViewViewModel = ClockViewViewModel(context as Application)
 
         initCardViewOnClicksCallbacks()
 

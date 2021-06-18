@@ -10,8 +10,17 @@ import com.delet_dis.elementarylauncher.domain.helpers.formatToDigitalClock
 import com.delet_dis.elementarylauncher.domain.helpers.getCurrentDate
 import com.delet_dis.elementarylauncher.domain.helpers.getCurrentTime
 import com.delet_dis.elementarylauncher.domain.repositories.AlarmsRepository
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 
-class ClockViewViewModel(application: Application) : AndroidViewModel(application) {
+@InstallIn(SingletonComponent::class)
+@Module
+class ClockViewViewModel @Inject constructor(
+    application: Application,
+    private val alarmsRepository: AlarmsRepository
+) : AndroidViewModel(application) {
 
     private val _dateLiveData = MutableLiveData(getCurrentDate())
     val dateLiveData: LiveData<String>
@@ -21,12 +30,13 @@ class ClockViewViewModel(application: Application) : AndroidViewModel(applicatio
     val timeLiveData: LiveData<String>
         get() = _timeLiveData
 
-    private val _isAlarmEnabled = MutableLiveData(AlarmsRepository(getApplication()).isAlarmEnabled)
+    private val _isAlarmEnabled =
+        MutableLiveData(alarmsRepository.provideIsAlarmEnabled(application))
     val isAlarmEnabled: LiveData<Boolean>
         get() = _isAlarmEnabled
 
     private val _nextAlarmTriggerTime =
-        MutableLiveData(AlarmsRepository(getApplication()).nextAlarm?.let { nextAlarmTime ->
+        MutableLiveData(alarmsRepository.provideNextAlarm(application)?.let { nextAlarmTime ->
             formatToDigitalClock(
                 nextAlarmTime
             )
@@ -56,14 +66,14 @@ class ClockViewViewModel(application: Application) : AndroidViewModel(applicatio
     private fun initAlarmChangedBroadcastReceiver() {
         val alarmChangedBroadcastReceiver = object : AlarmChangedBroadcastReceiver() {
             override fun onAlarmChanged() {
-                _nextAlarmTriggerTime.postValue(AlarmsRepository(getApplication())
-                    .nextAlarm?.let { nextAlarmTime ->
+                _nextAlarmTriggerTime.postValue(
+                    alarmsRepository.provideNextAlarm(getApplication())?.let { nextAlarmTime ->
                         formatToDigitalClock(
                             nextAlarmTime
                         )
 
                     })
-                _isAlarmEnabled.postValue(AlarmsRepository(getApplication()).isAlarmEnabled)
+                _isAlarmEnabled.postValue(alarmsRepository.provideIsAlarmEnabled(getApplication()))
             }
         }
 

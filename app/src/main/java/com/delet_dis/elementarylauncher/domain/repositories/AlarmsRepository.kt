@@ -2,12 +2,27 @@ package com.delet_dis.elementarylauncher.domain.repositories
 
 import android.app.AlarmManager
 import android.content.Context
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AlarmsRepository(val context: Context) {
-    private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+@InstallIn(SingletonComponent::class)
+@Module
+class AlarmsRepository @Inject constructor() {
+    @Provides
+    @Singleton
+    fun provideAlarmManager(@ApplicationContext context: Context): AlarmManager =
+        context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    var nextAlarm: Long? =
-        alarmManager.nextAlarmClock?.triggerTime
+    @Provides
+    fun provideNextAlarm(@ApplicationContext context: Context): Long? =
+        provideAlarmManager(context).nextAlarmClock?.triggerTime
 
-    var isAlarmEnabled: Boolean = nextAlarm != null
+    @Provides
+    fun provideIsAlarmEnabled(@ApplicationContext context: Context): Boolean =
+        provideNextAlarm(context) != null
 }
