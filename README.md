@@ -61,14 +61,14 @@ Repositories, in turn, interact with the data layer
 ### 🛬 OnboardingActivity
 <img src="https://user-images.githubusercontent.com/47276603/122640644-e114cb00-d12a-11eb-920b-dc5be6e47b89.png" width="600" hspace="5" vspace ="10">
 
-> <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - async operations
+> <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - async operations </br>
 > <img src="https://user-images.githubusercontent.com/47276603/122640649-e3772500-d12a-11eb-98ae-43fc95d000ba.png" width="30" hspace="5"> - sync operations
 
 ### 📱 LauncherActivity
 
 <img src="https://user-images.githubusercontent.com/47276603/122640641-df4b0780-d12a-11eb-98f7-4bf7137795f7.png" width="600" hspace="5" vspace ="10">
 
-> <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - async operations
+> <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - async operations </br>
 > <img src="https://user-images.githubusercontent.com/47276603/122640649-e3772500-d12a-11eb-98ae-43fc95d000ba.png" width="30" hspace="5"> - sync operations
 ## More project screenshots
 <img src="https://user-images.githubusercontent.com/47276603/119395044-2fd26f00-bcfd-11eb-86a5-1b051b98ca3d.jpg" width="200" hspace="5" vspace ="10">
