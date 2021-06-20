@@ -59,7 +59,7 @@ Repositories, in turn, interact with the data services and broadcast receivers l
 
 > In fact, everything works through the `AndroidViewModel`, but this method differs only in that it can receive the `Application` inside itself. This is used when a `Context` is needed.
 ### 🛬 OnboardingActivity
-<img src="https://user-images.githubusercontent.com/47276603/122662548-fdae1300-d1bd-11eb-8af4-4b415bd6b9cf.png" width="600" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/122662600-6dbc9900-d1be-11eb-8063-7fb7b08e646c.png" width="600" hspace="5" vspace ="10">
 
 > <img src="https://user-images.githubusercontent.com/47276603/122640649-e3772500-d12a-11eb-98ae-43fc95d000ba.png" width="30" hspace="5"> - request </br>
 > <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - response
