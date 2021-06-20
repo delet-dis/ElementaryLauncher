@@ -1,6 +1,6 @@
 # Elementary launcher
 
-<img src="https://user-images.githubusercontent.com/47276603/119395950-6ceb3100-bcfe-11eb-81fd-e3c3946f19b4.png" height = "220" align="right" hspace="50">
+<img src="https://user-images.githubusercontent.com/47276603/122662091-93e03a00-d1ba-11eb-8c78-e4f07a589677.png" height = "220" align="right" hspace="50">
 
 
 [![Android CI](https://github.com/delet-dis/ElementaryLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/delet-dis/ElementaryLauncher/actions/workflows/android.yml)
@@ -55,21 +55,21 @@ The architecture of interaction between presentation and lower layers in both ac
 
 All interaction occurs through the `ViewModel` of each `Activity` / `Fragment`, which then receives data from the repositories and notifies the view of the change.
 
-Repositories, in turn, interact with the data layer
+Repositories, in turn, interact with the data services and broadcast receivers layer
 
 > In fact, everything works through the `AndroidViewModel`, but this method differs only in that it can receive the `Application` inside itself. This is used when a `Context` is needed.
 ### 🛬 OnboardingActivity
 <img src="https://user-images.githubusercontent.com/47276603/122640644-e114cb00-d12a-11eb-920b-dc5be6e47b89.png" width="600" hspace="5" vspace ="10">
 
-> <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - async operations </br>
-> <img src="https://user-images.githubusercontent.com/47276603/122640649-e3772500-d12a-11eb-98ae-43fc95d000ba.png" width="30" hspace="5"> - sync operations
+> <img src="https://user-images.githubusercontent.com/47276603/122640649-e3772500-d12a-11eb-98ae-43fc95d000ba.png" width="30" hspace="5"> - request </br>
+> <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - response
 
 ### 📱 LauncherActivity
 
 <img src="https://user-images.githubusercontent.com/47276603/122640641-df4b0780-d12a-11eb-98f7-4bf7137795f7.png" width="600" hspace="5" vspace ="10">
 
-> <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - async operations </br>
-> <img src="https://user-images.githubusercontent.com/47276603/122640649-e3772500-d12a-11eb-98ae-43fc95d000ba.png" width="30" hspace="5"> - sync operations
+> <img src="https://user-images.githubusercontent.com/47276603/122640649-e3772500-d12a-11eb-98ae-43fc95d000ba.png" width="30" hspace="5"> - request </br>
+> <img src="https://user-images.githubusercontent.com/47276603/122640648-e2de8e80-d12a-11eb-869c-e20de1a1f773.png" width="30" hspace="5"> - response
 ## More project screenshots
 <img src="https://user-images.githubusercontent.com/47276603/119395044-2fd26f00-bcfd-11eb-86a5-1b051b98ca3d.jpg" width="200" hspace="5" vspace ="10">
 <img src="https://user-images.githubusercontent.com/47276603/119395047-306b0580-bcfd-11eb-881c-b3181a286f61.jpg" width="200" hspace="5" align="left" vspace ="10">
