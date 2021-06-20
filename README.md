@@ -22,16 +22,16 @@ This project takes advantage of best practices, many popular libraries and tools
 
 * Tech-stack
     * [100% Kotlin](https://kotlinlang.org/) + [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - perform background operations
-    * [Flow](https://developer.android.com/kotlin/flow) - receive live updates from a database
+    * [Flow](https://developer.android.com/kotlin/flow) - background-receiving data from database
     * [Jetpack](https://developer.android.com/jetpack)
-        * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) - in-app navigation
-        * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - notify views about database change
-        * [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - perform an action when lifecycle state changes
+        * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) - navigation inside Activity
+        * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - notify observers about database changes
+        * [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - event handling based on lifecycle
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
         * [Room](https://developer.android.com/jetpack/androidx/releases/room) - store shortcuts data
         * [Android KTX](https://developer.android.com/kotlin/ktx) -  set of Kotlin extensions
         * [Palette](https://developer.android.com/training/material/palette-colors) -  colors selecting
-        * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  implementation of most screens of the application
+        * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  using multiple screens inside activity
         * [ViewBinding](https://developer.android.com/topic/libraries/view-binding) -  getting links to interface elements
 * Modern Architecture
     * Clean Architecture
