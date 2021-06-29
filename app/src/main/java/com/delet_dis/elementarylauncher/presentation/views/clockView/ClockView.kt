@@ -40,7 +40,7 @@ class ClockView @JvmOverloads constructor(
         initAlarmTimeObserver()
     }
 
-    private fun initCardViewOnClicksCallbacks() {
+    private fun initCardViewOnClicksCallbacks() =
         with(binding.cardView) {
             setOnClickListener {
                 parentFragmentCallback.callToHideHomescreenBottomSheet()
@@ -50,21 +50,18 @@ class ClockView @JvmOverloads constructor(
                 true
             }
         }
-    }
-
-    private fun initDateObserver() {
+    
+    private fun initDateObserver() =
         clockViewViewModel.dateLiveData.observe(context as LifecycleOwner, { dateStamp ->
             binding.dateStamp.text = dateStamp
         })
-    }
 
-    private fun initTimeObserver() {
+    private fun initTimeObserver() =
         clockViewViewModel.timeLiveData.observe(context as LifecycleOwner, { timeStamp ->
             binding.timeStamp.text = timeStamp
         })
-    }
 
-    private fun initIsAlarmEnabledObserver() {
+    private fun initIsAlarmEnabledObserver() =
         clockViewViewModel.isAlarmEnabled.observe(context as LifecycleOwner, { isAlarmEnabled ->
             binding.alarmImage.visibility = if (isAlarmEnabled) {
                 View.VISIBLE
@@ -78,13 +75,11 @@ class ClockView @JvmOverloads constructor(
                 View.GONE
             }
         })
-    }
 
-    private fun initAlarmTimeObserver() {
+    private fun initAlarmTimeObserver() =
         clockViewViewModel.nextAlarmTriggerTime.observe(context as LifecycleOwner, { alarmStamp ->
             binding.alarmStamp.text = alarmStamp
         })
-    }
 
     interface ParentFragmentCallback {
         fun callHomescreenBottomSheet()

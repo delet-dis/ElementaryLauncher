@@ -42,7 +42,7 @@ class OnboardingActivityViewModel @Inject constructor(
     val settingsActionsLiveData: LiveData<Array<SettingsActionType>>
         get() = _settingsActionsLiveData
 
-    fun loadApplicationsPackages() {
+    fun loadApplicationsPackages() =
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             _applicationsPackagesLiveData.postValue(
@@ -50,9 +50,8 @@ class OnboardingActivityViewModel @Inject constructor(
             )
             _isLoading.postValue(false)
         }
-    }
 
-    fun insertApp(packageName: String, position: Int) {
+    fun insertApp(packageName: String, position: Int) =
         viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.insertWithOverride(
                 App(packageName, position),
@@ -61,9 +60,8 @@ class OnboardingActivityViewModel @Inject constructor(
 
             _isBottomSheetHidden.postValue(true)
         }
-    }
 
-    fun insertWidget(widgetId: Int, position: Int) {
+    fun insertWidget(widgetId: Int, position: Int) =
         viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.insertWithOverride(
                 Widget(widgetId, position),
@@ -72,9 +70,8 @@ class OnboardingActivityViewModel @Inject constructor(
 
             _isBottomSheetHidden.postValue(true)
         }
-    }
 
-    fun loadSettingsActionsPackages() {
+    fun loadSettingsActionsPackages() =
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             _settingsActionsLiveData.postValue(
@@ -82,9 +79,8 @@ class OnboardingActivityViewModel @Inject constructor(
             )
             _isLoading.postValue(false)
         }
-    }
 
-    fun insertSettingsAction(action: String, position: Int) {
+    fun insertSettingsAction(action: String, position: Int) =
         viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.insertWithOverride(
                 SettingsAction(action, position),
@@ -93,9 +89,8 @@ class OnboardingActivityViewModel @Inject constructor(
 
             _isBottomSheetHidden.postValue(true)
         }
-    }
 
-    fun insertContact(actionType: ContactActionType, uri: String, position: Int) {
+    fun insertContact(actionType: ContactActionType, uri: String, position: Int) =
         when (actionType) {
             ContactActionType.CARD -> {
                 viewModelScope.launch(Dispatchers.IO) {
@@ -128,21 +123,19 @@ class OnboardingActivityViewModel @Inject constructor(
                 }
             }
         }
-    }
 
-    fun deleteAtPosition(position: Int) {
+    fun deleteAtPosition(position: Int) =
         viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.deleteAtPosition(position)
 
             _isBottomSheetHidden.postValue(true)
         }
-    }
 
     fun checkForPermission(
         permissionToCheck: String,
         onSuccessFunction: () -> Unit,
         onFailureFunction: () -> Unit
-    ) {
+    ) =
         if (ContextCompat.checkSelfPermission(
                 getApplication(),
                 permissionToCheck
@@ -152,5 +145,4 @@ class OnboardingActivityViewModel @Inject constructor(
         } else {
             onFailureFunction()
         }
-    }
 }

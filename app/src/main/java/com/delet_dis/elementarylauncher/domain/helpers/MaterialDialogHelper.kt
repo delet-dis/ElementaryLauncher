@@ -9,7 +9,7 @@ fun buildPermissionAlertDialog(
     activity: Activity,
     messageResId: Int,
     positiveButtonFunction: () -> Unit
-) {
+): Unit =
     with(activity) {
         MaterialAlertDialogBuilder(
             this,
@@ -36,4 +36,3 @@ fun buildPermissionAlertDialog(
             { dialog: DialogInterface, _: Int -> dialog.dismiss() }
             .show()
     }
-}

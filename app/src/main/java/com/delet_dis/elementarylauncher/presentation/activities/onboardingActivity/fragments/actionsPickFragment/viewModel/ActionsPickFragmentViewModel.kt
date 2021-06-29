@@ -35,7 +35,7 @@ class ActionsPickFragmentViewModel @Inject constructor(
         loadDatabaseRecordingsAsEntitiesParent()
     }
 
-    private fun loadDatabaseRecordingsAsCards() {
+    private fun loadDatabaseRecordingsAsCards() =
         viewModelScope.launch(Dispatchers.IO) {
 
             if (SharedPreferencesRepository(getApplication()).getLayoutType() == LayoutType.TWO_BY_TWO) {
@@ -47,9 +47,8 @@ class ActionsPickFragmentViewModel @Inject constructor(
                 _databaseRecordingsLiveData.postValue(list)
             }
         }
-    }
 
-    private fun loadDatabaseRecordingsAsEntitiesParent() {
+    private fun loadDatabaseRecordingsAsEntitiesParent() =
         viewModelScope.launch {
             databaseRepository.getAllDatabaseRecordingsAsEntitiesParentListFlow()
                 .collect { list ->
@@ -60,5 +59,4 @@ class ActionsPickFragmentViewModel @Inject constructor(
                     }
                 }
         }
-    }
 }

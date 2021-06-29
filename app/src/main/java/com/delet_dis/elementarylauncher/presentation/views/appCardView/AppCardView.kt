@@ -54,7 +54,7 @@ class AppCardView @JvmOverloads constructor(
         applySize(SharedPreferencesRepository(context).getSizeType())
     }
 
-    private fun applyCard(card: Card) {
+    private fun applyCard(card: Card) =
         with(binding) {
             cardView.visibility = View.VISIBLE
 
@@ -86,7 +86,6 @@ class AppCardView @JvmOverloads constructor(
                 }
             }
         }
-    }
 
     private fun setCardBackgroundColorBasedOnDrawable(
         drawable: Drawable

@@ -86,25 +86,23 @@ private fun mapEntityToSettingsAction(
     cardToReturn: Card,
     inputDataClass: SettingsAction,
     context: Context
-) {
-    with(cardToReturn) {
-        with(inputDataClass.actionName?.let { actionName -> findSettingsAction(actionName) }) {
-            name = this?.stringId?.let { stringId -> context.getString(stringId) }
+) = with(cardToReturn) {
+    with(inputDataClass.actionName?.let { actionName -> findSettingsAction(actionName) }) {
+        name = this?.stringId?.let { stringId -> context.getString(stringId) }
 
-            icon = this?.imageId?.let { imageId ->
-                ContextCompat.getDrawable(context, imageId)?.toBitmap()
-                    ?.addPadding(50, 50, 50, 50, Color.WHITE)
-                    ?.toDrawable(context.resources)
-            }
+        icon = this?.imageId?.let { imageId ->
+            ContextCompat.getDrawable(context, imageId)?.toBitmap()
+                ?.addPadding(50, 50, 50, 50, Color.WHITE)
+                ?.toDrawable(context.resources)
+        }
 
-            position = inputDataClass.position
+        position = inputDataClass.position
 
-            onClickAction = {
-                context.startActivity(
-                    Intent(inputDataClass.actionName)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-            }
+        onClickAction = {
+            context.startActivity(
+                Intent(inputDataClass.actionName)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
         }
     }
 }

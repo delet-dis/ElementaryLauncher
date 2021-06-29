@@ -50,7 +50,9 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
                 }
             } else {
                 backButton.setOnClickListener {
-                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                    requireActivity().findNavController(
+                        R.id.navigationOnboardingControllerContainerView
+                    )
                         .popBackStack()
                 }
             }

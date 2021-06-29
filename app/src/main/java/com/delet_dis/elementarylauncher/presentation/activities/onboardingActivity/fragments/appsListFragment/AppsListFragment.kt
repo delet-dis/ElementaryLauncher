@@ -40,33 +40,34 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
-            initBackButtonOnClickListener()
+        initBackButtonOnClickListener()
 
-            initItemPickRecycler()
+        initItemPickRecycler()
 
-            initIsLoadingObserver()
+        initIsLoadingObserver()
 
-            with(appListFragmentViewModel) {
-                loadApplicationsPackages()
-                applicationsPackagesLiveData
-                    .observe(viewLifecycleOwner, { mutableList ->
+        with(appListFragmentViewModel) {
+            loadApplicationsPackages()
+            applicationsPackagesLiveData
+                .observe(viewLifecycleOwner, { mutableList ->
 
-                        itemPickRecycler.adapter =
-                            AppsPickingAdapter(mutableList as MutableList<ApplicationInfo>) { applicationInfo ->
-                                with(requireActivity()) {
-                                    startActivity(
-                                        Intent(
-                                            requireContext().packageManager.getLaunchIntentForPackage(
-                                                applicationInfo.packageName
-                                            )
+                    binding.itemPickRecycler.adapter =
+                        AppsPickingAdapter(
+                            mutableList as MutableList<ApplicationInfo>
+                        ) { applicationInfo ->
+
+                            with(requireActivity()) {
+                                startActivity(
+                                    Intent(
+                                        requireContext().packageManager.getLaunchIntentForPackage(
+                                            applicationInfo.packageName
                                         )
                                     )
-                                    finish()
-                                }
+                                )
+                                finish()
                             }
-                    })
-            }
+                        }
+                })
         }
     }
 
@@ -100,7 +101,6 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
                 false
             )
         }
-
 
     private fun initBackButtonOnClickListener() =
         with(binding) {

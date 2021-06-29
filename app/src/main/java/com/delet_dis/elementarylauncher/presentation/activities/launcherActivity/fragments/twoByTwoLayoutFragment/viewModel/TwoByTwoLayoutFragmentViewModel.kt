@@ -28,12 +28,11 @@ class TwoByTwoLayoutFragmentViewModel @Inject constructor(
         loadDatabaseRecordingsAsCards()
     }
 
-    private fun loadDatabaseRecordingsAsCards() {
+    private fun loadDatabaseRecordingsAsCards() =
         viewModelScope.launch(Dispatchers.IO) {
             repository.getNonEmptyDatabaseRecordingsAsCards(getApplication())
                 .collect { arrayOfCards ->
                     _databaseRecordingsLiveData.postValue(arrayOfCards)
                 }
         }
-    }
 }

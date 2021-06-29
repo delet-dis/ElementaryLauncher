@@ -20,7 +20,7 @@ class AppsListFragmentViewModel(application: Application) : AndroidViewModel(app
     val applicationsPackagesLiveData: LiveData<List<ApplicationInfo>>
         get() = _applicationsPackagesLiveData
 
-    fun loadApplicationsPackages() {
+    fun loadApplicationsPackages() =
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             _applicationsPackagesLiveData.postValue(
@@ -28,5 +28,4 @@ class AppsListFragmentViewModel(application: Application) : AndroidViewModel(app
             )
             _isLoading.postValue(false)
         }
-    }
 }
