@@ -48,7 +48,7 @@ class ClockView @JvmOverloads constructor(
                 true
             }
         }
-    
+
     private fun initDateObserver() =
         clockViewViewModel.dateLiveData.observe(context as LifecycleOwner, { dateStamp ->
             binding.dateStamp.text = dateStamp

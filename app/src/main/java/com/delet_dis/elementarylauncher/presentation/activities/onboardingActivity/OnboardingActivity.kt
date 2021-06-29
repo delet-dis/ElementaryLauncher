@@ -254,7 +254,7 @@ class OnboardingActivity : AppCompatActivity(),
             binding.progressIndicator,
             "progress",
             progress
-        ).setDuration(460).start()
+        ).setDuration(OnboardingActivityConstantsRepository.progressbarAnimationDuration).start()
 
     override fun onBackPressed() =
         if (!isOnboardingPassed(applicationContext)) {
@@ -417,4 +417,5 @@ class OnboardingActivity : AppCompatActivity(),
 
 private object OnboardingActivityConstantsRepository {
     const val widgetHostId = 100
+    const val progressbarAnimationDuration:Long = 460
 }
