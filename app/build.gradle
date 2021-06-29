@@ -53,14 +53,14 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     testImplementation 'junit:junit:4.+'
-    implementation "androidx.fragment:fragment-ktx:1.3.4"
+    implementation "androidx.fragment:fragment-ktx:1.3.5"
 
     def nav_version = "2.3.5"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
-    implementation "androidx.navigation:navigation-compose:2.4.0-alpha02"
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha03"
 
     implementation 'androidx.palette:palette-ktx:1.0.0'
 
