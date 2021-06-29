@@ -32,10 +32,6 @@ class AppCardView @JvmOverloads constructor(
 
     private val binding: CardItemBigBinding
 
-    private val defaultIconSize = 55
-
-    private val scaleCorrectionCoefficient = 1.5f
-
     var size: SizeType = SizeType.MEDIUM
         set(value) {
             applySize(value)
@@ -133,7 +129,6 @@ class AppCardView @JvmOverloads constructor(
     }
 
     private fun animateGuidelines(sizeType: SizeType) = with(binding) {
-        val animationsDuration:Long = 300
 
         val valueAnimatorForFirstGuideline = ValueAnimator.ofFloat(
             (firstGuideline.layoutParams as LayoutParams).guidePercent,
@@ -141,7 +136,7 @@ class AppCardView @JvmOverloads constructor(
         )
 
         with(valueAnimatorForFirstGuideline) {
-            duration = animationsDuration
+            duration = AppCardViewConstantsRepository.guidelineAnimationDuration
 
             interpolator = AccelerateDecelerateInterpolator()
 
@@ -163,7 +158,7 @@ class AppCardView @JvmOverloads constructor(
         )
 
         with(valueAnimatorForSecondGuideline) {
-            duration = animationsDuration
+            duration = AppCardViewConstantsRepository.guidelineAnimationDuration
 
             interpolator = AccelerateDecelerateInterpolator()
 
@@ -184,11 +179,12 @@ class AppCardView @JvmOverloads constructor(
         val valueAnimator =
             ValueAnimator.ofFloat(
                 cardText.textSize,
-                defaultIconSize * scale / scaleCorrectionCoefficient
+                AppCardViewConstantsRepository.defaultIconSize * scale /
+                        AppCardViewConstantsRepository.scaleCorrectionCoefficient
             )
 
         with(valueAnimator) {
-            duration = 200
+            duration = AppCardViewConstantsRepository.textAnimationDuration
 
             this.addUpdateListener {
                 cardText.setTextSize(TypedValue.COMPLEX_UNIT_PX, animatedValue as Float)
@@ -196,5 +192,12 @@ class AppCardView @JvmOverloads constructor(
 
             start()
         }
+    }
+
+    private object AppCardViewConstantsRepository {
+        const val guidelineAnimationDuration: Long = 300
+        const val textAnimationDuration: Long = 200
+        const val defaultIconSize = 55
+        const val scaleCorrectionCoefficient = 1.5f
     }
 }

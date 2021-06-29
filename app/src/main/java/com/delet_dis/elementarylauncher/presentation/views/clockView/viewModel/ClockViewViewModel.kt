@@ -82,5 +82,4 @@ class ClockViewViewModel @Inject constructor(
             AlarmChangedBroadcastReceiver.intentFilter
         )
     }
-
 }
