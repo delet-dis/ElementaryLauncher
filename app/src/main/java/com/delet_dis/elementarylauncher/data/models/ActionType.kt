@@ -10,5 +10,4 @@ enum class ActionType(val stringId: Int, val imageId: Int) {
     WIDGET(R.string.actionPickingWidgetText, R.drawable.ic_app_widget),
     SETTINGS_ACTION(R.string.actionPickingSettingsActionText, R.drawable.ic_settings),
     CLEAR(R.string.actionPickingClearText, R.drawable.ic_clear)
-    //    SHORTCUT(R.string.actionPickingAppShortcutText, R.drawable.ic_app_shortcut, 1),
 }

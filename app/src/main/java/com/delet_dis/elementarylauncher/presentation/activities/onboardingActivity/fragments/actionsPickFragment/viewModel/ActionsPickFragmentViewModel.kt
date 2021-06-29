@@ -29,7 +29,7 @@ class ActionsPickFragmentViewModel(application: Application) : AndroidViewModel(
         loadDatabaseRecordingsAsEntitiesParent()
     }
 
-    private fun loadDatabaseRecordingsAsCards() {
+    private fun loadDatabaseRecordingsAsCards() =
         viewModelScope.launch(Dispatchers.IO) {
 
             if (SharedPreferencesRepository(getApplication()).getLayoutType() == LayoutType.TWO_BY_TWO) {
@@ -41,9 +41,8 @@ class ActionsPickFragmentViewModel(application: Application) : AndroidViewModel(
                 _databaseRecordingsLiveData.postValue(list)
             }
         }
-    }
 
-    private fun loadDatabaseRecordingsAsEntitiesParent() {
+    private fun loadDatabaseRecordingsAsEntitiesParent() =
         viewModelScope.launch {
             DatabaseRepository(getApplication()).getAllDatabaseRecordingsAsEntitiesParentListFlow()
                 .collect { list ->
@@ -54,5 +53,4 @@ class ActionsPickFragmentViewModel(application: Application) : AndroidViewModel(
                     }
                 }
         }
-    }
 }

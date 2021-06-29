@@ -10,7 +10,7 @@ import com.codertainment.materialintro.shape.ShapeType
 import com.codertainment.materialintro.utils.materialIntro
 import com.delet_dis.elementarylauncher.R
 
-fun createIntro(fragment: Fragment, activity: Activity, viewToShape: View) {
+fun createIntro(fragment: Fragment, activity: Activity, viewToShape: View) =
     fragment.materialIntro {
         maskColor = activity.getColor(R.color.white_half_transparent)
         delayMillis = 300
@@ -45,4 +45,3 @@ fun createIntro(fragment: Fragment, activity: Activity, viewToShape: View) {
 
         shapeType = ShapeType.RECTANGLE
     }?.show(activity)
-}

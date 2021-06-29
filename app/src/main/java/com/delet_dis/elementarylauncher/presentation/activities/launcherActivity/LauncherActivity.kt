@@ -58,7 +58,7 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         inflateHomescreenLayout()
     }
 
-    private fun inflateHomescreenLayout() {
+    private fun inflateHomescreenLayout() =
         when (SharedPreferencesRepository(applicationContext).getLayoutType()) {
             LayoutType.TWO_BY_THREE -> {
                 replaceFragment(TwoByThreeLayoutFragment())
@@ -68,16 +68,14 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
                 replaceFragment(TwoByTwoLayoutFragment())
             }
         }
-    }
 
-    private fun recalculateWindowInsets() {
+    private fun recalculateWindowInsets() =
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val systemGestureInsets = insets.systemGestureInsets
             WindowInsetsCompat.Builder()
                 .setSystemWindowInsets(insets.systemWindowInsets)
                 .setSystemGestureInsets(systemGestureInsets).build()
         }
-    }
 
     override fun callHomescreenBottomSheet() {
         binding.itemPickRecycler.adapter = OnHomescreenActionsPickingAdapter(
@@ -92,14 +90,13 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
-    private fun callHomescreenAction(action: HomescreenActionType) {
+    private fun callHomescreenAction(action: HomescreenActionType) =
         applicationContext.startActivity(
             Intent(applicationContext, OnboardingActivity::class.java).putExtra(
                 ConstantsRepository.SCREEN_TO_NAVIGATE,
                 action.name
             ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
-    }
 
     private fun replaceFragment(fragmentToReplace: Fragment) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN

@@ -9,83 +9,60 @@ import com.delet_dis.elementarylauncher.domain.extensions.findScale
 
 class SharedPreferencesRepository(private val context: Context) {
 
-    private fun getSharedPreferences(): SharedPreferences {
-        return context.getSharedPreferences(
+    private fun getSharedPreferences(): SharedPreferences =
+        context.getSharedPreferences(
             SharedPreferencesConstantsRepository.appSettings,
             Context.MODE_PRIVATE
         )
-    }
 
-    fun setScale(size: SizeType) {
+    fun setScale(size: SizeType) =
         getSharedPreferences().edit()
             .putDouble(
                 SharedPreferencesConstantsRepository.scaleCoefficient,
                 size.scaleCoefficient.toDouble()
             )
             .apply()
-    }
 
-    fun getSizeType(): SizeType {
-        return findScale(
+    fun getSizeType(): SizeType =
+        findScale(
             getSharedPreferences().getDouble(
                 SharedPreferencesConstantsRepository.scaleCoefficient,
                 SizeType.MEDIUM.scaleCoefficient.toDouble()
             ).toFloat()
         )
-    }
 
-    fun setLayoutType(layoutType: LayoutType) {
+    fun setLayoutType(layoutType: LayoutType) =
         setNumberOfRows(layoutType.numberOfRows)
-    }
 
-    fun getLayoutType(): LayoutType {
-        return findLayoutType(getNumberOfRows())
-    }
+    fun getLayoutType(): LayoutType =
+        findLayoutType(getNumberOfRows())
 
-    fun setOnboardingPassed() {
+    fun setOnboardingPassed() =
         getSharedPreferences().edit()
             .putBoolean(SharedPreferencesConstantsRepository.onboardingStatus, true).apply()
-    }
 
-    fun setActionsPicked() {
+    fun setActionsPicked() =
         getSharedPreferences().edit()
             .putBoolean(SharedPreferencesConstantsRepository.actionsPicked, true).apply()
-    }
 
-    fun isActionsPicked(): Boolean {
-        return getSharedPreferences().getBoolean(
+    fun isActionsPicked(): Boolean =
+        getSharedPreferences().getBoolean(
             SharedPreferencesConstantsRepository.actionsPicked,
             false
         )
-    }
 
-    fun isOnboardingPassed(): Boolean {
-        return getSharedPreferences().getBoolean(
+    fun isOnboardingPassed(): Boolean =
+        getSharedPreferences().getBoolean(
             SharedPreferencesConstantsRepository.onboardingStatus,
             false
         )
-    }
 
-    fun isSettingsShowcaseShown(): Boolean {
-        return getSharedPreferences().getBoolean(
-            SharedPreferencesConstantsRepository.settingsShowcaseStatus,
-            false
-        )
-    }
-
-    fun setSettingsShowcaseShown() {
-        getSharedPreferences().edit()
-            .putBoolean(SharedPreferencesConstantsRepository.settingsShowcaseStatus, true).apply()
-    }
-
-    private fun setNumberOfRows(girdId: Int) {
+    private fun setNumberOfRows(girdId: Int) =
         getSharedPreferences().edit()
             .putInt(SharedPreferencesConstantsRepository.numberOfRows, girdId).apply()
-    }
 
-    private fun getNumberOfRows(): Int {
-        return getSharedPreferences().getInt(SharedPreferencesConstantsRepository.numberOfRows, 0)
-    }
+    private fun getNumberOfRows(): Int =
+        getSharedPreferences().getInt(SharedPreferencesConstantsRepository.numberOfRows, 0)
 
     private fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
         putLong(key, java.lang.Double.doubleToRawLongBits(double))
@@ -99,7 +76,6 @@ class SharedPreferencesRepository(private val context: Context) {
         )
 
     private object SharedPreferencesConstantsRepository {
-        const val settingsShowcaseStatus = "SETTINGS_SHOWCASE_STATUS"
         const val appSettings = "APP_SETTINGS"
         const val scaleCoefficient = "SCALE_COEFFICIENT"
         const val numberOfRows = "NUMBER_OF_ROWS"

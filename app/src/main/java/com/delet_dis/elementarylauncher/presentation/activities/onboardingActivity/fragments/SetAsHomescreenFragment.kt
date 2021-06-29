@@ -71,7 +71,7 @@ class SetAsHomescreenFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    private fun makeGoToSettingsButtonAsNextButton() {
+    private fun makeGoToSettingsButtonAsNextButton() =
         with(binding.goToSettingsButton) {
             text = requireContext().getString(R.string.nextButtonText)
             setOnClickListener {
@@ -79,9 +79,8 @@ class SetAsHomescreenFragment : Fragment(), FragmentParentInterface {
                     .navigate(R.id.action_setAsHomescreenFragment_to_setupDoneFragment)
             }
         }
-    }
 
-    private fun makeGoToSettingsButtonAsGoToSettingsButton() {
+    private fun makeGoToSettingsButtonAsGoToSettingsButton() =
         with(binding.goToSettingsButton) {
             text =
                 requireContext().getString(R.string.goToSettingsSetAsHomescreenHintTextSetupButtonText)
@@ -89,7 +88,6 @@ class SetAsHomescreenFragment : Fragment(), FragmentParentInterface {
                 startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
             }
         }
-    }
 
     private fun setSkipButtonOnClickListener() =
         with(binding) {

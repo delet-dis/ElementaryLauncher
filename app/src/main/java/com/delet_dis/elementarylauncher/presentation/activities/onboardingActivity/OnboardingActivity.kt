@@ -143,7 +143,10 @@ class OnboardingActivity : AppCompatActivity(),
 
         appWidgetManager = AppWidgetManager.getInstance(this)
 
-        appWidgetHost = AppWidgetHost(this, 100)
+        appWidgetHost = AppWidgetHost(
+            this,
+            OnboardingActivityConstantsRepository.widgetHostId
+        )
 
         setContentView(binding.root)
 
@@ -155,20 +158,18 @@ class OnboardingActivity : AppCompatActivity(),
 
         initBottomProgressAnimationValues()
 
-        with(binding) {
-            bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetLayout)
 
-            initItemPickRecycler()
+        initItemPickRecycler()
 
-            setOutOfBottomSheetClickListener()
+        setOutOfBottomSheetClickListener()
 
-            initLoadingObserver()
+        initLoadingObserver()
 
-            initBottomSheetStateObserver()
-        }
+        initBottomSheetStateObserver()
     }
 
-    private fun navigateToIntentExtrasFragment() {
+    private fun navigateToIntentExtrasFragment() =
         with(
             hostFragment?.findNavController()
         ) {
@@ -194,7 +195,6 @@ class OnboardingActivity : AppCompatActivity(),
 
             binding.progressIndicator.visibility = View.INVISIBLE
         }
-    }
 
     private fun checkIfOnboardingPassed() {
         if (SharedPreferencesRepository(applicationContext).isOnboardingPassed()) {
@@ -203,14 +203,13 @@ class OnboardingActivity : AppCompatActivity(),
         }
     }
 
-    private fun initBottomProgressAnimationValues() {
+    private fun initBottomProgressAnimationValues() =
         hostFragment?.findNavController()
             ?.addOnDestinationChangedListener { _, destination, _ ->
                 findPickedFragmentProgress(destination.id)?.let { pickedFragmentProgressType ->
                     animateProgressbarProgressToInt(pickedFragmentProgressType.progress)
                 }
             }
-    }
 
     private fun initItemPickRecycler() =
         with(binding) {
@@ -230,7 +229,7 @@ class OnboardingActivity : AppCompatActivity(),
             }
         }
 
-    private fun initBottomSheetStateObserver() {
+    private fun initBottomSheetStateObserver() =
         onboardingActivityViewModel.isBottomSheetHidden.observe(
             this@OnboardingActivity,
             { isBottomSheetHidden ->
@@ -240,9 +239,8 @@ class OnboardingActivity : AppCompatActivity(),
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 }
             })
-    }
 
-    private fun initLoadingObserver() {
+    private fun initLoadingObserver() =
         onboardingActivityViewModel.isLoading.observe(this@OnboardingActivity, { isLoading ->
             if (isLoading) {
                 showBottomSheetLoading()
@@ -250,17 +248,15 @@ class OnboardingActivity : AppCompatActivity(),
                 hideBottomSheetLoading()
             }
         })
-    }
 
-    private fun animateProgressbarProgressToInt(progress: Int) {
+    private fun animateProgressbarProgressToInt(progress: Int) =
         ObjectAnimator.ofInt(
             binding.progressIndicator,
             "progress",
             progress
         ).setDuration(460).start()
-    }
 
-    override fun onBackPressed() {
+    override fun onBackPressed() =
         if (!isOnboardingPassed(applicationContext)) {
             if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -270,7 +266,6 @@ class OnboardingActivity : AppCompatActivity(),
         } else {
             finish()
         }
-    }
 
     override fun callItemPicking(itemId: Int) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -356,13 +351,11 @@ class OnboardingActivity : AppCompatActivity(),
 
         }
 
-
-    private fun checkForContactPermission(itemPosition: Int) {
+    private fun checkForContactPermission(itemPosition: Int) =
         onboardingActivityViewModel.checkForPermission(
             Manifest.permission.READ_CONTACTS,
             ::pickContact
         ) { (::buildContactActionMaterialDialog)(itemPosition) }
-    }
 
 
     private fun hideBottomSheetLoading() {
@@ -390,12 +383,11 @@ class OnboardingActivity : AppCompatActivity(),
         pickedItemId = itemId
     }
 
-    private fun buildContactActionMaterialDialog(itemId: Int) {
+    private fun buildContactActionMaterialDialog(itemId: Int) =
         buildPermissionAlertDialog(
             this@OnboardingActivity,
             R.string.contactPermissionRequiredMessage
         ) { (::contactActionPickPositiveMaterialDialogButtonFunction)(itemId) }
-    }
 
     private fun callActionPickPositiveMaterialDialogButtonFunction(itemId: Int) {
         requestCallsPermissionLauncher.launch(
@@ -404,12 +396,11 @@ class OnboardingActivity : AppCompatActivity(),
         pickedItemId = itemId
     }
 
-    private fun buildContactCallActionMaterialDialog(itemId: Int) {
+    private fun buildContactCallActionMaterialDialog(itemId: Int) =
         buildPermissionAlertDialog(
             this@OnboardingActivity,
             R.string.phonePermissionRequiredMessage
         ) { (::callActionPickPositiveMaterialDialogButtonFunction)(itemId) }
-    }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -422,4 +413,8 @@ class OnboardingActivity : AppCompatActivity(),
         hostFragment?.findNavController()
             ?.navigate((currentFragment as FragmentParentInterface).getFragmentId())
     }
+}
+
+private object OnboardingActivityConstantsRepository {
+    const val widgetHostId = 100
 }
