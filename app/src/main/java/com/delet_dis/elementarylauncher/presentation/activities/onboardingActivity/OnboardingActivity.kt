@@ -283,80 +283,79 @@ class OnboardingActivity : AppCompatActivity(),
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun callSubItemPicking(actionType: ActionType, itemPosition: Int) {
+    private fun callSubItemPicking(actionType: ActionType, itemPosition: Int) =
         with(onboardingActivityViewModel) {
-            with(binding) {
-                when (actionType) {
-                    ActionType.APP -> {
-                        loadApplicationsPackages()
-                        applicationsPackagesLiveData
-                            .observe(this@OnboardingActivity, { mutableList ->
+            when (actionType) {
+                ActionType.APP -> {
+                    loadApplicationsPackages()
+                    applicationsPackagesLiveData
+                        .observe(this@OnboardingActivity, { mutableList ->
 
-                                itemPickRecycler.adapter =
-                                    AppsPickingAdapter(mutableList as MutableList<ApplicationInfo>)
-                                    { applicationInfo ->
-                                        insertApp(applicationInfo.packageName, itemPosition)
+                            binding.itemPickRecycler.adapter =
+                                AppsPickingAdapter(mutableList as MutableList<ApplicationInfo>)
+                                { applicationInfo ->
+                                    insertApp(applicationInfo.packageName, itemPosition)
+                                }
+                        })
+                }
+
+                ActionType.CONTACT -> {
+                    pickedContactAction = ContactActionType.CARD
+                    pickedItemId = itemPosition
+
+                    checkForContactPermission(itemPosition)
+                }
+
+                ActionType.WIDGET -> {
+                    pickedItemId = itemPosition
+
+                    val pickedWidgetId = appWidgetHost.allocateAppWidgetId()
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+                    widgetsContract.launch(pickedWidgetId)
+                }
+
+                ActionType.CONTACT_CALL -> {
+                    pickedContactAction = ContactActionType.CALL
+                    pickedItemId = itemPosition
+
+                    checkForPermission(
+                        Manifest.permission.CALL_PHONE,
+                        { (::checkForContactPermission)(itemPosition) }
+                    ) { (::buildContactCallActionMaterialDialog)(itemPosition) }
+                }
+
+                ActionType.CONTACT_SMS -> {
+                    pickedContactAction = ContactActionType.SMS
+                    pickedItemId = itemPosition
+
+                    checkForContactPermission(itemPosition)
+                }
+
+                ActionType.SETTINGS_ACTION -> {
+                    loadSettingsActionsPackages()
+                    settingsActionsLiveData
+                        .observe(this@OnboardingActivity, { mutableList ->
+
+                            binding.itemPickRecycler.adapter =
+                                mutableList?.let { arrayOfSettingsActionTypes ->
+                                    SettingsActionPickingAdapter(arrayOfSettingsActionTypes) { settingsActionType ->
+                                        insertSettingsAction(
+                                            settingsActionType.action,
+                                            itemPosition
+                                        )
                                     }
-                            })
-                    }
+                                }
+                        })
+                }
 
-                    ActionType.CONTACT -> {
-                        pickedContactAction = ContactActionType.CARD
-                        pickedItemId = itemPosition
-
-                        checkForContactPermission(itemPosition)
-                    }
-
-                    ActionType.WIDGET -> {
-                        pickedItemId = itemPosition
-
-                        val pickedWidgetId = appWidgetHost.allocateAppWidgetId()
-                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-
-                        widgetsContract.launch(pickedWidgetId)
-                    }
-
-                    ActionType.CONTACT_CALL -> {
-                        pickedContactAction = ContactActionType.CALL
-                        pickedItemId = itemPosition
-
-                        checkForPermission(
-                            Manifest.permission.CALL_PHONE,
-                            { (::checkForContactPermission)(itemPosition) }
-                        ) { (::buildContactCallActionMaterialDialog)(itemPosition) }
-                    }
-
-                    ActionType.CONTACT_SMS -> {
-                        pickedContactAction = ContactActionType.SMS
-                        pickedItemId = itemPosition
-
-                        checkForContactPermission(itemPosition)
-                    }
-
-                    ActionType.SETTINGS_ACTION -> {
-                        loadSettingsActionsPackages()
-                        settingsActionsLiveData
-                            .observe(this@OnboardingActivity, { mutableList ->
-
-                                itemPickRecycler.adapter =
-                                    mutableList?.let { arrayOfSettingsActionTypes ->
-                                        SettingsActionPickingAdapter(arrayOfSettingsActionTypes) { settingsActionType ->
-                                            insertSettingsAction(
-                                                settingsActionType.action,
-                                                itemPosition
-                                            )
-                                        }
-                                    }
-                            })
-                    }
-
-                    ActionType.CLEAR -> {
-                        deleteAtPosition(itemPosition)
-                    }
+                ActionType.CLEAR -> {
+                    deleteAtPosition(itemPosition)
                 }
             }
+
         }
-    }
+
 
     private fun checkForContactPermission(itemPosition: Int) {
         onboardingActivityViewModel.checkForPermission(
