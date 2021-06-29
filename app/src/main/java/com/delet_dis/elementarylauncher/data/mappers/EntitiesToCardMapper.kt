@@ -27,175 +27,223 @@ fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
 
     when (inputDataClass) {
         is App -> {
-            val packageManager = context.packageManager
-
-            val processingApplicationInfo =
-                inputDataClass.packageName?.let { packageName ->
-                    packageManager.getApplicationInfo(packageName, 0)
-                }
-
-            with(cardToReturn) {
-                name = processingApplicationInfo?.loadLabel(packageManager).toString()
-                icon = processingApplicationInfo?.loadIcon(packageManager)
-                position = inputDataClass.position
-
-                onClickAction = {
-                    context.startActivity(inputDataClass.packageName?.let { packageName ->
-                        packageManager.getLaunchIntentForPackage(
-                            packageName
-                        )
-                    })
-                }
-            }
+            mapEntityToApp(context, inputDataClass, cardToReturn)
         }
 
         is Contact -> {
-            val uri: Uri = Uri.parse(inputDataClass.contactURI)
-
-            val fetchedName = getContactName(
-                uri,
-                context
-            )
-
-            with(cardToReturn) {
-                name = fetchedName
-
-                text = fetchedName?.subSequence(0, 2).toString()
-
-                getContactPhoto(uri, context)?.let { bitmap ->
-                    icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
-                }
-
-                position = inputDataClass.position
-
-                onClickAction = {
-                    val contactCardIntent = Intent(Intent.ACTION_VIEW)
-
-                    contactCardIntent.data = Uri.withAppendedPath(
-                        ContactsContract.Contacts.CONTENT_URI,
-                        getContactId(uri, context).toString()
-                    )
-                    contactCardIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-                    context.startActivity(contactCardIntent)
-                }
-            }
+            mapEntityToContact(inputDataClass, context, cardToReturn)
         }
 
         is ContactCall -> {
-            val uri: Uri = Uri.parse(inputDataClass.contactURI)
-
-            val fetchedName = getContactName(
-                uri,
-                context
-            )
-
-            with(cardToReturn) {
-                name = context.getString(R.string.actionCallPrefix) + fetchedName
-
-                text = fetchedName?.subSequence(0, 2).toString()
-
-                getContactPhoto(uri, context)?.let { bitmap ->
-                    icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
-                }
-
-                position = inputDataClass.position
-
-                onClickAction = {
-                    val phoneToCall = getContactPhoneNumber(uri, context)
-
-                    val callIntent = Intent(Intent.ACTION_CALL)
-
-                    callIntent.data = Uri.parse("tel:$phoneToCall")
-                    callIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-                    context.startActivity(callIntent)
-                }
-            }
+            mapEntityToContactCall(inputDataClass, context, cardToReturn)
         }
 
         is ContactSMS -> {
-            val uri: Uri = Uri.parse(inputDataClass.contactURI)
-
-            val fetchedName = getContactName(
-                uri,
-                context
-            )
-
-            with(cardToReturn) {
-                name =
-                    context.getString(R.string.actionSMSPrefix) + fetchedName
-
-                text = fetchedName?.subSequence(0, 2).toString()
-
-                getContactPhoto(uri, context)?.let { bitmap ->
-                    icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
-                }
-
-                position = inputDataClass.position
-
-                onClickAction = {
-                    val phoneToCall = getContactPhoneNumber(uri, context)
-
-                    val callIntent = Intent(Intent.ACTION_VIEW)
-
-                    callIntent.data = Uri.parse("sms:$phoneToCall")
-                    callIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-                    context.startActivity(callIntent)
-                }
-            }
+            mapEntityToContactSMS(inputDataClass, context, cardToReturn)
         }
 
         is SettingsAction -> {
-            with(cardToReturn) {
-                with(inputDataClass.actionName?.let { actionName -> findSettingsAction(actionName) }) {
-                    name = this?.stringId?.let { stringId -> context.getString(stringId) }
-
-                    icon = this?.imageId?.let { imageId ->
-                        ContextCompat.getDrawable(context, imageId)?.toBitmap()
-                            ?.addPadding(50, 50, 50, 50, Color.WHITE)
-                            ?.toDrawable(context.resources)
-                    }
-
-                    position = inputDataClass.position
-
-                    onClickAction = {
-                        context.startActivity(
-                            Intent(inputDataClass.actionName)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        )
-                    }
-                }
-            }
+            mapEntityToSettingsAction(cardToReturn, inputDataClass, context)
         }
 
         is Widget -> {
-            val packageManager = context.packageManager
-
-            val appWidgetProviderInfo =
-                inputDataClass.widgetId?.let { widgetId ->
-                    AppWidgetManager.getInstance(context).getAppWidgetInfo(
-                        widgetId
-                    )
-                }
-
-            appWidgetProviderInfo?.let { providerInfo ->
-                val processingApplicationInfo =
-                    packageManager.getApplicationInfo(providerInfo.provider.packageName, 0)
-
-                with(cardToReturn) {
-                    name = processingApplicationInfo.loadLabel(packageManager).toString()
-                    icon = processingApplicationInfo.loadIcon(packageManager)
-                    position = inputDataClass.position
-                    isWidget = true
-                    widgetId = inputDataClass.widgetId
-                }
-            }
+            mapEntityToWidget(context, inputDataClass, cardToReturn)
         }
     }
 
     return cardToReturn
+}
+
+private fun mapEntityToWidget(
+    context: Context,
+    inputDataClass: Widget,
+    cardToReturn: Card
+) {
+    val packageManager = context.packageManager
+
+    val appWidgetProviderInfo =
+        inputDataClass.widgetId?.let { widgetId ->
+            AppWidgetManager.getInstance(context).getAppWidgetInfo(
+                widgetId
+            )
+        }
+
+    appWidgetProviderInfo?.let { providerInfo ->
+        val processingApplicationInfo =
+            packageManager.getApplicationInfo(providerInfo.provider.packageName, 0)
+
+        with(cardToReturn) {
+            name = processingApplicationInfo.loadLabel(packageManager).toString()
+            icon = processingApplicationInfo.loadIcon(packageManager)
+            position = inputDataClass.position
+            isWidget = true
+            widgetId = inputDataClass.widgetId
+        }
+    }
+}
+
+private fun mapEntityToSettingsAction(
+    cardToReturn: Card,
+    inputDataClass: SettingsAction,
+    context: Context
+) {
+    with(cardToReturn) {
+        with(inputDataClass.actionName?.let { actionName -> findSettingsAction(actionName) }) {
+            name = this?.stringId?.let { stringId -> context.getString(stringId) }
+
+            icon = this?.imageId?.let { imageId ->
+                ContextCompat.getDrawable(context, imageId)?.toBitmap()
+                    ?.addPadding(50, 50, 50, 50, Color.WHITE)
+                    ?.toDrawable(context.resources)
+            }
+
+            position = inputDataClass.position
+
+            onClickAction = {
+                context.startActivity(
+                    Intent(inputDataClass.actionName)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+            }
+        }
+    }
+}
+
+private fun mapEntityToContactSMS(
+    inputDataClass: ContactSMS,
+    context: Context,
+    cardToReturn: Card
+) {
+    val uri: Uri = Uri.parse(inputDataClass.contactURI)
+
+    val fetchedName = getContactName(
+        uri,
+        context
+    )
+
+    with(cardToReturn) {
+        name =
+            context.getString(R.string.actionSMSPrefix) + fetchedName
+
+        text = fetchedName?.subSequence(0, 2).toString()
+
+        getContactPhoto(uri, context)?.let { bitmap ->
+            icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
+        }
+
+        position = inputDataClass.position
+
+        onClickAction = {
+            val phoneToCall = getContactPhoneNumber(uri, context)
+
+            val callIntent = Intent(Intent.ACTION_VIEW)
+
+            callIntent.data = Uri.parse("sms:$phoneToCall")
+            callIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            context.startActivity(callIntent)
+        }
+    }
+}
+
+private fun mapEntityToContactCall(
+    inputDataClass: ContactCall,
+    context: Context,
+    cardToReturn: Card
+) {
+    val uri: Uri = Uri.parse(inputDataClass.contactURI)
+
+    val fetchedName = getContactName(
+        uri,
+        context
+    )
+
+    with(cardToReturn) {
+        name = context.getString(R.string.actionCallPrefix) + fetchedName
+
+        text = fetchedName?.subSequence(0, 2).toString()
+
+        getContactPhoto(uri, context)?.let { bitmap ->
+            icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
+        }
+
+        position = inputDataClass.position
+
+        onClickAction = {
+            val phoneToCall = getContactPhoneNumber(uri, context)
+
+            val callIntent = Intent(Intent.ACTION_CALL)
+
+            callIntent.data = Uri.parse("tel:$phoneToCall")
+            callIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            context.startActivity(callIntent)
+        }
+    }
+}
+
+private fun mapEntityToContact(
+    inputDataClass: Contact,
+    context: Context,
+    cardToReturn: Card
+) {
+    val uri: Uri = Uri.parse(inputDataClass.contactURI)
+
+    val fetchedName = getContactName(
+        uri,
+        context
+    )
+
+    with(cardToReturn) {
+        name = fetchedName
+
+        text = fetchedName?.subSequence(0, 2).toString()
+
+        getContactPhoto(uri, context)?.let { bitmap ->
+            icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
+        }
+
+        position = inputDataClass.position
+
+        onClickAction = {
+            val contactCardIntent = Intent(Intent.ACTION_VIEW)
+
+            contactCardIntent.data = Uri.withAppendedPath(
+                ContactsContract.Contacts.CONTENT_URI,
+                getContactId(uri, context).toString()
+            )
+            contactCardIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            context.startActivity(contactCardIntent)
+        }
+    }
+}
+
+private fun mapEntityToApp(
+    context: Context,
+    inputDataClass: App,
+    cardToReturn: Card
+) {
+    val packageManager = context.packageManager
+
+    val processingApplicationInfo =
+        inputDataClass.packageName?.let { packageName ->
+            packageManager.getApplicationInfo(packageName, 0)
+        }
+
+    with(cardToReturn) {
+        name = processingApplicationInfo?.loadLabel(packageManager).toString()
+        icon = processingApplicationInfo?.loadIcon(packageManager)
+        position = inputDataClass.position
+
+        onClickAction = {
+            context.startActivity(inputDataClass.packageName?.let { packageName ->
+                packageManager.getLaunchIntentForPackage(
+                    packageName
+                )
+            })
+        }
+    }
 }
 
 private fun getContactName(contactUri: Uri, context: Context): String? {
