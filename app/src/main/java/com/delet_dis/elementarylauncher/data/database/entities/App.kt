@@ -2,8 +2,8 @@ package com.delet_dis.elementarylauncher.data.database.entities
 
 import android.graphics.drawable.Drawable
 import androidx.room.*
-import com.delet_dis.elementarylauncher.data.models.ActionType
 import com.delet_dis.elementarylauncher.data.database.EntitiesParent
+import com.delet_dis.elementarylauncher.data.models.ActionType
 
 @Entity(indices = [Index(value = ["position"], unique = true)])
 data class App(

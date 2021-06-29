@@ -72,5 +72,4 @@ class ClockViewViewModel(application: Application) : AndroidViewModel(applicatio
             AlarmChangedBroadcastReceiver.intentFilter
         )
     }
-
 }
