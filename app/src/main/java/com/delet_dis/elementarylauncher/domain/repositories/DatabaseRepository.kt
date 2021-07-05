@@ -42,40 +42,43 @@ class DatabaseRepository @Inject constructor(
 
     fun getAllDatabaseRecordingsAsEntitiesParentListFlow(): Flow<List<EntitiesParent>> =
         combine(
-            getAppDao(context).getAllAppsAsFlow(),
-            getContactDao(context).getAllContactsAsFlow(),
-            getContactCallDao(context).getAllContactCallsAsFlow(),
-            getContactSMSDao(context).getAllContactSMSAsFlow(),
-            getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
-            getWidgetDao(context).getAllWidgetsAsFlow()
-        ) {
-            it
+            appDAO.getAllAppsAsFlow(),
+            contactDAO.getAllContactsAsFlow(),
+            contactCallDAO.getAllContactCallsAsFlow(),
+            contactSMSDAO.getAllContactSMSAsFlow(),
+            settingsActionDAO.getAllSettingsActionsAsFlow(),
+            widgetDAO.getAllWidgetsAsFlow()
+        ) { results ->
+
+            results
                 .toList()
                 .flatten()
                 .toMutableList()
         }
 
-    fun getAllDatabaseRecordingsAsCards(): Flow<List<Card>> = combine(
-        getAppDao(context).getAllAppsAsFlow(),
-        getContactDao(context).getAllContactsAsFlow(),
-        getContactCallDao(context).getAllContactCallsAsFlow(),
-        getContactSMSDao(context).getAllContactSMSAsFlow(),
-        getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
-        getWidgetDao(context).getAllWidgetsAsFlow()
-    ) { results ->
+    fun getAllDatabaseRecordingsAsCards(@ApplicationContext context: Context): Flow<List<Card>> =
+        combine(
+            appDAO.getAllAppsAsFlow(),
+            contactDAO.getAllContactsAsFlow(),
+            contactCallDAO.getAllContactCallsAsFlow(),
+            contactSMSDAO.getAllContactSMSAsFlow(),
+            settingsActionDAO.getAllSettingsActionsAsFlow(),
+            widgetDAO.getAllWidgetsAsFlow()
+        ) { results ->
 
-        val processingList = results
-            .toList()
-            .flatten()
-            .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
-            .toMutableList()
+            val processingList = results
+                .toList()
+                .flatten()
+                .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
+                .toMutableList()
 
 
-        for (i in 1..SharedPreferencesRepository(context).getLayoutType().numberOfRows * 2) {
-            run loop@{
-                processingList.forEach { card ->
-                    if (card.position == i) {
-                        return@loop
+            for (i in 1..SharedPreferencesRepository(context).getLayoutType().numberOfRows * 2) {
+                run loop@{
+                    processingList.forEach { card ->
+                        if (card.position == i) {
+                            return@loop
+                        }
                     }
 
                     processingList.add(
@@ -112,20 +115,12 @@ class DatabaseRepository @Inject constructor(
             widgetDAO.getAllWidgetsAsFlow()
         ) { results ->
 
-    fun getNonEmptyDatabaseRecordingsAsCards(): Flow<Array<Card?>> = combine(
-        getAppDao(context).getAllAppsAsFlow(),
-        getContactDao(context).getAllContactsAsFlow(),
-        getContactCallDao(context).getAllContactCallsAsFlow(),
-        getContactSMSDao(context).getAllContactSMSAsFlow(),
-        getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
-        getWidgetDao(context).getAllWidgetsAsFlow()
-    ) { results ->
+            val processingList = results
+                .toList()
+                .flatten()
+                .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
+                .toMutableList()
 
-        val processingList = results
-            .toList()
-            .flatten()
-            .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
-            .toMutableList()
 
             val listToReturn = arrayOfNulls<Card>(6)
 
@@ -146,6 +141,7 @@ class DatabaseRepository @Inject constructor(
             }
         }
 
+
         when (entity) {
             is App -> appDAO.insert(entity)
             is Contact -> contactDAO.insert(entity)
@@ -154,12 +150,15 @@ class DatabaseRepository @Inject constructor(
             is SettingsAction -> settingsActionDAO.insert(entity)
             is Widget -> widgetDAO.insert(entity)
         }
+
     }
 
 
     suspend fun deleteAtPosition(position: Int) {
-        getAllDatabaseRecordingsAsEntitiesParentList().forEach {
-            when (it.entityType) {
+        getAllDatabaseRecordingsAsEntitiesParentList().forEach { entitiesParent ->
+
+
+            when (entitiesParent.entityType) {
                 ActionType.APP ->
                     appDAO.removeAppByPosition(position)
 
