@@ -6,6 +6,8 @@ import com.delet_dis.elementarylauncher.data.models.LayoutType
 import com.delet_dis.elementarylauncher.data.models.SizeType
 import com.delet_dis.elementarylauncher.domain.extensions.findLayoutType
 import com.delet_dis.elementarylauncher.domain.extensions.findScale
+import com.delet_dis.elementarylauncher.domain.extensions.getDouble
+import com.delet_dis.elementarylauncher.domain.extensions.putDouble
 
 class SharedPreferencesRepository(private val context: Context) {
 
@@ -63,17 +65,6 @@ class SharedPreferencesRepository(private val context: Context) {
 
     private fun getNumberOfRows(): Int =
         getSharedPreferences().getInt(SharedPreferencesConstantsRepository.numberOfRows, 0)
-
-    private fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
-        putLong(key, java.lang.Double.doubleToRawLongBits(double))
-
-    private fun SharedPreferences.getDouble(key: String, default: Double) =
-        java.lang.Double.longBitsToDouble(
-            getLong(
-                key,
-                java.lang.Double.doubleToRawLongBits(default)
-            )
-        )
 
     private object SharedPreferencesConstantsRepository {
         const val appSettings = "APP_SETTINGS"
