@@ -18,7 +18,6 @@ fun Bitmap.addPadding(
 
     val canvas = Canvas(bitmap)
 
-
     canvas.drawColor(color)
 
     Paint().apply {
@@ -27,9 +26,7 @@ fun Bitmap.addPadding(
             Rect(left,top,bitmap.width - right,bitmap.height - bottom),
             this
         )
-    }
 
-    Paint().apply {
         canvas.drawBitmap(
             this@addPadding,
             0f + left,

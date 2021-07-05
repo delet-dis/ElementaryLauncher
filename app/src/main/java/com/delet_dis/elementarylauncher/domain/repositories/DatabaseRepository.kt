@@ -100,9 +100,8 @@ class DatabaseRepository(val context: Context) {
             getContactSMSDao(context).getAllContactSMSAsFlow(),
             getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
             getWidgetDao(context).getAllWidgetsAsFlow()
-        ) { results ->
-
-            results
+        ) {
+            it
                 .toList()
                 .flatten()
                 .toMutableList()
@@ -115,14 +114,12 @@ class DatabaseRepository(val context: Context) {
         getContactSMSDao(context).getAllContactSMSAsFlow(),
         getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
         getWidgetDao(context).getAllWidgetsAsFlow()
-    ) { results ->
-
-        val processingList = results
+    ) {
+        val processingList = it
             .toList()
             .flatten()
             .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
             .toMutableList()
-
 
         for (i in 1..SharedPreferencesRepository(context).getLayoutType().numberOfRows * 2) {
             run loop@{
@@ -163,9 +160,8 @@ class DatabaseRepository(val context: Context) {
         getContactSMSDao(context).getAllContactSMSAsFlow(),
         getSettingsActionDao(context).getAllSettingsActionsAsFlow(),
         getWidgetDao(context).getAllWidgetsAsFlow()
-    ) { results ->
-
-        val processingList = results
+    ) {
+        val processingList = it
             .toList()
             .flatten()
             .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
@@ -191,7 +187,6 @@ class DatabaseRepository(val context: Context) {
             }
         }
 
-
         when (entity) {
             is App -> getAppDao(context).insert(entity)
             is Contact -> getContactDao(context).insert(entity)
@@ -200,15 +195,12 @@ class DatabaseRepository(val context: Context) {
             is SettingsAction -> getSettingsActionDao(context).insert(entity)
             is Widget -> getWidgetDao(context).insert(entity)
         }
-
     }
 
 
     suspend fun deleteAtPosition(position: Int) {
-        getAllDatabaseRecordingsAsEntitiesParentList().forEach { entitiesParent ->
-
-
-            when (entitiesParent.entityType) {
+        getAllDatabaseRecordingsAsEntitiesParentList().forEach {
+            when (it.entityType) {
                 ActionType.APP ->
                     getAppDao(context).removeAppByPosition(position)
 
