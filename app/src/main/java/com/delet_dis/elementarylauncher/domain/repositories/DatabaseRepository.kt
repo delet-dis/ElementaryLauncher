@@ -48,9 +48,8 @@ class DatabaseRepository @Inject constructor(
             contactSMSDAO.getAllContactSMSAsFlow(),
             settingsActionDAO.getAllSettingsActionsAsFlow(),
             widgetDAO.getAllWidgetsAsFlow()
-        ) { results ->
-
-            results
+        ) {
+            it
                 .toList()
                 .flatten()
                 .toMutableList()
@@ -64,9 +63,8 @@ class DatabaseRepository @Inject constructor(
             contactSMSDAO.getAllContactSMSAsFlow(),
             settingsActionDAO.getAllSettingsActionsAsFlow(),
             widgetDAO.getAllWidgetsAsFlow()
-        ) { results ->
-
-            val processingList = results
+        ) {
+            val processingList = it
                 .toList()
                 .flatten()
                 .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
@@ -113,9 +111,8 @@ class DatabaseRepository @Inject constructor(
             contactSMSDAO.getAllContactSMSAsFlow(),
             settingsActionDAO.getAllSettingsActionsAsFlow(),
             widgetDAO.getAllWidgetsAsFlow()
-        ) { results ->
-
-            val processingList = results
+        ) {
+            val processingList = it
                 .toList()
                 .flatten()
                 .map { entitiesParent -> mapEntityToCard(entitiesParent, context) }
@@ -156,7 +153,6 @@ class DatabaseRepository @Inject constructor(
 
     suspend fun deleteAtPosition(position: Int) {
         getAllDatabaseRecordingsAsEntitiesParentList().forEach { entitiesParent ->
-
 
             when (entitiesParent.entityType) {
                 ActionType.APP ->
