@@ -27,7 +27,7 @@ class ClockView @JvmOverloads constructor(
     private var parentFragmentCallback: ParentFragmentCallback
 
     init {
-        inflate(context.applicationContext, R.layout.clock_view, this).also { view ->
+        inflate(getBasePurifiedContext(), R.layout.clock_view, this).also { view ->
             binding = ClockViewBinding.bind(view)
         }
 
