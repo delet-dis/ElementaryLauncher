@@ -19,6 +19,7 @@ import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment.TwoByTwoLayoutFragment
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.recyclerViewAdapters.OnHomescreenActionsPickingAdapter
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.OnboardingActivity
+import com.delet_dis.elementarylauncher.presentation.views.clockView.ClockView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,8 +28,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Suppress("DEPRECATION")
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class LauncherActivity : AppCompatActivity(), TwoByThreeLayoutFragment.ParentActivityCallback,
-    TwoByTwoLayoutFragment.ParentActivityCallback {
+class LauncherActivity : AppCompatActivity(), ClockView.ParentFragmentCallback {
     private lateinit var binding: ActivityLauncherBinding
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
@@ -79,19 +79,6 @@ class LauncherActivity : AppCompatActivity(), TwoByThreeLayoutFragment.ParentAct
                 .setSystemGestureInsets(systemGestureInsets).build()
         }
 
-    override fun callHomescreenBottomSheetToParentActivity() {
-        binding.itemPickRecycler.adapter = OnHomescreenActionsPickingAdapter(
-            HomescreenActionType.values()
-        ) { homescreenActionType ->
-            callHomescreenAction(homescreenActionType)
-        }
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    override fun callToHideHomescreenBottomSheetToParentActivity() {
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-    }
-
     private fun callHomescreenAction(action: HomescreenActionType) =
         applicationContext.startActivity(
             Intent(applicationContext, OnboardingActivity::class.java).putExtra(
@@ -126,5 +113,18 @@ class LauncherActivity : AppCompatActivity(), TwoByThreeLayoutFragment.ParentAct
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
+    }
+
+    override fun callHomescreenBottomSheet() {
+        binding.itemPickRecycler.adapter = OnHomescreenActionsPickingAdapter(
+            HomescreenActionType.values()
+        ) { homescreenActionType ->
+            callHomescreenAction(homescreenActionType)
+        }
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    override fun callToHideHomescreenBottomSheet() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 }

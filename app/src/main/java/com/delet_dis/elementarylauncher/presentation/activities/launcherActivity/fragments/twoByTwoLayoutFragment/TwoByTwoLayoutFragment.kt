@@ -1,6 +1,5 @@
 package com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,18 +10,15 @@ import com.delet_dis.elementarylauncher.databinding.FragmentTwoByTwoLayoutBindin
 import com.delet_dis.elementarylauncher.domain.helpers.createIntro
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByThreeLayoutFragment.viewModel.TwoByThreeLayoutFragmentViewModel
 import com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
-import com.delet_dis.elementarylauncher.presentation.views.clockView.ClockView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class TwoByTwoLayoutFragment : Fragment(), ClockView.ParentFragmentCallback {
+class TwoByTwoLayoutFragment : Fragment() {
     private lateinit var binding: FragmentTwoByTwoLayoutBinding
 
     private val twoByTwoLayoutFragmentViewModel by viewModels<TwoByThreeLayoutFragmentViewModel>()
-
-    private lateinit var parentActivityCallback: ParentActivityCallback
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,12 +32,6 @@ class TwoByTwoLayoutFragment : Fragment(), ClockView.ParentFragmentCallback {
         } else {
             view
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        parentActivityCallback = context as ParentActivityCallback
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,18 +51,5 @@ class TwoByTwoLayoutFragment : Fragment(), ClockView.ParentFragmentCallback {
                 }
             }
         }
-    }
-
-    override fun callHomescreenBottomSheet() {
-        parentActivityCallback.callHomescreenBottomSheetToParentActivity()
-    }
-
-    override fun callToHideHomescreenBottomSheet() {
-        parentActivityCallback.callToHideHomescreenBottomSheetToParentActivity()
-    }
-
-    interface ParentActivityCallback {
-        fun callHomescreenBottomSheetToParentActivity()
-        fun callToHideHomescreenBottomSheetToParentActivity()
     }
 }

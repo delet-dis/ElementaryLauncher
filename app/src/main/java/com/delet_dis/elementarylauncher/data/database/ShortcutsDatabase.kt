@@ -5,7 +5,6 @@ import androidx.room.RoomDatabase
 import com.delet_dis.elementarylauncher.data.database.daos.*
 import com.delet_dis.elementarylauncher.data.database.entities.*
 
-
 @Database(
     entities = [App::class,
         Widget::class,

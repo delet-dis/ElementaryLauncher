@@ -9,19 +9,20 @@ import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.databinding.ClockViewBinding
 import com.delet_dis.elementarylauncher.presentation.views.clockView.viewModel.ClockViewViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.internal.managers.ViewComponentManager
+import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ClockView @JvmOverloads constructor(
-    @ApplicationContext context: Context,
+    @ActivityContext context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private val binding: ClockViewBinding
 
     @Inject
-    lateinit var clockViewViewModel:ClockViewViewModel
+    lateinit var clockViewViewModel: ClockViewViewModel
 
     private var parentFragmentCallback: ParentFragmentCallback
 
@@ -30,7 +31,7 @@ class ClockView @JvmOverloads constructor(
             binding = ClockViewBinding.bind(view)
         }
 
-        parentFragmentCallback = context as ParentFragmentCallback
+        parentFragmentCallback = getBasePurifiedContext() as ParentFragmentCallback
 
         initCardViewOnClicksCallbacks()
 
@@ -52,37 +53,45 @@ class ClockView @JvmOverloads constructor(
         }
 
     private fun initDateObserver() =
-        clockViewViewModel.dateLiveData.observe(context as LifecycleOwner, { dateStamp ->
-            binding.dateStamp.text = dateStamp
-        })
+        clockViewViewModel.dateLiveData.observe(getBasePurifiedContext() as LifecycleOwner,
+            { dateStamp ->
+                binding.dateStamp.text = dateStamp
+            })
 
     private fun initTimeObserver() =
-        clockViewViewModel.timeLiveData.observe(context as LifecycleOwner, { timeStamp ->
-            binding.timeStamp.text = timeStamp
-        })
+        clockViewViewModel.timeLiveData.observe(getBasePurifiedContext() as LifecycleOwner,
+            { timeStamp ->
+                binding.timeStamp.text = timeStamp
+            })
 
     private fun initIsAlarmEnabledObserver() =
-        clockViewViewModel.isAlarmEnabled.observe(context as LifecycleOwner, { isAlarmEnabled ->
-            binding.alarmImage.visibility = if (isAlarmEnabled) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+        clockViewViewModel.isAlarmEnabled.observe(getBasePurifiedContext() as LifecycleOwner,
+            { isAlarmEnabled ->
+                binding.alarmImage.visibility = if (isAlarmEnabled) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
 
-            binding.alarmStamp.visibility = if (isAlarmEnabled) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-        })
+                binding.alarmStamp.visibility = if (isAlarmEnabled) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+            })
 
     private fun initAlarmTimeObserver() =
-        clockViewViewModel.nextAlarmTriggerTime.observe(context as LifecycleOwner, { alarmStamp ->
-            binding.alarmStamp.text = alarmStamp
-        })
+        clockViewViewModel.nextAlarmTriggerTime.observe(getBasePurifiedContext() as LifecycleOwner,
+            { alarmStamp ->
+                binding.alarmStamp.text = alarmStamp
+            })
 
     interface ParentFragmentCallback {
         fun callHomescreenBottomSheet()
         fun callToHideHomescreenBottomSheet()
     }
+
+    private fun getBasePurifiedContext() =
+        (context as ViewComponentManager.FragmentContextWrapper).baseContext
+
 }

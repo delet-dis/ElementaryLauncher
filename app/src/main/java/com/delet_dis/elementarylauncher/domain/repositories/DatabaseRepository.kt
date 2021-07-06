@@ -19,8 +19,8 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@InstallIn(SingletonComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 class DatabaseRepository @Inject constructor(
     private val appDAO: AppDAO,
     private val contactDAO: ContactDAO,
