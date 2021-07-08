@@ -7,7 +7,7 @@ import android.content.IntentFilter
 import java.util.*
 
 /**
- * Broadcast receiver used to observe date and time.
+ * Abstract class used to observe date and time.
  */
 abstract class DateAndTimeChangedBroadcastReceiver : BroadcastReceiver() {
 

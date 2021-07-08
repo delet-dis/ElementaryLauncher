@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 
 /**
- * Broadcast receiver used to observe alarm status.
+ * Abstract class used to observe alarm status.
  */
 abstract class AlarmChangedBroadcastReceiver : BroadcastReceiver() {
 
