@@ -6,7 +6,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import java.util.*
 
-
+/**
+ * Broadcast receiver used to observe date and time.
+ */
 abstract class DateAndTimeChangedBroadcastReceiver : BroadcastReceiver() {
 
     private var date: Date = Date()
