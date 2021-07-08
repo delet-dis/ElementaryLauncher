@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delet_dis.elementarylauncher.data.models.SettingsActionType
 import com.delet_dis.elementarylauncher.databinding.RecyclerviewItemActionBinding
 
+/**
+ * Recycler view adapter used to select a shortcut leading to the settings section.
+ */
 class SettingsActionPickingAdapter(
     private val values: Array<SettingsActionType>,
     val clickListener: (SettingsActionType) -> Unit

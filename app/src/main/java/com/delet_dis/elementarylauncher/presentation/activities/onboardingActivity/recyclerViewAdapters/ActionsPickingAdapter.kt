@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delet_dis.elementarylauncher.data.models.ActionType
 import com.delet_dis.elementarylauncher.databinding.RecyclerviewItemActionBinding
 
+/**
+ * Recycler view adapter used to select an action on the shortcut customization screen.
+ */
 class ActionsPickingAdapter(
     private val values: Array<ActionType>,
     val clickListener: (ActionType) -> Unit

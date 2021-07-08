@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.databinding.RecyclerviewItemActionBinding
 
-
+/**
+ * Recycler view adapter used to select an application from the list and get its ApplicationInfo.
+ */
 class AppsPickingAdapter(
     private val values: MutableList<ApplicationInfo>,
     val clickListener: (ApplicationInfo) -> Unit

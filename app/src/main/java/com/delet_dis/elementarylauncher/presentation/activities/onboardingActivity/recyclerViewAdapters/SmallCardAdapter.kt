@@ -10,6 +10,10 @@ import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.data.models.Card
 import com.delet_dis.elementarylauncher.databinding.CardItemSmallBinding
 
+
+/**
+ * Recycler view adapter used to display a mini-list of selected shortcuts on their config screen.
+ */
 class SmallCardAdapter(private val values: List<Card>, val clickListener: (Int) -> Unit) :
     RecyclerView.Adapter<SmallCardAdapter.SmallCardHolder>() {
 
