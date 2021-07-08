@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.delet_dis.elementarylauncher.databinding.FragmentTwoByThreeLayoutBinding
 import com.delet_dis.elementarylauncher.domain.helpers.createIntro
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByThreeLayoutFragment.viewModel.TwoByThreeLayoutFragmentViewModel
-import com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+import com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
@@ -49,7 +49,7 @@ class TwoByThreeLayoutFragment : Fragment() {
             { list ->
                 binding.cardsGroup.referencedIds.forEachIndexed { index, i ->
                     list[index]?.let { card ->
-                        requireView().findViewById<AppCardView>(i).card = card
+                        requireView().findViewById<ShortcutCardView>(i).card = card
                     }
                 }
             }
