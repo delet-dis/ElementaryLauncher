@@ -13,6 +13,9 @@ import com.delet_dis.elementarylauncher.domain.extensions.checkIfAppIsDefaultLau
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
 
+/**
+ * Fragment showing the welcome screen.
+ */
 class WelcomeFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentWelcomeScreenBinding
 
