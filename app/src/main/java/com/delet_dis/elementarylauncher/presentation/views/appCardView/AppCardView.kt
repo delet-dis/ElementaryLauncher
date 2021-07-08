@@ -20,7 +20,9 @@ import com.delet_dis.elementarylauncher.data.models.SizeType
 import com.delet_dis.elementarylauncher.databinding.CardItemBigBinding
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
 
-
+/**
+ * Custom view used to display the shortcut card.
+ */
 class AppCardView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
