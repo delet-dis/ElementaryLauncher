@@ -22,6 +22,9 @@ import com.delet_dis.elementarylauncher.domain.extensions.findSettingsAction
 import com.delet_dis.elementarylauncher.domain.extensions.getResizedDrawable
 import java.io.IOException
 
+/**
+ * Function used to cast any database Entity into Card class.
+ */
 fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
     val cardToReturn = Card()
 
