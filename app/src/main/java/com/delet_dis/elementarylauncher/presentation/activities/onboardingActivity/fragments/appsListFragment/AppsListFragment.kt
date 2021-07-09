@@ -15,6 +15,9 @@ import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivi
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.AppsPickingAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+/**
+ * Fragment used to display the list of installed applications available to launch.
+ */
 @ExperimentalCoroutinesApi
 class AppsListFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentAppsListScreenBinding

@@ -18,6 +18,9 @@ import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivi
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.SmallCardAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+/**
+ * Fragment used to display the shortcut selection screen.
+ */
 @ExperimentalCoroutinesApi
 class ActionsPickFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentActionsPickScreenBinding

@@ -15,6 +15,9 @@ import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRep
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.LauncherActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+/**
+ * Fragment notifying the end of the first setup.
+ */
 @ExperimentalCoroutinesApi
 class SetupDoneFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentSetupDoneScreenBinding

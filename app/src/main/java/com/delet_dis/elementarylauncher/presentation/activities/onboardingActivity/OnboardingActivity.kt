@@ -39,7 +39,9 @@ import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivi
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-
+/**
+ * Class showing the initial setup screen
+ */
 @ExperimentalCoroutinesApi
 class OnboardingActivity : AppCompatActivity(),
     ActionsPickFragment.ParentActivityCallback {
@@ -145,7 +147,7 @@ class OnboardingActivity : AppCompatActivity(),
 
         appWidgetHost = AppWidgetHost(
             this,
-            OnboardingActivityConstantsRepository.widgetHostId
+            widgetHostId
         )
 
         setContentView(binding.root)
@@ -254,7 +256,7 @@ class OnboardingActivity : AppCompatActivity(),
             binding.progressIndicator,
             "progress",
             progress
-        ).setDuration(OnboardingActivityConstantsRepository.progressbarAnimationDuration).start()
+        ).setDuration(progressbarAnimationDuration).start()
 
     override fun onBackPressed() =
         if (!isOnboardingPassed(applicationContext)) {
@@ -413,9 +415,8 @@ class OnboardingActivity : AppCompatActivity(),
         hostFragment?.findNavController()
             ?.navigate((currentFragment as FragmentParentInterface).getFragmentId())
     }
-}
-
-private object OnboardingActivityConstantsRepository {
-    const val widgetHostId = 100
-    const val progressbarAnimationDuration:Long = 460
+    companion object OnboardingActivityConstantsRepository {
+        const val widgetHostId = 100
+        const val progressbarAnimationDuration:Long = 460
+    }
 }

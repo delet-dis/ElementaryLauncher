@@ -16,6 +16,9 @@ import com.delet_dis.elementarylauncher.databinding.FragmentInterfaceScalePickSc
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
 
+/**
+ * Fragment used to display the scale setting for shortcut elements.
+ */
 class InterfaceScalePickFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentInterfaceScalePickScreenBinding
 

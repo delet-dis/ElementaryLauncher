@@ -6,6 +6,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
 
+/**
+ * Contract class used as required step during widget configuring.
+ */
 class WidgetPickingContract : ActivityResultContract<Int, Pair<Boolean, Int?>>() {
 
     override fun createIntent(context: Context, input: Int?): Intent =

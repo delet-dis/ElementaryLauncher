@@ -11,6 +11,9 @@ import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity
 import com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+/**
+ * Fragment used to display a two-by-two grid of apps.
+ */
 @ExperimentalCoroutinesApi
 class TwoByTwoLayoutFragment : Fragment() {
     private lateinit var binding: FragmentTwoByTwoLayoutBinding

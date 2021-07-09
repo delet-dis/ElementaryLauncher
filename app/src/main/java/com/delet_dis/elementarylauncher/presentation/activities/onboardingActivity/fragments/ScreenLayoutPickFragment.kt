@@ -13,6 +13,9 @@ import com.delet_dis.elementarylauncher.databinding.FragmentLayoutPickScreenBind
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
 
+/**
+ * Fragment used to display the layout setting for home screen.
+ */
 class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentLayoutPickScreenBinding
 

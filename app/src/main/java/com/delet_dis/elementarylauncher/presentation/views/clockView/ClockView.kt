@@ -10,6 +10,9 @@ import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.databinding.ClockViewBinding
 import com.delet_dis.elementarylauncher.presentation.views.clockView.viewModel.ClockViewViewModel
 
+/**
+ * Custom view used to display the clock widget.
+ */
 class ClockView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
