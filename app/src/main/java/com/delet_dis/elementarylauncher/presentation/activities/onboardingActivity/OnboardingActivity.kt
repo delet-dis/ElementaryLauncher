@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.res.Configuration
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -192,6 +193,10 @@ class OnboardingActivity : AppCompatActivity(),
                 }
                 HomescreenActionType.APPS_LIST -> {
                     this?.navigate(R.id.action_welcomeFragment_to_appsListFragment)
+                }
+                HomescreenActionType.HOMESCREEN_PICK -> {
+                    startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+                    finish()
                 }
             }
 
