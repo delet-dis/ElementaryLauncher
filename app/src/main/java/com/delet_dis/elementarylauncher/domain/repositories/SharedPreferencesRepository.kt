@@ -39,6 +39,13 @@ class SharedPreferencesRepository(private val context: Context) {
     fun getLayoutType(): LayoutType =
         findLayoutType(getNumberOfRows())
 
+    fun setTempLayoutType(layoutNumber: Int) =
+        getSharedPreferences().edit()
+            .putInt(temporarilyPickedLayoutType, layoutNumber).apply()
+
+    fun getTempLayoutType(): Int =
+        getSharedPreferences().getInt(temporarilyPickedLayoutType, 1)
+
     fun setOnboardingPassed() =
         getSharedPreferences().edit()
             .putBoolean(onboardingStatus, true).apply()
@@ -67,6 +74,7 @@ class SharedPreferencesRepository(private val context: Context) {
         getSharedPreferences().getInt(numberOfRows, 0)
 
     companion object SharedPreferencesConstantsRepository {
+        const val temporarilyPickedLayoutType = "TEMPORARILY_PICKED_LAYOUT_TYPE"
         const val appSettings = "APP_SETTINGS"
         const val scaleCoefficient = "SCALE_COEFFICIENT"
         const val numberOfRows = "NUMBER_OF_ROWS"
