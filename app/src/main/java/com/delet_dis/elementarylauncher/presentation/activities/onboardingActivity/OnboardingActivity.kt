@@ -63,6 +63,8 @@ class OnboardingActivity : AppCompatActivity(),
 
     private var hostFragment: Fragment? = null
 
+    private var isAvailableToSaveShortcutsSettings = true
+
     private val requestContactsPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -265,16 +267,17 @@ class OnboardingActivity : AppCompatActivity(),
             progress
         ).setDuration(progressbarAnimationDuration).start()
 
-    override fun onBackPressed() =
+    override fun onBackPressed() {
         if (!isOnboardingPassed(applicationContext)) {
             if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             } else {
                 super.onBackPressed()
             }
-        } else {
+        } else if (isAvailableToSaveShortcutsSettings) {
             finish()
         }
+    }
 
     override fun callItemPicking(itemId: Int) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -285,6 +288,10 @@ class OnboardingActivity : AppCompatActivity(),
             }
 
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    override fun setAvailabilityToPressBackButton(availability: Boolean) {
+        isAvailableToSaveShortcutsSettings = availability
     }
 
     private fun callSubItemPicking(actionType: ActionType, itemPosition: Int) =
