@@ -81,13 +81,15 @@ class OnboardingActivity : AppCompatActivity(),
 
     private var pickContactContract: ActivityResultLauncher<Void>? =
         registerForActivityResult(ActivityResultContracts.PickContact()) { uri ->
-            pickedItemId?.let { position ->
-                pickedContactAction?.let { contactActionType ->
-                    onboardingActivityViewModel.insertContact(
-                        contactActionType,
-                        uri.toString(),
-                        position
-                    )
+            uri?.let {
+                pickedItemId?.let { position ->
+                    pickedContactAction?.let { contactActionType ->
+                        onboardingActivityViewModel.insertContact(
+                            contactActionType,
+                            uri.toString(),
+                            position
+                        )
+                    }
                 }
             }
         }
@@ -420,8 +422,9 @@ class OnboardingActivity : AppCompatActivity(),
         hostFragment?.findNavController()
             ?.navigate((currentFragment as FragmentParentInterface).getFragmentId())
     }
+
     companion object OnboardingActivityConstantsRepository {
         const val widgetHostId = 100
-        const val progressbarAnimationDuration:Long = 460
+        const val progressbarAnimationDuration: Long = 460
     }
 }
