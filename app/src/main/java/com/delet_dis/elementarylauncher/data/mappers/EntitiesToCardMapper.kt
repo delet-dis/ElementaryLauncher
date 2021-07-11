@@ -34,19 +34,19 @@ fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
         }
 
         is Contact -> {
-            mapEntityToContact(inputDataClass, context, cardToReturn)
+            mapEntityToContact(context, inputDataClass, cardToReturn)
         }
 
         is ContactCall -> {
-            mapEntityToContactCall(inputDataClass, context, cardToReturn)
+            mapEntityToContactCall(context, inputDataClass, cardToReturn)
         }
 
         is ContactSMS -> {
-            mapEntityToContactSMS(inputDataClass, context, cardToReturn)
+            mapEntityToContactSMS(context, inputDataClass, cardToReturn)
         }
 
         is SettingsAction -> {
-            mapEntityToSettingsAction(cardToReturn, inputDataClass, context)
+            mapEntityToSettingsAction(context, inputDataClass, cardToReturn)
         }
 
         is Widget -> {
@@ -86,9 +86,9 @@ private fun mapEntityToWidget(
 }
 
 private fun mapEntityToSettingsAction(
-    cardToReturn: Card,
+    context: Context,
     inputDataClass: SettingsAction,
-    context: Context
+    cardToReturn: Card
 ) = with(cardToReturn) {
     with(inputDataClass.actionName?.let { actionName -> findSettingsAction(actionName) }) {
         name = this?.stringId?.let { stringId -> context.getString(stringId) }
@@ -111,8 +111,8 @@ private fun mapEntityToSettingsAction(
 }
 
 private fun mapEntityToContactSMS(
-    inputDataClass: ContactSMS,
     context: Context,
+    inputDataClass: ContactSMS,
     cardToReturn: Card
 ) {
     val uri: Uri = Uri.parse(inputDataClass.contactURI)
@@ -148,8 +148,8 @@ private fun mapEntityToContactSMS(
 }
 
 private fun mapEntityToContactCall(
-    inputDataClass: ContactCall,
     context: Context,
+    inputDataClass: ContactCall,
     cardToReturn: Card
 ) {
     val uri: Uri = Uri.parse(inputDataClass.contactURI)
@@ -184,8 +184,8 @@ private fun mapEntityToContactCall(
 }
 
 private fun mapEntityToContact(
-    inputDataClass: Contact,
     context: Context,
+    inputDataClass: Contact,
     cardToReturn: Card
 ) {
     val uri: Uri = Uri.parse(inputDataClass.contactURI)
