@@ -33,6 +33,7 @@ This project takes advantage of best practices, many popular libraries and tools
         * [Palette](https://developer.android.com/training/material/palette-colors) -  colors selecting
         * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  using multiple screens inside activity
         * [ViewBinding](https://developer.android.com/topic/libraries/view-binding) -  getting links to interface elements
+    * [Firebase crashlytics](https://firebase.google.com/docs/crashlytics) - crash tracking
 * Modern Architecture
     * Layers architecture
     * MVVM
