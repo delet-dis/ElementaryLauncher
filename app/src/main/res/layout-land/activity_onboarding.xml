@@ -37,7 +37,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomSheetLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:background="@drawable/linear_layout_rounded_corners"
         android:elevation="32dp"
         android:nestedScrollingEnabled="false"

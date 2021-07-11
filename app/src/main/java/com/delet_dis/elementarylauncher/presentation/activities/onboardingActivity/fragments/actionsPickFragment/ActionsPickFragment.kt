@@ -124,7 +124,7 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
                         parentActivityCallback.setAvailabilityToPressBackButton(false)
                     }
 
-                    if(!isAvailable and !isOnboardingPassed(requireContext())){
+                    if (!isAvailable and !isOnboardingPassed(requireContext())) {
                         backButton.isEnabled = true
                     }
                 }
