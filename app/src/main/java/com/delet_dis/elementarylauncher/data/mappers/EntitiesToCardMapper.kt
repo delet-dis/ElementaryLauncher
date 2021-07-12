@@ -126,7 +126,13 @@ private fun mapEntityToContactSMS(
         name =
             context.getString(R.string.actionSMSPrefix) + fetchedName
 
-        text = fetchedName?.subSequence(0, 2).toString()
+        if (fetchedName != null) {
+            text = if (fetchedName.length >= 2) {
+                fetchedName.subSequence(0, 2).toString()
+            } else {
+                fetchedName.subSequence(0, 1).toString()
+            }
+        }
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
@@ -162,7 +168,13 @@ private fun mapEntityToContactCall(
     with(cardToReturn) {
         name = context.getString(R.string.actionCallPrefix) + fetchedName
 
-        text = fetchedName?.subSequence(0, 2).toString()
+        if (fetchedName != null) {
+            text = if (fetchedName.length >= 2) {
+                fetchedName.subSequence(0, 2).toString()
+            } else {
+                fetchedName.subSequence(0, 1).toString()
+            }
+        }
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
@@ -198,7 +210,13 @@ private fun mapEntityToContact(
     with(cardToReturn) {
         name = fetchedName
 
-        text = fetchedName?.subSequence(0, 2).toString()
+        if (fetchedName != null) {
+            text = if (fetchedName.length >= 2) {
+                fetchedName.subSequence(0, 2).toString()
+            } else {
+                fetchedName.subSequence(0, 1).toString()
+            }
+        }
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
