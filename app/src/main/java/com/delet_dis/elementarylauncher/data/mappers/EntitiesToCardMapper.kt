@@ -126,13 +126,7 @@ private fun mapEntityToContactSMS(
         name =
             context.getString(R.string.actionSMSPrefix) + fetchedName
 
-        if (fetchedName != null) {
-            text = if (fetchedName.length >= 2) {
-                fetchedName.subSequence(0, 2).toString()
-            } else {
-                fetchedName.subSequence(0, 1).toString()
-            }
-        }
+        text = getCardTextBasedOnName(fetchedName)
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
@@ -168,13 +162,7 @@ private fun mapEntityToContactCall(
     with(cardToReturn) {
         name = context.getString(R.string.actionCallPrefix) + fetchedName
 
-        if (fetchedName != null) {
-            text = if (fetchedName.length >= 2) {
-                fetchedName.subSequence(0, 2).toString()
-            } else {
-                fetchedName.subSequence(0, 1).toString()
-            }
-        }
+        text = getCardTextBasedOnName(fetchedName)
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
@@ -210,13 +198,7 @@ private fun mapEntityToContact(
     with(cardToReturn) {
         name = fetchedName
 
-        if (fetchedName != null) {
-            text = if (fetchedName.length >= 2) {
-                fetchedName.subSequence(0, 2).toString()
-            } else {
-                fetchedName.subSequence(0, 1).toString()
-            }
-        }
+        text = getCardTextBasedOnName(fetchedName)
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
@@ -263,6 +245,17 @@ private fun mapEntityToApp(
             })
         }
     }
+}
+
+private fun getCardTextBasedOnName(inputString: String?): String {
+    if (inputString != null) {
+        return if (inputString.length >= 2) {
+            inputString.subSequence(0, 2).toString()
+        } else {
+            inputString.subSequence(0, 1).toString()
+        }
+    }
+    return ""
 }
 
 private fun getContactName(contactUri: Uri, context: Context): String? {
