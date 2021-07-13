@@ -7,8 +7,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import com.delet_dis.elementarylauncher.R
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
@@ -16,9 +16,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
+@RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
 class NavigateToWelcomeFragmentTest {
 
+    @ExperimentalCoroutinesApi
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(OnboardingActivity::class.java)
