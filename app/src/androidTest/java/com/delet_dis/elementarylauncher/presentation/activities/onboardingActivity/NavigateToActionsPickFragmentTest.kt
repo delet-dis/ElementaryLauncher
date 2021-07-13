@@ -3,9 +3,11 @@ package com.delet_dis.elementarylauncher.presentation.activities.onboardingActiv
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -93,35 +95,23 @@ class NavigateToActionsPickFragmentTest {
         )
         cardView.perform(click())
 
-        val actionCardFirst = onView(
-            allOf(
-                withId(R.id.actionCard),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.itemPickRecycler),
-                        6
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        actionCardFirst.perform(click())
+        for (counter in 0..1){
+            onView(withId(R.id.itemPickRecycler))
+                .perform(
+                    RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                        5,
+                        click()
+                    )
+                )
+        }
 
-        val actionCardSecond = onView(
-            allOf(
-                withId(R.id.actionCard),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.itemPickRecycler),
-                        0
-                    ),
-                    0
-                ),
-                isDisplayed()
+        onView(withId(R.id.itemPickRecycler))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    0,
+                    click()
+                )
             )
-        )
-        actionCardSecond.perform(click())
 
         val imageButton = onView(
             allOf(
@@ -174,59 +164,21 @@ class NavigateToActionsPickFragmentTest {
         )
         progressBar.check(matches(isDisplayed()))
 
-        val frameLayout = onView(
-            allOf(
-                withId(R.id.cardView),
-                withParent(withParent(withId(R.id.actionsPickingRecycler))),
-                isDisplayed()
-            )
-        )
-        frameLayout.check(matches(isDisplayed()))
-
-        val frameLayout2 = onView(
-            allOf(
-                withId(R.id.cardView),
-                withParent(withParent(withId(R.id.actionsPickingRecycler))),
-                isDisplayed()
-            )
-        )
-        frameLayout2.check(matches(isDisplayed()))
-
-        val frameLayout3 = onView(
-            allOf(
-                withId(R.id.cardView),
-                withParent(withParent(withId(R.id.actionsPickingRecycler))),
-                isDisplayed()
-            )
-        )
-        frameLayout3.check(matches(isDisplayed()))
-
-        val frameLayout4 = onView(
-            allOf(
-                withId(R.id.cardView),
-                withParent(withParent(withId(R.id.actionsPickingRecycler))),
-                isDisplayed()
-            )
-        )
-        frameLayout4.check(matches(isDisplayed()))
-
-        val frameLayout5 = onView(
-            allOf(
-                withId(R.id.cardView),
-                withParent(withParent(withId(R.id.actionsPickingRecycler))),
-                isDisplayed()
-            )
-        )
-        frameLayout5.check(matches(isDisplayed()))
-
-        val frameLayout6 = onView(
-            allOf(
-                withId(R.id.cardView),
-                withParent(withParent(withId(R.id.actionsPickingRecycler))),
-                isDisplayed()
-            )
-        )
-        frameLayout6.check(matches(isDisplayed()))
+        for (counter in 0..5) {
+            onView(
+                allOf(
+                    withId(R.id.cardView),
+                    childAtPosition(
+                        childAtPosition(
+                            withId(R.id.actionsPickingRecycler),
+                            counter
+                        ),
+                        0
+                    ),
+                    isDisplayed()
+                )
+            ).check(matches(isDisplayed()))
+        }
     }
 
     private fun childAtPosition(
