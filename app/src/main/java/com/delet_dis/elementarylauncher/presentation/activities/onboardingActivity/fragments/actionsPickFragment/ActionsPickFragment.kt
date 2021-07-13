@@ -110,17 +110,22 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
                     if (isAvailable) {
                         nextButton.text = context.getString(R.string.nextButtonText)
                         backButton.isEnabled = true
+                        parentActivityCallback.setAvailabilityToPressBackButton(true)
                     }
 
                     if (isOnboardingPassed(requireContext())) {
                         nextButton.text = getString(R.string.ok)
-
                     }
 
                     if (!isAvailable) {
                         nextButton.text =
                             context.getString(R.string.incompleteActionPickingButtonText)
                         backButton.isEnabled = false
+                        parentActivityCallback.setAvailabilityToPressBackButton(false)
+                    }
+
+                    if (!isAvailable and !isOnboardingPassed(requireContext())) {
+                        backButton.isEnabled = true
                     }
                 }
 
@@ -155,6 +160,7 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
 
     interface ParentActivityCallback {
         fun callItemPicking(itemId: Int)
+        fun setAvailabilityToPressBackButton(availability: Boolean)
     }
 
     override fun getFragmentId(): Int {
