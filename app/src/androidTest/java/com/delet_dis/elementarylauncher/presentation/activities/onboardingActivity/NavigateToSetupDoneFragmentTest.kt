@@ -1,6 +1,7 @@
 package com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity
 
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -11,9 +12,11 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.delet_dis.elementarylauncher.R
-import com.delet_dis.elementarylauncher.extensions.childAtPosition
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.hamcrest.Description
+import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
@@ -21,7 +24,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
-class NavigateToSetAsHomescreenFragmentTest {
+class NavigateToSetupDoneFragmentTest {
 
     @ExperimentalCoroutinesApi
     @Rule
@@ -29,12 +32,12 @@ class NavigateToSetAsHomescreenFragmentTest {
     var mActivityTestRule = ActivityTestRule(OnboardingActivity::class.java)
 
     @Test
-    fun navigateToSetAsHomescreenFragmentTest() {
+    fun navigateToSetupDoneFragmentTest() {
         val materialButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
-                childAtPosition(
-                    childAtPosition(
+                com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                    com.delet_dis.elementarylauncher.extensions.childAtPosition(
                         withId(R.id.navigationOnboardingControllerContainerView),
                         0
                     ),
@@ -48,8 +51,8 @@ class NavigateToSetAsHomescreenFragmentTest {
         val materialButton2 = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
-                childAtPosition(
-                    childAtPosition(
+                com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                    com.delet_dis.elementarylauncher.extensions.childAtPosition(
                         withId(R.id.navigationOnboardingControllerContainerView),
                         0
                     ),
@@ -63,10 +66,10 @@ class NavigateToSetAsHomescreenFragmentTest {
         val materialButton3 = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
-                childAtPosition(
+                com.delet_dis.elementarylauncher.extensions.childAtPosition(
                     allOf(
                         withId(R.id.mainConstraint),
-                        childAtPosition(
+                        com.delet_dis.elementarylauncher.extensions.childAtPosition(
                             withId(R.id.navigationOnboardingControllerContainerView),
                             0
                         )
@@ -81,8 +84,8 @@ class NavigateToSetAsHomescreenFragmentTest {
         val cardView = onView(
             allOf(
                 withId(R.id.cardView),
-                childAtPosition(
-                    childAtPosition(
+                com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                    com.delet_dis.elementarylauncher.extensions.childAtPosition(
                         withId(R.id.actionsPickingRecycler),
                         0
                     ),
@@ -114,8 +117,8 @@ class NavigateToSetAsHomescreenFragmentTest {
         val materialButton4 = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
-                childAtPosition(
-                    childAtPosition(
+                com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                    com.delet_dis.elementarylauncher.extensions.childAtPosition(
                         withId(R.id.navigationOnboardingControllerContainerView),
                         0
                     ),
@@ -126,20 +129,25 @@ class NavigateToSetAsHomescreenFragmentTest {
         )
         materialButton4.perform(click())
 
-        val imageButton = onView(
+        val materialButton5 = onView(
             allOf(
-                withId(R.id.backButton),
-                withContentDescription(R.string.backButtonContentDescription),
-                withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
+                withId(R.id.skipButton),
+                withText(R.string.skipSetAsHomescreenHintTextSetupButtonText),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.navigationOnboardingControllerContainerView),
+                        0
+                    ),
+                    4
+                ),
                 isDisplayed()
             )
         )
-        imageButton.check(matches(isDisplayed()))
+        materialButton5.perform(click())
 
         val imageView = onView(
             allOf(
-                withId(R.id.launcherSettingsImage),
-                withContentDescription(R.string.finishImageDescription),
+                withId(R.id.finishImage), withContentDescription(R.string.finishImageDescription),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
@@ -148,33 +156,21 @@ class NavigateToSetAsHomescreenFragmentTest {
 
         val textView = onView(
             allOf(
-                withId(R.id.hint),
-                withText(R.string.setAsHomescreenHintText),
+                withId(R.id.finishHint), withText(R.string.finishSetupText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.setAsHomescreenHintText)))
+        textView.check(matches(withText(R.string.finishSetupText)))
 
         val button = onView(
             allOf(
-                withId(R.id.goToSettingsButton),
-                withText(R.string.goToSettingsSetAsHomescreenHintTextSetupButtonText),
+                withId(R.id.finishButton), withText(R.string.finishButtonText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
         button.check(matches(isDisplayed()))
-
-        val button2 = onView(
-            allOf(
-                withId(R.id.skipButton),
-                withText(R.string.skipSetAsHomescreenHintTextSetupButtonText),
-                withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
-                isDisplayed()
-            )
-        )
-        button2.check(matches(isDisplayed()))
 
         val progressBar = onView(
             allOf(
@@ -189,5 +185,23 @@ class NavigateToSetAsHomescreenFragmentTest {
             )
         )
         progressBar.check(matches(isDisplayed()))
+    }
+
+    private fun childAtPosition(
+        parentMatcher: Matcher<View>, position: Int
+    ): Matcher<View> {
+
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {
+                description.appendText("Child at position $position in parent ")
+                parentMatcher.describeTo(description)
+            }
+
+            public override fun matchesSafely(view: View): Boolean {
+                val parent = view.parent
+                return parent is ViewGroup && parentMatcher.matches(parent)
+                        && view == parent.getChildAt(position)
+            }
+        }
     }
 }
