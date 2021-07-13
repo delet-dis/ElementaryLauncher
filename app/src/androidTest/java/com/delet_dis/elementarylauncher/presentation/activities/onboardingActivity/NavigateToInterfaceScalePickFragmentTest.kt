@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.delet_dis.elementarylauncher.R
+import com.delet_dis.elementarylauncher.extensions.childAtPosition
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -158,23 +159,5 @@ class NavigateToInterfaceScalePickFragmentTest {
             )
         )
         progressBar.check(matches(isDisplayed()))
-    }
-
-    private fun childAtPosition(
-        parentMatcher: Matcher<View>, position: Int
-    ): Matcher<View> {
-
-        return object : TypeSafeMatcher<View>() {
-            override fun describeTo(description: Description) {
-                description.appendText("Child at position $position in parent ")
-                parentMatcher.describeTo(description)
-            }
-
-            public override fun matchesSafely(view: View): Boolean {
-                val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent)
-                        && view == parent.getChildAt(position)
-            }
-        }
     }
 }

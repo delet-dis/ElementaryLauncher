@@ -10,9 +10,9 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import androidx.test.runner.AndroidJUnit4
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.extensions.childAtPosition
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
@@ -20,16 +20,15 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
-@RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
-class NavigateToActionsPickFragmentTest {
+@RunWith(AndroidJUnit4::class)
+class NavigateToSetAsHomescreenFragmentTest {
 
-    @ExperimentalCoroutinesApi
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(OnboardingActivity::class.java)
 
     @Test
-    fun navigateToActionsPickFragmentTest() {
+    fun navigateToSetAsHomescreenFragmentTest() {
         val materialButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
@@ -93,7 +92,7 @@ class NavigateToActionsPickFragmentTest {
         )
         cardView.perform(click())
 
-        for (counter in 0..1){
+        for (counter in 0..1) {
             onView(withId(R.id.itemPickRecycler))
                 .perform(
                     RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
@@ -111,6 +110,21 @@ class NavigateToActionsPickFragmentTest {
                 )
             )
 
+        val materialButton4 = onView(
+            allOf(
+                withId(R.id.nextButton), withText(R.string.nextButtonText),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.navigationOnboardingControllerContainerView),
+                        0
+                    ),
+                    4
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton4.perform(click())
+
         val imageButton = onView(
             allOf(
                 withId(R.id.backButton),
@@ -121,32 +135,45 @@ class NavigateToActionsPickFragmentTest {
         )
         imageButton.check(matches(isDisplayed()))
 
-        val recyclerView = onView(
+        val imageView = onView(
             allOf(
-                withId(R.id.actionsPickingRecycler),
+                withId(R.id.launcherSettingsImage),
+                withContentDescription(R.string.finishImageDescription),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        recyclerView.check(matches(isDisplayed()))
+        imageView.check(matches(isDisplayed()))
 
         val textView = onView(
             allOf(
-                withId(R.id.actionsPickHint), withText(R.string.chooseActionsForHomeScreenText),
+                withId(R.id.hint),
+                withText(R.string.goToSettingsSetAsHomescreenHintTextSetupButtonText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.chooseActionsForHomeScreenText)))
+        textView.check(matches(withText(R.string.goToSettingsSetAsHomescreenHintTextSetupButtonText)))
 
         val button = onView(
             allOf(
-                withId(R.id.nextButton), withText(R.string.nextButtonText),
+                withId(R.id.goToSettingsButton),
+                withText(R.string.goToSettingsSetAsHomescreenHintTextSetupButtonText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
         button.check(matches(isDisplayed()))
+
+        val button2 = onView(
+            allOf(
+                withId(R.id.skipButton),
+                withText(R.string.skipSetAsHomescreenHintTextSetupButtonText),
+                withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
+                isDisplayed()
+            )
+        )
+        button2.check(matches(isDisplayed()))
 
         val progressBar = onView(
             allOf(
@@ -161,21 +188,5 @@ class NavigateToActionsPickFragmentTest {
             )
         )
         progressBar.check(matches(isDisplayed()))
-
-        for (counter in 0..5) {
-            onView(
-                allOf(
-                    withId(R.id.cardView),
-                    childAtPosition(
-                        childAtPosition(
-                            withId(R.id.actionsPickingRecycler),
-                            counter
-                        ),
-                        0
-                    ),
-                    isDisplayed()
-                )
-            ).check(matches(isDisplayed()))
-        }
     }
 }
