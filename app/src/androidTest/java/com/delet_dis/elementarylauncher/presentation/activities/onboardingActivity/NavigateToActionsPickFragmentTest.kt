@@ -78,6 +78,51 @@ class NavigateToActionsPickFragmentTest {
         )
         materialButton3.perform(click())
 
+        val cardView = onView(
+            allOf(
+                withId(R.id.cardView),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.actionsPickingRecycler),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        cardView.perform(click())
+
+        val actionCardFirst = onView(
+            allOf(
+                withId(R.id.actionCard),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.itemPickRecycler),
+                        6
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        actionCardFirst.perform(click())
+
+        val actionCardSecond = onView(
+            allOf(
+                withId(R.id.actionCard),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.itemPickRecycler),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        actionCardSecond.perform(click())
+
         val imageButton = onView(
             allOf(
                 withId(R.id.backButton),
@@ -106,6 +151,15 @@ class NavigateToActionsPickFragmentTest {
         )
         textView.check(matches(withText(R.string.chooseActionsForHomeScreenText)))
 
+        val button = onView(
+            allOf(
+                withId(R.id.nextButton), withText(R.string.nextButtonText),
+                withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
+                isDisplayed()
+            )
+        )
+        button.check(matches(isDisplayed()))
+
         val progressBar = onView(
             allOf(
                 withId(R.id.progressIndicator),
@@ -120,14 +174,59 @@ class NavigateToActionsPickFragmentTest {
         )
         progressBar.check(matches(isDisplayed()))
 
-        val button = onView(
+        val frameLayout = onView(
             allOf(
-                withId(R.id.nextButton), withText(R.string.incompleteActionPickingButtonText),
-                withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
+                withId(R.id.cardView),
+                withParent(withParent(withId(R.id.actionsPickingRecycler))),
                 isDisplayed()
             )
         )
-        button.check(matches(isDisplayed()))
+        frameLayout.check(matches(isDisplayed()))
+
+        val frameLayout2 = onView(
+            allOf(
+                withId(R.id.cardView),
+                withParent(withParent(withId(R.id.actionsPickingRecycler))),
+                isDisplayed()
+            )
+        )
+        frameLayout2.check(matches(isDisplayed()))
+
+        val frameLayout3 = onView(
+            allOf(
+                withId(R.id.cardView),
+                withParent(withParent(withId(R.id.actionsPickingRecycler))),
+                isDisplayed()
+            )
+        )
+        frameLayout3.check(matches(isDisplayed()))
+
+        val frameLayout4 = onView(
+            allOf(
+                withId(R.id.cardView),
+                withParent(withParent(withId(R.id.actionsPickingRecycler))),
+                isDisplayed()
+            )
+        )
+        frameLayout4.check(matches(isDisplayed()))
+
+        val frameLayout5 = onView(
+            allOf(
+                withId(R.id.cardView),
+                withParent(withParent(withId(R.id.actionsPickingRecycler))),
+                isDisplayed()
+            )
+        )
+        frameLayout5.check(matches(isDisplayed()))
+
+        val frameLayout6 = onView(
+            allOf(
+                withId(R.id.cardView),
+                withParent(withParent(withId(R.id.actionsPickingRecycler))),
+                isDisplayed()
+            )
+        )
+        frameLayout6.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(
