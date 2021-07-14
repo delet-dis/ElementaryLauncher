@@ -1,7 +1,6 @@
 package com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity
 
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -12,10 +11,7 @@ import androidx.test.rule.ActivityTestRule
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.extensions.childAtPosition
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.hamcrest.Description
-import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
