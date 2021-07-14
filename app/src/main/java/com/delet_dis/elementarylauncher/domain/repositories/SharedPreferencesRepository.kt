@@ -13,14 +13,14 @@ class SharedPreferencesRepository(private val context: Context) {
 
     private fun getSharedPreferences(): SharedPreferences =
         context.getSharedPreferences(
-            SharedPreferencesConstantsRepository.appSettings,
+            appSettings,
             Context.MODE_PRIVATE
         )
 
     fun setScale(size: SizeType) =
         getSharedPreferences().edit()
             .putDouble(
-                SharedPreferencesConstantsRepository.scaleCoefficient,
+                scaleCoefficient,
                 size.scaleCoefficient.toDouble()
             )
             .apply()
@@ -28,7 +28,7 @@ class SharedPreferencesRepository(private val context: Context) {
     fun getSizeType(): SizeType =
         findScale(
             getSharedPreferences().getDouble(
-                SharedPreferencesConstantsRepository.scaleCoefficient,
+                scaleCoefficient,
                 SizeType.MEDIUM.scaleCoefficient.toDouble()
             ).toFloat()
         )
@@ -39,34 +39,42 @@ class SharedPreferencesRepository(private val context: Context) {
     fun getLayoutType(): LayoutType =
         findLayoutType(getNumberOfRows())
 
+    fun setTempLayoutType(layoutNumber: Int) =
+        getSharedPreferences().edit()
+            .putInt(temporarilyPickedLayoutType, layoutNumber).apply()
+
+    fun getTempLayoutType(): Int =
+        getSharedPreferences().getInt(temporarilyPickedLayoutType, 1)
+
     fun setOnboardingPassed() =
         getSharedPreferences().edit()
-            .putBoolean(SharedPreferencesConstantsRepository.onboardingStatus, true).apply()
+            .putBoolean(onboardingStatus, true).apply()
 
     fun setActionsPicked() =
         getSharedPreferences().edit()
-            .putBoolean(SharedPreferencesConstantsRepository.actionsPicked, true).apply()
+            .putBoolean(actionsPicked, true).apply()
 
     fun isActionsPicked(): Boolean =
         getSharedPreferences().getBoolean(
-            SharedPreferencesConstantsRepository.actionsPicked,
+            actionsPicked,
             false
         )
 
     fun isOnboardingPassed(): Boolean =
         getSharedPreferences().getBoolean(
-            SharedPreferencesConstantsRepository.onboardingStatus,
+            onboardingStatus,
             false
         )
 
     private fun setNumberOfRows(girdId: Int) =
         getSharedPreferences().edit()
-            .putInt(SharedPreferencesConstantsRepository.numberOfRows, girdId).apply()
+            .putInt(numberOfRows, girdId).apply()
 
     private fun getNumberOfRows(): Int =
-        getSharedPreferences().getInt(SharedPreferencesConstantsRepository.numberOfRows, 0)
+        getSharedPreferences().getInt(numberOfRows, 0)
 
-    private object SharedPreferencesConstantsRepository {
+    companion object SharedPreferencesConstantsRepository {
+        const val temporarilyPickedLayoutType = "TEMPORARILY_PICKED_LAYOUT_TYPE"
         const val appSettings = "APP_SETTINGS"
         const val scaleCoefficient = "SCALE_COEFFICIENT"
         const val numberOfRows = "NUMBER_OF_ROWS"

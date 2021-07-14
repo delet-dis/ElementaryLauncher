@@ -24,7 +24,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-
+/**
+ * Class showing the main application screen with shortcuts.
+ */
 @Suppress("DEPRECATION")
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint

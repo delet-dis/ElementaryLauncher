@@ -22,6 +22,9 @@ import com.delet_dis.elementarylauncher.domain.extensions.findSettingsAction
 import com.delet_dis.elementarylauncher.domain.extensions.getResizedDrawable
 import java.io.IOException
 
+/**
+ * Function used to cast any database Entity into Card class.
+ */
 fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
     val cardToReturn = Card()
 
@@ -31,19 +34,19 @@ fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
         }
 
         is Contact -> {
-            mapEntityToContact(inputDataClass, context, cardToReturn)
+            mapEntityToContact(context, inputDataClass, cardToReturn)
         }
 
         is ContactCall -> {
-            mapEntityToContactCall(inputDataClass, context, cardToReturn)
+            mapEntityToContactCall(context, inputDataClass, cardToReturn)
         }
 
         is ContactSMS -> {
-            mapEntityToContactSMS(inputDataClass, context, cardToReturn)
+            mapEntityToContactSMS(context, inputDataClass, cardToReturn)
         }
 
         is SettingsAction -> {
-            mapEntityToSettingsAction(cardToReturn, inputDataClass, context)
+            mapEntityToSettingsAction(context, inputDataClass, cardToReturn)
         }
 
         is Widget -> {
@@ -83,9 +86,9 @@ private fun mapEntityToWidget(
 }
 
 private fun mapEntityToSettingsAction(
-    cardToReturn: Card,
+    context: Context,
     inputDataClass: SettingsAction,
-    context: Context
+    cardToReturn: Card
 ) = with(cardToReturn) {
     with(inputDataClass.actionName?.let { actionName -> findSettingsAction(actionName) }) {
         name = this?.stringId?.let { stringId -> context.getString(stringId) }
@@ -108,8 +111,8 @@ private fun mapEntityToSettingsAction(
 }
 
 private fun mapEntityToContactSMS(
-    inputDataClass: ContactSMS,
     context: Context,
+    inputDataClass: ContactSMS,
     cardToReturn: Card
 ) {
     val uri: Uri = Uri.parse(inputDataClass.contactURI)
@@ -123,7 +126,7 @@ private fun mapEntityToContactSMS(
         name =
             context.getString(R.string.actionSMSPrefix) + fetchedName
 
-        text = fetchedName?.subSequence(0, 2).toString()
+        text = getCardTextBasedOnName(fetchedName)
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
@@ -145,8 +148,8 @@ private fun mapEntityToContactSMS(
 }
 
 private fun mapEntityToContactCall(
-    inputDataClass: ContactCall,
     context: Context,
+    inputDataClass: ContactCall,
     cardToReturn: Card
 ) {
     val uri: Uri = Uri.parse(inputDataClass.contactURI)
@@ -159,7 +162,7 @@ private fun mapEntityToContactCall(
     with(cardToReturn) {
         name = context.getString(R.string.actionCallPrefix) + fetchedName
 
-        text = fetchedName?.subSequence(0, 2).toString()
+        text = getCardTextBasedOnName(fetchedName)
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
@@ -181,8 +184,8 @@ private fun mapEntityToContactCall(
 }
 
 private fun mapEntityToContact(
-    inputDataClass: Contact,
     context: Context,
+    inputDataClass: Contact,
     cardToReturn: Card
 ) {
     val uri: Uri = Uri.parse(inputDataClass.contactURI)
@@ -195,7 +198,7 @@ private fun mapEntityToContact(
     with(cardToReturn) {
         name = fetchedName
 
-        text = fetchedName?.subSequence(0, 2).toString()
+        text = getCardTextBasedOnName(fetchedName)
 
         getContactPhoto(uri, context)?.let { bitmap ->
             icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
@@ -242,6 +245,17 @@ private fun mapEntityToApp(
             })
         }
     }
+}
+
+private fun getCardTextBasedOnName(inputString: String?): String {
+    if (inputString != null) {
+        return if (inputString.length >= 2) {
+            inputString.subSequence(0, 2).toString()
+        } else {
+            inputString.subSequence(0, 1).toString()
+        }
+    }
+    return ""
 }
 
 private fun getContactName(contactUri: Uri, context: Context): String? {

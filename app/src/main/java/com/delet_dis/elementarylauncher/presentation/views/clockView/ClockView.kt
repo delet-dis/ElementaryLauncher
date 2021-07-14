@@ -13,6 +13,9 @@ import dagger.hilt.android.internal.managers.ViewComponentManager
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
+/**
+ * Custom view used to display the clock widget.
+ */
 @AndroidEntryPoint
 class ClockView @JvmOverloads constructor(
     @ActivityContext context: Context,

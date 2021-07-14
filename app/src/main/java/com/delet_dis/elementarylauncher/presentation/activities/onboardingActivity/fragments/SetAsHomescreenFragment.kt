@@ -13,6 +13,9 @@ import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.databinding.FragmentSetAsHomescreenScreenBinding
 import com.delet_dis.elementarylauncher.domain.extensions.checkIfAppIsDefaultLauncher
 
+/**
+ * Fragment suggesting setting as default screen.
+ */
 class SetAsHomescreenFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentSetAsHomescreenScreenBinding
 

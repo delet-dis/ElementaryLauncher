@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "322037168967",
+    "project_id": "elementary-launcher",
+    "storage_bucket": "elementary-launcher.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322037168967:android:0f0e0405f3ff9e92ebea62",
+        "android_client_info": {
+          "package_name": "com.delet_dis.elementarylauncher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322037168967-thvthfgpm818ngukka401h3j0gi2hq1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Ti0oL6UqK02y_9WJ3tiyTuF45Dt4uOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322037168967-thvthfgpm818ngukka401h3j0gi2hq1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

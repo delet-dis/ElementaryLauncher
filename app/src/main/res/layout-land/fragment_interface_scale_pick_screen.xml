@@ -25,7 +25,7 @@
         app:srcCompat="@drawable/ic_back"
         app:tint="@color/purple_500" />
 
-    <com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+    <com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
         android:id="@+id/exampleCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView>
+    </com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/halfScreenGuideline"

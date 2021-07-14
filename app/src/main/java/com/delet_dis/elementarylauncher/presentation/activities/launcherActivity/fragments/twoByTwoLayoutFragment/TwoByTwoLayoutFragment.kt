@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.delet_dis.elementarylauncher.databinding.FragmentTwoByTwoLayoutBinding
 import com.delet_dis.elementarylauncher.domain.helpers.createIntro
-import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByThreeLayoutFragment.viewModel.TwoByThreeLayoutFragmentViewModel
-import com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment.viewModel.TwoByTwoLayoutFragmentViewModel
+import com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+/**
+ * Fragment used to display a two-by-two grid of apps.
+ */
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class TwoByTwoLayoutFragment : Fragment() {
@@ -46,7 +49,7 @@ class TwoByTwoLayoutFragment : Fragment() {
             { list ->
                 binding.cardsGroup.referencedIds.forEachIndexed { index, i ->
                     list[index]?.let { card ->
-                        requireView().findViewById<AppCardView>(i).card = card
+                        requireView().findViewById<ShortcutCardView>(i).card = card
                     }
                 }
             }

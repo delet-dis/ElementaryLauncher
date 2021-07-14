@@ -13,6 +13,9 @@ import com.delet_dis.elementarylauncher.databinding.FragmentLayoutPickScreenBind
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
 
+/**
+ * Fragment used to display the layout setting for home screen.
+ */
 class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentLayoutPickScreenBinding
 
@@ -33,7 +36,11 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null){
+            initRadioButtonsListener()
+
+            loadTempRadioConfiguration()
+
             initLayoutCardsListeners()
 
             initBackButtonOnClickListener()
@@ -58,6 +65,18 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
             }
         }
 
+    private fun loadTempRadioConfiguration() =
+        with(binding) {
+            when (SharedPreferencesRepository(requireContext()).getTempLayoutType()) {
+                1 -> {
+                    twoByThreeRadio.isChecked = true
+                }
+                2 -> {
+                    twoByTwoRadio.isChecked = true
+                }
+            }
+        }
+
     private fun initNextButtonParams() =
         with(binding) {
             if (isOnboardingPassed(requireContext())) {
@@ -68,8 +87,12 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
                 var pickedLayout = LayoutType.TWO_BY_THREE
 
                 when (binding.radioGroup.checkedRadioButtonId) {
-                    twoByThreeRadio.id -> pickedLayout = LayoutType.TWO_BY_THREE
-                    twoByTwoRadio.id -> pickedLayout = LayoutType.TWO_BY_TWO
+                    twoByThreeRadio.id -> {
+                        pickedLayout = LayoutType.TWO_BY_THREE
+                    }
+                    twoByTwoRadio.id -> {
+                        pickedLayout = LayoutType.TWO_BY_TWO
+                    }
                 }
 
                 SharedPreferencesRepository(requireContext())
@@ -88,12 +111,26 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
         with(binding) {
             twoByThreeCard.setOnClickListener {
                 binding.twoByThreeRadio.isChecked = true
+                SharedPreferencesRepository(requireContext()).setTempLayoutType(1)
             }
 
             twoByTwoCard.setOnClickListener {
                 binding.twoByTwoRadio.isChecked = true
+                SharedPreferencesRepository(requireContext()).setTempLayoutType(2)
             }
         }
+
+    private fun initRadioButtonsListener(){
+        with(binding){
+            twoByThreeRadio.setOnClickListener {
+                SharedPreferencesRepository(requireContext()).setTempLayoutType(1)
+            }
+
+            twoByTwoRadio.setOnClickListener {
+                SharedPreferencesRepository(requireContext()).setTempLayoutType(2)
+            }
+        }
+    }
 
     override fun getFragmentId(): Int {
         return R.id.screenLayoutPickFragment

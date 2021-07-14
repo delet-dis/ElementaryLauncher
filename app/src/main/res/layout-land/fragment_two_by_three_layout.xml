@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+    <com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
         android:id="@+id/firstCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="@+id/firstVerticalGuideline"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+    <com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
         android:id="@+id/thirdCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -72,7 +72,7 @@
         app:layout_constraintStart_toStartOf="@+id/firstVerticalGuideline"
         app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+    <com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
         android:id="@+id/fifthCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="@+id/firstVerticalGuideline"
         app:layout_constraintTop_toTopOf="@+id/secondHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+    <com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
         android:id="@+id/secondCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -90,9 +90,9 @@
         app:layout_constraintStart_toStartOf="@+id/secondVerticalGuideline"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView>
+    </com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView>
 
-    <com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+    <com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
         android:id="@+id/fourthCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -101,7 +101,7 @@
         app:layout_constraintStart_toStartOf="@+id/secondVerticalGuideline"
         app:layout_constraintTop_toTopOf="@+id/firstHorizontalGuideline" />
 
-    <com.delet_dis.elementarylauncher.presentation.views.appCardView.AppCardView
+    <com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
         android:id="@+id/sixthCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -5,6 +5,9 @@ import androidx.room.RoomDatabase
 import com.delet_dis.elementarylauncher.data.database.daos.*
 import com.delet_dis.elementarylauncher.data.database.entities.*
 
+/**
+ * Abstract class used to build Room database.
+ */
 @Database(
     entities = [App::class,
         Widget::class,
