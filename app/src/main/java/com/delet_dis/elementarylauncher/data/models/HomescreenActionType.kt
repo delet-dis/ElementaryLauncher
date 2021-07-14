@@ -19,4 +19,8 @@ enum class HomescreenActionType(val stringId: Int, val imageId: Int) {
         R.string.actionPickingLayoutPickText,
         R.drawable.ic_app_widget
     ),
+    HOMESCREEN_PICK(
+        R.string.actionPickingGoToHomescreenSelectionPreferencesText,
+        R.drawable.ic_home
+    )
 }

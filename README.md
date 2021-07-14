@@ -33,11 +33,10 @@ This project takes advantage of best practices, many popular libraries and tools
         * [Palette](https://developer.android.com/training/material/palette-colors) -  colors selecting
         * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  using multiple screens inside activity
         * [ViewBinding](https://developer.android.com/topic/libraries/view-binding) -  getting links to interface elements
+    * [Firebase crashlytics](https://firebase.google.com/docs/crashlytics) - crash tracking
 * Modern Architecture
-    * Clean Architecture
+    * Layers architecture
     * MVVM
-    * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
-    * [Android KTX](https://developer.android.com/kotlin/ktx) - Jetpack Kotlin extensions
 * CI 
   * [GitHub Actions](https://github.com/features/actions)
   * Automatic code analyzing by 3rd party online tools
@@ -45,10 +44,10 @@ This project takes advantage of best practices, many popular libraries and tools
     * [Material design](https://material.io/design)
 
 ## Architecture
-The entire application follows `clean architecture`.
+The entire application follows `layers architecture`.
 
 It contains components that strictly fulfill their functions, as well as parts that are not part of them.
-<img src="https://user-images.githubusercontent.com/47276603/122640647-e245f800-d12a-11eb-8001-eb9a3e6c7a31.png" width="700" hspace="5" vspace ="10">
+<img src="https://user-images.githubusercontent.com/47276603/125187599-95050400-e25a-11eb-9067-507007cc944a.png" width="700" hspace="5" vspace ="10">
 
 ## Data flows
 The architecture of interaction between presentation and lower layers in both activities is similar.
@@ -88,6 +87,8 @@ Repositories, in turn, interact with the data services and broadcast receivers l
 <br/>
 <img src="https://user-images.githubusercontent.com/47276603/119395063-33fe8c80-bcfd-11eb-8016-ab6206b28834.jpg" width="200" hspace="5" vspace ="10">
 
+## Contributors
+[<a href="url"><img src="https://static.thenounproject.com/avatars/ranahpixel/resized/150/2a44fad30b5889a8d4c63cdad028997c.png" height="auto" width="50" style="border-radius:50%"></a>](https://thenounproject.com/ranahpixel/)
 ## License
 ```
 MIT License

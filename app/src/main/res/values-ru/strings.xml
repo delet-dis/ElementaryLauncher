@@ -46,4 +46,5 @@
     <string name="actionPickingAppsListPickText">Список приложений</string>
     <string name="settingsShowcaseDismissText">Понятно</string>
     <string name="settingsShowcaseInfoText">Зажмите этот виджет, чтобы открыть дополнительное меню</string>
+    <string name="actionPickingGoToHomescreenSelectionPreferencesText">Настроить предпочтительный домашний экран</string>
 </resources>

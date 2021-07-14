@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.res.Configuration
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -62,6 +63,8 @@ class OnboardingActivity : AppCompatActivity(),
 
     private var hostFragment: Fragment? = null
 
+    private var isAvailableToSaveShortcutsSettings = true
+
     private val requestContactsPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -80,13 +83,15 @@ class OnboardingActivity : AppCompatActivity(),
 
     private var pickContactContract: ActivityResultLauncher<Void>? =
         registerForActivityResult(ActivityResultContracts.PickContact()) { uri ->
-            pickedItemId?.let { position ->
-                pickedContactAction?.let { contactActionType ->
-                    onboardingActivityViewModel.insertContact(
-                        contactActionType,
-                        uri.toString(),
-                        position
-                    )
+            uri?.let {
+                pickedItemId?.let { position ->
+                    pickedContactAction?.let { contactActionType ->
+                        onboardingActivityViewModel.insertContact(
+                            contactActionType,
+                            uri.toString(),
+                            position
+                        )
+                    }
                 }
             }
         }
@@ -193,6 +198,10 @@ class OnboardingActivity : AppCompatActivity(),
                 HomescreenActionType.APPS_LIST -> {
                     this?.navigate(R.id.action_welcomeFragment_to_appsListFragment)
                 }
+                HomescreenActionType.HOMESCREEN_PICK -> {
+                    startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+                    finish()
+                }
             }
 
             binding.progressIndicator.visibility = View.INVISIBLE
@@ -258,16 +267,17 @@ class OnboardingActivity : AppCompatActivity(),
             progress
         ).setDuration(progressbarAnimationDuration).start()
 
-    override fun onBackPressed() =
+    override fun onBackPressed() {
         if (!isOnboardingPassed(applicationContext)) {
             if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             } else {
                 super.onBackPressed()
             }
-        } else {
+        } else if (isAvailableToSaveShortcutsSettings) {
             finish()
         }
+    }
 
     override fun callItemPicking(itemId: Int) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -278,6 +288,10 @@ class OnboardingActivity : AppCompatActivity(),
             }
 
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    override fun setAvailabilityToPressBackButton(availability: Boolean) {
+        isAvailableToSaveShortcutsSettings = availability
     }
 
     private fun callSubItemPicking(actionType: ActionType, itemPosition: Int) =
@@ -414,9 +428,29 @@ class OnboardingActivity : AppCompatActivity(),
 
         hostFragment?.findNavController()
             ?.navigate((currentFragment as FragmentParentInterface).getFragmentId())
+
+//        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+//            val newLayoutParams = CoordinatorLayout.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                (550).toFloat().pxToDp(applicationContext).toInt()
+//            )
+//
+//            binding.bottomSheetLayout.layoutParams = newLayoutParams
+//
+//        } else {
+//            val newLayoutParams = CoordinatorLayout.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT
+//            )
+//
+//            binding.bottomSheetLayout.layoutParams = newLayoutParams
+//        }
+//
+//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
+
     companion object OnboardingActivityConstantsRepository {
         const val widgetHostId = 100
-        const val progressbarAnimationDuration:Long = 460
+        const val progressbarAnimationDuration: Long = 460
     }
 }

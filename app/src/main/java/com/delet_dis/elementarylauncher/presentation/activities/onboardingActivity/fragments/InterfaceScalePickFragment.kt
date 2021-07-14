@@ -54,6 +54,11 @@ class InterfaceScalePickFragment : Fragment(), FragmentParentInterface {
         }
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        onCreate(savedInstanceState)
+    }
+
     private fun initBackButtonOnClickListener() =
         with(binding) {
             backButton.setOnClickListener {

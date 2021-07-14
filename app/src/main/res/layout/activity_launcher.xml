@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="550dp"
         android:background="@drawable/linear_layout_rounded_corners"
-        android:nestedScrollingEnabled="false"
+        android:nestedScrollingEnabled="true"
         android:orientation="vertical"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
