@@ -1,7 +1,6 @@
 package com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.values
 
 
-import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -12,7 +11,6 @@ import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.extensions.childAtPosition
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.OnboardingActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
@@ -45,7 +43,7 @@ class ChangeScreenLayoutInOnboarding {
         )
         materialButton.perform(click())
 
-        val cardView = onView(
+        val twoByTwoCard = onView(
             allOf(
                 withId(R.id.twoByTwoCard),
                 childAtPosition(
@@ -58,37 +56,8 @@ class ChangeScreenLayoutInOnboarding {
                 isDisplayed()
             )
         )
-        cardView.perform(click())
 
-        val radioButton = onView(
-            allOf(
-                withId(R.id.twoByThreeRadio),
-                withParent(
-                    allOf(
-                        withId(R.id.radioGroup),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
-                isDisplayed()
-            )
-        )
-        radioButton.check(matches(isNotChecked()))
-
-        val radioButton2 = onView(
-            allOf(
-                withId(R.id.twoByTwoRadio),
-                withParent(
-                    allOf(
-                        withId(R.id.radioGroup),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
-                isDisplayed()
-            )
-        )
-        radioButton2.check(matches(isChecked()))
-
-        val cardView2 = onView(
+        val twoByThreeCard = onView(
             allOf(
                 withId(R.id.twoByThreeCard),
                 childAtPosition(
@@ -101,55 +70,8 @@ class ChangeScreenLayoutInOnboarding {
                 isDisplayed()
             )
         )
-        cardView2.perform(click())
 
-        val radioButton3 = onView(
-            allOf(
-                withId(R.id.twoByTwoRadio),
-                withParent(
-                    allOf(
-                        withId(R.id.radioGroup),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
-                isDisplayed()
-            )
-        )
-        radioButton3.check(matches(isNotChecked()))
-
-        val radioButton4 = onView(
-            allOf(
-                withId(R.id.twoByThreeCard),
-                withParent(
-                    allOf(
-                        withId(R.id.radioGroup),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
-                isDisplayed()
-            )
-        )
-        radioButton4.check(matches(isChecked()))
-
-        val materialRadioButton = onView(
-            allOf(
-                withId(R.id.twoByTwoRadio),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.radioGroup),
-                        childAtPosition(
-                            withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                            3
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        materialRadioButton.perform(click())
-
-        val radioButton5 = onView(
+        val twoByThreeRadio = onView(
             allOf(
                 withId(R.id.twoByThreeRadio),
                 withParent(
@@ -161,9 +83,8 @@ class ChangeScreenLayoutInOnboarding {
                 isDisplayed()
             )
         )
-        radioButton5.check(matches(isNotChecked()))
 
-        val radioButton6 = onView(
+        val twoByTwoRadio = onView(
             allOf(
                 withId(R.id.twoByTwoRadio),
                 withParent(
@@ -175,52 +96,21 @@ class ChangeScreenLayoutInOnboarding {
                 isDisplayed()
             )
         )
-        radioButton6.check(matches(isChecked()))
 
-        val materialRadioButton2 = onView(
-            allOf(
-                withId(R.id.twoByThreeRadio),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.radioGroup),
-                        childAtPosition(
-                            withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                            3
-                        )
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        materialRadioButton2.perform(click())
+        twoByTwoCard.perform(click())
+        twoByThreeRadio.check(matches(isNotChecked()))
+        twoByTwoRadio.check(matches(isChecked()))
 
-        val radioButton7 = onView(
-            allOf(
-                withId(R.id.twoByTwoRadio),
-                withParent(
-                    allOf(
-                        withId(R.id.radioGroup),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
-                isDisplayed()
-            )
-        )
-        radioButton7.check(matches(isNotChecked()))
+        twoByThreeCard.perform(click())
+        twoByThreeRadio.check(matches(isChecked()))
+        twoByTwoRadio.check(matches(isNotChecked()))
 
-        val radioButton8 = onView(
-            allOf(
-                withId(R.id.twoByThreeCard),
-                withParent(
-                    allOf(
-                        withId(R.id.radioGroup),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
-                isDisplayed()
-            )
-        )
-        radioButton8.check(matches(isChecked()))
+        twoByTwoRadio.perform(click())
+        twoByThreeRadio.check(matches(isNotChecked()))
+        twoByTwoRadio.check(matches(isChecked()))
+
+        twoByThreeRadio.perform(click())
+        twoByThreeRadio.check(matches(isChecked()))
+        twoByTwoRadio.check(matches(isNotChecked()))
     }
 }
