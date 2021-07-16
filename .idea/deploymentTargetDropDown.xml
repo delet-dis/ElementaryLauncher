@@ -7,19 +7,28 @@
         <deviceKey>
           <Key>
             <type value="SERIAL_NUMBER" />
-            <value value="5712b012" />
+            <value value="192.168.1.105:40038" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2021-07-16T08:54:00.470312300Z" />
+    <timeTargetWasSelectedWithDropDown value="2021-07-16T09:31:26.979893700Z" />
     <runningDeviceTargetsSelectedWithDialog>
       <Target>
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
             <type value="SERIAL_NUMBER" />
-            <value value="192.168.1.105:40038" />
+            <value value="FA7AY1A02332" />
+          </Key>
+        </deviceKey>
+      </Target>
+      <Target>
+        <type value="RUNNING_DEVICE_TARGET" />
+        <deviceKey>
+          <Key>
+            <type value="SERIAL_NUMBER" />
+            <value value="5712b012" />
           </Key>
         </deviceKey>
       </Target>
