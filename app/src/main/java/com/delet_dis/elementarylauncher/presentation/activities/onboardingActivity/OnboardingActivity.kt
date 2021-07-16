@@ -31,7 +31,6 @@ import com.delet_dis.elementarylauncher.domain.extensions.findPickedFragmentProg
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
 import com.delet_dis.elementarylauncher.domain.helpers.buildPermissionAlertDialog
 import com.delet_dis.elementarylauncher.domain.repositories.ConstantsRepository
-import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.LauncherActivity
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.actionsPickFragment.ActionsPickFragment
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.ActionsPickingAdapter
@@ -158,9 +157,9 @@ class OnboardingActivity : AppCompatActivity(),
 
         setContentView(binding.root)
 
-        if (intent.extras != null) {
+        if (intent.extras?.getString(ConstantsRepository.SCREEN_TO_NAVIGATE) != null) {
             navigateToIntentExtrasFragment()
-        } else {
+        }else{
             checkIfOnboardingPassed()
         }
 
@@ -209,7 +208,7 @@ class OnboardingActivity : AppCompatActivity(),
         }
 
     private fun checkIfOnboardingPassed() {
-        if (SharedPreferencesRepository(applicationContext).isOnboardingPassed()) {
+        if (isOnboardingPassed(applicationContext)) {
             startActivity(Intent(this, LauncherActivity::class.java))
             finish()
         }

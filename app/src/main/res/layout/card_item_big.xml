@@ -43,11 +43,10 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.7" />
 
-            <androidx.cardview.widget.CardView
+            <com.delet_dis.elementarylauncher.presentation.views.circularCardView.CircularCardView
                 android:id="@+id/imageCardView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:cardCornerRadius="500dp"
                 app:layout_constraintBottom_toTopOf="@+id/secondGuideline"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +84,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+            </com.delet_dis.elementarylauncher.presentation.views.circularCardView.CircularCardView>
 
             <TextView
                 android:id="@+id/cardText"
