@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -15,8 +16,8 @@ android {
         applicationId "com.delet_dis.elementarylauncher"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.9"
+        versionCode 2
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -87,11 +88,10 @@ dependencies {
 
     implementation 'com.github.shripal17:MaterialIntroView-v2:2.2.0'
 
-    implementation platform('com.google.firebase:firebase-bom:28.2.0')
-
+    implementation platform('com.google.firebase:firebase-bom:28.2.1')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
-
+    implementation 'com.google.firebase:firebase-perf-ktx'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestUtil 'androidx.test:orchestrator:1.4.0'
 

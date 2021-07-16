@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
+            <com.delet_dis.elementarylauncher.presentation.views.circularCardView.CircularCardView
                 android:id="@+id/imageCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="89dp"
@@ -36,7 +36,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                app:cardCornerRadius="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +77,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+            </com.delet_dis.elementarylauncher.presentation.views.circularCardView.CircularCardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/widgetCard"
