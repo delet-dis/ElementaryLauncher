@@ -9,8 +9,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.delet_dis.elementarylauncher.R
+import com.delet_dis.elementarylauncher.extensions.childAtPosition
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.OnboardingActivity
-import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.extensions.childAtPosition
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
