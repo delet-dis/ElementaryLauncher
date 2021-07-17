@@ -28,7 +28,7 @@ class NavigateToInterfaceScalePickFragmentTest {
 
     @Test
     fun navigateToInterfaceScalePickFragmentTest() {
-        val materialButton = onView(
+        val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
                 childAtPosition(
@@ -41,9 +41,9 @@ class NavigateToInterfaceScalePickFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton.perform(click())
+        getStartedButton.perform(click())
 
-        val materialButton2 = onView(
+        val nextButtonInScreenLayoutPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -56,11 +56,12 @@ class NavigateToInterfaceScalePickFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton2.perform(click())
+        nextButtonInScreenLayoutPickFragment.perform(click())
 
-        val imageButton = onView(
+        val backButton = onView(
             allOf(
-                withId(R.id.backButton), withContentDescription(R.string.backButtonContentDescription),
+                withId(R.id.backButton),
+                withContentDescription(R.string.backButtonContentDescription),
                 withParent(
                     allOf(
                         withId(R.id.mainConstraint),
@@ -70,9 +71,9 @@ class NavigateToInterfaceScalePickFragmentTest {
                 isDisplayed()
             )
         )
-        imageButton.check(matches(isDisplayed()))
+        backButton.check(matches(isDisplayed()))
 
-        val viewGroup = onView(
+        val exampleCard = onView(
             allOf(
                 withId(R.id.exampleCard),
                 withParent(
@@ -84,9 +85,9 @@ class NavigateToInterfaceScalePickFragmentTest {
                 isDisplayed()
             )
         )
-        viewGroup.check(matches(isDisplayed()))
+        exampleCard.check(matches(isDisplayed()))
 
-        val frameLayout = onView(
+        val appLogo = onView(
             allOf(
                 withId(R.id.imageCardView),
                 withParent(
@@ -98,9 +99,9 @@ class NavigateToInterfaceScalePickFragmentTest {
                 isDisplayed()
             )
         )
-        frameLayout.check(matches(isDisplayed()))
+        appLogo.check(matches(isDisplayed()))
 
-        val textView = onView(
+        val scaleHintText = onView(
             allOf(
                 withId(R.id.scaleHintText), withText(R.string.chooseInterfaceScaleText),
                 withParent(
@@ -112,7 +113,7 @@ class NavigateToInterfaceScalePickFragmentTest {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.chooseInterfaceScaleText)))
+        scaleHintText.check(matches(withText(R.string.chooseInterfaceScaleText)))
 
         val seekBar = onView(
             allOf(
@@ -128,7 +129,7 @@ class NavigateToInterfaceScalePickFragmentTest {
         )
         seekBar.check(matches(isDisplayed()))
 
-        val button = onView(
+        val nextButtonInInterfaceScalePickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 withParent(
@@ -140,7 +141,7 @@ class NavigateToInterfaceScalePickFragmentTest {
                 isDisplayed()
             )
         )
-        button.check(matches(isDisplayed()))
+        nextButtonInInterfaceScalePickFragment.check(matches(isDisplayed()))
 
         val progressBar = onView(
             allOf(

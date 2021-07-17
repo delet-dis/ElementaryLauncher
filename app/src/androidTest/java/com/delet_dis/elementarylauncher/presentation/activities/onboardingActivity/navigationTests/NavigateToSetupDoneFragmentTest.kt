@@ -1,7 +1,6 @@
 package com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.navigationTests
 
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -12,12 +11,10 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.delet_dis.elementarylauncher.R
+import com.delet_dis.elementarylauncher.extensions.childAtPosition
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.OnboardingActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.hamcrest.Description
-import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
@@ -34,11 +31,11 @@ class NavigateToSetupDoneFragmentTest {
 
     @Test
     fun navigateToSetupDoneFragmentTest() {
-        val materialButton = onView(
+        val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
-                com.delet_dis.elementarylauncher.extensions.childAtPosition(
-                    com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                childAtPosition(
+                    childAtPosition(
                         withId(R.id.navigationOnboardingControllerContainerView),
                         0
                     ),
@@ -47,13 +44,13 @@ class NavigateToSetupDoneFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton.perform(click())
+        getStartedButton.perform(click())
 
-        val materialButton2 = onView(
+        val nextButtonInScreenLayoutPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
-                com.delet_dis.elementarylauncher.extensions.childAtPosition(
-                    com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                childAtPosition(
+                    childAtPosition(
                         withId(R.id.navigationOnboardingControllerContainerView),
                         0
                     ),
@@ -62,15 +59,15 @@ class NavigateToSetupDoneFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton2.perform(click())
+        nextButtonInScreenLayoutPickFragment.perform(click())
 
-        val materialButton3 = onView(
+        val nextButtonInInterfaceScalePickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
-                com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                childAtPosition(
                     allOf(
                         withId(R.id.mainConstraint),
-                        com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                        childAtPosition(
                             withId(R.id.navigationOnboardingControllerContainerView),
                             0
                         )
@@ -80,13 +77,13 @@ class NavigateToSetupDoneFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton3.perform(click())
+        nextButtonInInterfaceScalePickFragment.perform(click())
 
         val cardView = onView(
             allOf(
                 withId(R.id.cardView),
-                com.delet_dis.elementarylauncher.extensions.childAtPosition(
-                    com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                childAtPosition(
+                    childAtPosition(
                         withId(R.id.actionsPickingRecycler),
                         0
                     ),
@@ -115,11 +112,11 @@ class NavigateToSetupDoneFragmentTest {
                 )
             )
 
-        val materialButton4 = onView(
+        val nextButtonInActionsPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
-                com.delet_dis.elementarylauncher.extensions.childAtPosition(
-                    com.delet_dis.elementarylauncher.extensions.childAtPosition(
+                childAtPosition(
+                    childAtPosition(
                         withId(R.id.navigationOnboardingControllerContainerView),
                         0
                     ),
@@ -128,9 +125,9 @@ class NavigateToSetupDoneFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton4.perform(click())
+        nextButtonInActionsPickFragment.perform(click())
 
-        val materialButton5 = onView(
+        val skipButtonInSetAsHomescreenFragment = onView(
             allOf(
                 withId(R.id.skipButton),
                 withText(R.string.skipSetAsHomescreenHintTextSetupButtonText),
@@ -144,34 +141,34 @@ class NavigateToSetupDoneFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton5.perform(click())
+        skipButtonInSetAsHomescreenFragment.perform(click())
 
-        val imageView = onView(
+        val finishImage = onView(
             allOf(
                 withId(R.id.finishImage), withContentDescription(R.string.finishImageDescription),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        imageView.check(matches(isDisplayed()))
+        finishImage.check(matches(isDisplayed()))
 
-        val textView = onView(
+        val finishHint = onView(
             allOf(
                 withId(R.id.finishHint), withText(R.string.finishSetupText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.finishSetupText)))
+        finishHint.check(matches(withText(R.string.finishSetupText)))
 
-        val button = onView(
+        val finishButton = onView(
             allOf(
                 withId(R.id.finishButton), withText(R.string.finishButtonText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        button.check(matches(isDisplayed()))
+        finishButton.check(matches(isDisplayed()))
 
         val progressBar = onView(
             allOf(
@@ -186,23 +183,5 @@ class NavigateToSetupDoneFragmentTest {
             )
         )
         progressBar.check(matches(isDisplayed()))
-    }
-
-    private fun childAtPosition(
-        parentMatcher: Matcher<View>, position: Int
-    ): Matcher<View> {
-
-        return object : TypeSafeMatcher<View>() {
-            override fun describeTo(description: Description) {
-                description.appendText("Child at position $position in parent ")
-                parentMatcher.describeTo(description)
-            }
-
-            public override fun matchesSafely(view: View): Boolean {
-                val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent)
-                        && view == parent.getChildAt(position)
-            }
-        }
     }
 }

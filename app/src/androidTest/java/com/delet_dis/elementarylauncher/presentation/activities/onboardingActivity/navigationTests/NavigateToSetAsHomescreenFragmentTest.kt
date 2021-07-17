@@ -30,7 +30,7 @@ class NavigateToSetAsHomescreenFragmentTest {
 
     @Test
     fun navigateToSetAsHomescreenFragmentTest() {
-        val materialButton = onView(
+        val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
                 childAtPosition(
@@ -43,9 +43,9 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton.perform(click())
+        getStartedButton.perform(click())
 
-        val materialButton2 = onView(
+        val nextButtonInScreenLayoutPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -58,9 +58,9 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton2.perform(click())
+        nextButtonInScreenLayoutPickFragment.perform(click())
 
-        val materialButton3 = onView(
+        val nextButtonInInterfaceScalePickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -76,7 +76,7 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton3.perform(click())
+        nextButtonInInterfaceScalePickFragment.perform(click())
 
         val cardView = onView(
             allOf(
@@ -111,7 +111,7 @@ class NavigateToSetAsHomescreenFragmentTest {
                 )
             )
 
-        val materialButton4 = onView(
+        val nextButtonInActionsPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -124,9 +124,9 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton4.perform(click())
+        nextButtonInActionsPickFragment.perform(click())
 
-        val imageButton = onView(
+        val backButton = onView(
             allOf(
                 withId(R.id.backButton),
                 withContentDescription(R.string.backButtonContentDescription),
@@ -134,9 +134,9 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        imageButton.check(matches(isDisplayed()))
+        backButton.check(matches(isDisplayed()))
 
-        val imageView = onView(
+        val launcherSettingsImage = onView(
             allOf(
                 withId(R.id.launcherSettingsImage),
                 withContentDescription(R.string.finishImageDescription),
@@ -144,9 +144,9 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        imageView.check(matches(isDisplayed()))
+        launcherSettingsImage.check(matches(isDisplayed()))
 
-        val textView = onView(
+        val setAsHomescreenHint = onView(
             allOf(
                 withId(R.id.hint),
                 withText(R.string.setAsHomescreenHintText),
@@ -154,9 +154,9 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.setAsHomescreenHintText)))
+        setAsHomescreenHint.check(matches(withText(R.string.setAsHomescreenHintText)))
 
-        val button = onView(
+        val goToSettingsButton = onView(
             allOf(
                 withId(R.id.goToSettingsButton),
                 withText(R.string.goToSettingsSetAsHomescreenHintTextSetupButtonText),
@@ -164,9 +164,9 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        button.check(matches(isDisplayed()))
+        goToSettingsButton.check(matches(isDisplayed()))
 
-        val button2 = onView(
+        val skipButton = onView(
             allOf(
                 withId(R.id.skipButton),
                 withText(R.string.skipSetAsHomescreenHintTextSetupButtonText),
@@ -174,7 +174,7 @@ class NavigateToSetAsHomescreenFragmentTest {
                 isDisplayed()
             )
         )
-        button2.check(matches(isDisplayed()))
+        skipButton.check(matches(isDisplayed()))
 
         val progressBar = onView(
             allOf(

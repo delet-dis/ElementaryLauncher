@@ -28,7 +28,7 @@ class ChangeScreenLayoutInOnboarding {
 
     @Test
     fun changeScreenLayoutInOnboarding() {
-        val materialButton = onView(
+        val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
                 childAtPosition(
@@ -41,7 +41,7 @@ class ChangeScreenLayoutInOnboarding {
                 isDisplayed()
             )
         )
-        materialButton.perform(click())
+        getStartedButton.perform(click())
 
         val twoByTwoCard = onView(
             allOf(

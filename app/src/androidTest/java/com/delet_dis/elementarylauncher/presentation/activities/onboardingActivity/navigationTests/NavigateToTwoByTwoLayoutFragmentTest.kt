@@ -30,7 +30,7 @@ class NavigateToTwoByTwoLayoutFragmentTest {
 
     @Test
     fun navigateToTwoByThreeLayoutFragmentTest() {
-        val materialButton = onView(
+        val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
                 childAtPosition(
@@ -43,18 +43,24 @@ class NavigateToTwoByTwoLayoutFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton.perform(click())
+        getStartedButton.perform(click())
 
-        val frameLayout2 = onView(
+        val twoByTwoCard = onView(
             allOf(
                 withId(R.id.twoByTwoCard),
-                withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.navigationOnboardingControllerContainerView),
+                        0
+                    ),
+                    2
+                ),
                 isDisplayed()
             )
         )
-        frameLayout2.perform(click())
+        twoByTwoCard.perform(click())
 
-        val materialButton2 = onView(
+        val nextButtonInScreenLayoutPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -67,9 +73,9 @@ class NavigateToTwoByTwoLayoutFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton2.perform(click())
+        nextButtonInScreenLayoutPickFragment.perform(click())
 
-        val materialButton3 = onView(
+        val nextButtonInInterfaceScalePickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -85,7 +91,7 @@ class NavigateToTwoByTwoLayoutFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton3.perform(click())
+        nextButtonInInterfaceScalePickFragment.perform(click())
 
         val cardView = onView(
             allOf(
@@ -120,7 +126,7 @@ class NavigateToTwoByTwoLayoutFragmentTest {
                 )
             )
 
-        val materialButton4 = onView(
+        val nextButtonInActionsPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -133,9 +139,9 @@ class NavigateToTwoByTwoLayoutFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton4.perform(click())
+        nextButtonInActionsPickFragment.perform(click())
 
-        val materialButton5 = onView(
+        val skipButtonInSetAsHomescreenFragment = onView(
             allOf(
                 withId(R.id.skipButton),
                 withText(R.string.skipSetAsHomescreenHintTextSetupButtonText),
@@ -149,9 +155,9 @@ class NavigateToTwoByTwoLayoutFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton5.perform(click())
+        skipButtonInSetAsHomescreenFragment.perform(click())
 
-        val materialButton6 = onView(
+        val finishButton = onView(
             allOf(
                 withId(R.id.finishButton), withText(R.string.finishButtonText),
                 childAtPosition(
@@ -164,72 +170,63 @@ class NavigateToTwoByTwoLayoutFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton6.perform(click())
+        finishButton.perform(click())
 
-        val frameLayout = onView(
+        val infoCardView = onView(
             allOf(
                 withId(R.id.info_card_view),
                 withParent(withParent(IsInstanceOf.instanceOf(android.widget.RelativeLayout::class.java))),
                 isDisplayed()
             )
         )
-        frameLayout.check(matches(isDisplayed()))
+        infoCardView.check(matches(isDisplayed()))
 
-        val viewGroup = onView(
+        val clockView = onView(
             allOf(
                 withId(R.id.clockView),
                 withParent(withParent(withId(R.id.navigationLauncherControllerContainerView))),
                 isDisplayed()
             )
         )
-        viewGroup.check(matches(isDisplayed()))
+        clockView.check(matches(isDisplayed()))
 
-        val textView = onView(
+        val timeStamp = onView(
             allOf(
                 withId(R.id.timeStamp),
                 withParent(withParent(withId(R.id.cardView))),
                 isDisplayed()
             )
         )
-        textView.check(matches(isDisplayed()))
+        timeStamp.check(matches(isDisplayed()))
 
-        val textView2 = onView(
+        val dateStamp = onView(
             allOf(
                 withId(R.id.dateStamp),
                 withParent(withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))),
                 isDisplayed()
             )
         )
-        textView2.check(matches(isDisplayed()))
+        dateStamp.check(matches(isDisplayed()))
 
-        val viewGroup2 = onView(
+        val firstCardView = onView(
             allOf(
                 withId(R.id.firstCardView),
                 withParent(withParent(withId(R.id.navigationLauncherControllerContainerView))),
                 isDisplayed()
             )
         )
-        viewGroup2.check(matches(isDisplayed()))
+        firstCardView.check(matches(isDisplayed()))
 
-        val viewGroup3 = onView(
+        val secondCardView = onView(
             allOf(
                 withId(R.id.secondCardView),
                 withParent(withParent(withId(R.id.navigationLauncherControllerContainerView))),
                 isDisplayed()
             )
         )
-        viewGroup3.check(matches(isDisplayed()))
+        secondCardView.check(matches(isDisplayed()))
 
-        val viewGroup4 = onView(
-            allOf(
-                withId(R.id.secondCardView),
-                withParent(withParent(withId(R.id.navigationLauncherControllerContainerView))),
-                isDisplayed()
-            )
-        )
-        viewGroup3.check(matches(isDisplayed()))
-
-        val textView3 = onView(
+        val cardTextInFirstCardView = onView(
             allOf(
                 withId(R.id.cardText), withText(R.string.settingsPickingWifiText),
                 withParent(
@@ -241,6 +238,6 @@ class NavigateToTwoByTwoLayoutFragmentTest {
                 isDisplayed()
             )
         )
-        textView3.check(matches(withText(R.string.settingsPickingWifiText)))
+        cardTextInFirstCardView.check(matches(withText(R.string.settingsPickingWifiText)))
     }
 }

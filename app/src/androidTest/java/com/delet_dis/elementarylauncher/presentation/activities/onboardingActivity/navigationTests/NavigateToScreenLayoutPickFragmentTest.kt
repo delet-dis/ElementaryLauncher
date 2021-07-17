@@ -28,7 +28,7 @@ class NavigateToScreenLayoutPickFragmentTest {
 
     @Test
     fun navigateToScreenLayoutPickFragmentTest() {
-        val materialButton = onView(
+        val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
                 childAtPosition(
@@ -41,9 +41,9 @@ class NavigateToScreenLayoutPickFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton.perform(click())
+        getStartedButton.perform(click())
 
-        val imageButton = onView(
+        val backButton = onView(
             allOf(
                 withId(R.id.backButton),
                 withContentDescription(R.string.backButtonContentDescription),
@@ -51,18 +51,18 @@ class NavigateToScreenLayoutPickFragmentTest {
                 isDisplayed()
             )
         )
-        imageButton.check(matches(isDisplayed()))
+        backButton.check(matches(isDisplayed()))
 
-        val frameLayout = onView(
+        val twoByThreeCard = onView(
             allOf(
                 withId(R.id.twoByThreeCard),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        frameLayout.check(matches(isDisplayed()))
+        twoByThreeCard.check(matches(isDisplayed()))
 
-        val imageView = onView(
+        val twoByThreeCardImage = onView(
             allOf(
                 withId(R.id.gridImageTwoByThree),
                 withContentDescription(R.string.gridImageTwoByThreeDescription),
@@ -70,18 +70,18 @@ class NavigateToScreenLayoutPickFragmentTest {
                 isDisplayed()
             )
         )
-        imageView.check(matches(isDisplayed()))
+        twoByThreeCardImage.check(matches(isDisplayed()))
 
-        val frameLayout2 = onView(
+        val twoByTwoCard = onView(
             allOf(
                 withId(R.id.twoByTwoCard),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        frameLayout2.check(matches(isDisplayed()))
+        twoByTwoCard.check(matches(isDisplayed()))
 
-        val imageView2 = onView(
+        val twoByTwoCardImage = onView(
             allOf(
                 withId(R.id.gridImageTwoByTwo),
                 withContentDescription(R.string.gridImageTwoByTwoDescription),
@@ -89,7 +89,7 @@ class NavigateToScreenLayoutPickFragmentTest {
                 isDisplayed()
             )
         )
-        imageView2.check(matches(isDisplayed()))
+        twoByTwoCardImage.check(matches(isDisplayed()))
 
         val radioGroup = onView(
             allOf(
@@ -100,7 +100,7 @@ class NavigateToScreenLayoutPickFragmentTest {
         )
         radioGroup.check(matches(isDisplayed()))
 
-        val radioButton = onView(
+        val twoByThreeRadio = onView(
             allOf(
                 withId(R.id.twoByThreeRadio),
                 withParent(
@@ -112,9 +112,9 @@ class NavigateToScreenLayoutPickFragmentTest {
                 isDisplayed()
             )
         )
-        radioButton.check(matches(isDisplayed()))
+        twoByThreeRadio.check(matches(isDisplayed()))
 
-        val radioButton2 = onView(
+        val twoByTwoRadio = onView(
             allOf(
                 withId(R.id.twoByTwoRadio),
                 withParent(
@@ -126,25 +126,25 @@ class NavigateToScreenLayoutPickFragmentTest {
                 isDisplayed()
             )
         )
-        radioButton2.check(matches(isDisplayed()))
+        twoByTwoRadio.check(matches(isDisplayed()))
 
-        val textView = onView(
+        val layoutPickHint = onView(
             allOf(
                 withId(R.id.layoutPickHint), withText(R.string.chooseGridLayoutText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.chooseGridLayoutText)))
+        layoutPickHint.check(matches(withText(R.string.chooseGridLayoutText)))
 
-        val button = onView(
+        val nextButtonInScreenLayoutPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        button.check(matches(isDisplayed()))
+        nextButtonInScreenLayoutPickFragment.check(matches(isDisplayed()))
 
         val progressBar = onView(
             allOf(

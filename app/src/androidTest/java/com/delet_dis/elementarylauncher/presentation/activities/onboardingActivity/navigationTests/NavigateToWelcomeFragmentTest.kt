@@ -26,34 +26,34 @@ class NavigateToWelcomeFragmentTest {
 
     @Test
     fun navigateToWelcomeFragmentTest() {
-        val imageView = onView(
+        val appLogo = onView(
             allOf(
                 withId(R.id.appLogo), withContentDescription(R.string.appLogoContentDescription),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        imageView.check(matches(isDisplayed()))
+        appLogo.check(matches(isDisplayed()))
 
-        val textView = onView(
+        val appName = onView(
             allOf(
                 withId(R.id.appName), withText(R.string.appName),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.appName)))
+        appName.check(matches(withText(R.string.appName)))
 
-        val button = onView(
+        val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        button.check(matches(isDisplayed()))
+        getStartedButton.check(matches(isDisplayed()))
 
-        val progressBar = onView(
+        val progressIndicator = onView(
             allOf(
                 withId(R.id.progressIndicator),
                 withParent(
@@ -65,6 +65,6 @@ class NavigateToWelcomeFragmentTest {
                 isDisplayed()
             )
         )
-        progressBar.check(matches(isDisplayed()))
+        progressIndicator.check(matches(isDisplayed()))
     }
 }

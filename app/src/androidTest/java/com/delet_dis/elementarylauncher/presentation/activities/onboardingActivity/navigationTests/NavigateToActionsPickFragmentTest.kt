@@ -30,7 +30,7 @@ class NavigateToActionsPickFragmentTest {
 
     @Test
     fun navigateToActionsPickFragmentTest() {
-        val materialButton = onView(
+        val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
                 childAtPosition(
@@ -43,9 +43,9 @@ class NavigateToActionsPickFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton.perform(click())
+        getStartedButton.perform(click())
 
-        val materialButton2 = onView(
+        val nextButtonInScreenLayoutPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -58,9 +58,9 @@ class NavigateToActionsPickFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton2.perform(click())
+        nextButtonInScreenLayoutPickFragment.perform(click())
 
-        val materialButton3 = onView(
+        val nextButtonInInterfaceScalePickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 childAtPosition(
@@ -76,7 +76,7 @@ class NavigateToActionsPickFragmentTest {
                 isDisplayed()
             )
         )
-        materialButton3.perform(click())
+        nextButtonInInterfaceScalePickFragment.perform(click())
 
         val cardView = onView(
             allOf(
@@ -111,7 +111,7 @@ class NavigateToActionsPickFragmentTest {
                 )
             )
 
-        val imageButton = onView(
+        val backButton = onView(
             allOf(
                 withId(R.id.backButton),
                 withContentDescription(R.string.backButtonContentDescription),
@@ -119,7 +119,7 @@ class NavigateToActionsPickFragmentTest {
                 isDisplayed()
             )
         )
-        imageButton.check(matches(isDisplayed()))
+        backButton.check(matches(isDisplayed()))
 
         val recyclerView = onView(
             allOf(
@@ -130,23 +130,23 @@ class NavigateToActionsPickFragmentTest {
         )
         recyclerView.check(matches(isDisplayed()))
 
-        val textView = onView(
+        val actionsPickingHint = onView(
             allOf(
                 withId(R.id.actionsPickHint), withText(R.string.chooseActionsForHomeScreenText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.chooseActionsForHomeScreenText)))
+        actionsPickingHint.check(matches(withText(R.string.chooseActionsForHomeScreenText)))
 
-        val button = onView(
+        val nextButtonInActionsPickFragment = onView(
             allOf(
                 withId(R.id.nextButton), withText(R.string.nextButtonText),
                 withParent(withParent(withId(R.id.navigationOnboardingControllerContainerView))),
                 isDisplayed()
             )
         )
-        button.check(matches(isDisplayed()))
+        nextButtonInActionsPickFragment.check(matches(isDisplayed()))
 
         val progressBar = onView(
             allOf(
