@@ -25,8 +25,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actionsPickingRecycler"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:maxHeight="0dp"
         android:overScrollMode="never"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/actionsPickHint"

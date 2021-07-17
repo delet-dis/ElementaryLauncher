@@ -37,7 +37,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomSheetLayout"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:background="@drawable/linear_layout_rounded_corners"
         android:elevation="32dp"
         android:nestedScrollingEnabled="false"
@@ -72,14 +72,14 @@
             android:id="@+id/itemPickRecycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="64dp"
             android:layout_marginBottom="16dp"
             android:nestedScrollingEnabled="true"
             android:overScrollMode="ifContentScrolls"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/afterTextViewDivider" />
+            app:layout_constraintTop_toTopOf="@+id/actionPickingHeader" />
 
         <ProgressBar
             android:id="@+id/progressBar"
