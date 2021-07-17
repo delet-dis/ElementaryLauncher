@@ -76,21 +76,19 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
                 if (isOnboardingPassed(requireContext())) {
                     requireActivity().finish()
                 } else {
-                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                        .popBackStack()
+                    parentActivityCallback.backFragmentButtonPress()
                 }
             }
         }
 
     private fun checkIfAppIsAlreadyPickedAsHomescreen() =
         with(binding) {
-            if (!isOnboardingPassed(requireContext())) {
-                if (checkIfAppIsDefaultLauncher(requireContext())) {
-                    nextButton.setOnClickListener {
-                        requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
-                            .navigate(R.id.action_actionsPickFragment_to_setupDoneFragment)
-                    }
+            if (!isOnboardingPassed(requireContext()) and checkIfAppIsDefaultLauncher(requireContext())) {
+                nextButton.setOnClickListener {
+                    requireActivity().findNavController(R.id.navigationOnboardingControllerContainerView)
+                        .navigate(R.id.action_actionsPickFragment_to_setupDoneFragment)
                 }
+
             }
         }
 
@@ -161,6 +159,7 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
     interface ParentActivityCallback {
         fun callItemPicking(itemId: Int)
         fun setAvailabilityToPressBackButton(availability: Boolean)
+        fun backFragmentButtonPress()
     }
 
     override fun getFragmentId(): Int {
