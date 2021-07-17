@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -26,8 +25,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actionsPickingRecycler"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:maxHeight="0dp"
         android:overScrollMode="never"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/actionsPickHint"

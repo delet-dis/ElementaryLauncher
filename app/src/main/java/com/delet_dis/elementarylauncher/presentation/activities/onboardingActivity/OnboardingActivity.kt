@@ -294,6 +294,10 @@ class OnboardingActivity : AppCompatActivity(),
         isAvailableToSaveShortcutsSettings = availability
     }
 
+    override fun backFragmentButtonPress() {
+        onBackPressed()
+    }
+
     private fun callSubItemPicking(actionType: ActionType, itemPosition: Int) =
         with(onboardingActivityViewModel) {
             when (actionType) {
@@ -428,25 +432,6 @@ class OnboardingActivity : AppCompatActivity(),
 
         hostFragment?.findNavController()
             ?.navigate((currentFragment as FragmentParentInterface).getFragmentId())
-
-//        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-//            val newLayoutParams = CoordinatorLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                (550).toFloat().pxToDp(applicationContext).toInt()
-//            )
-//
-//            binding.bottomSheetLayout.layoutParams = newLayoutParams
-//
-//        } else {
-//            val newLayoutParams = CoordinatorLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.MATCH_PARENT
-//            )
-//
-//            binding.bottomSheetLayout.layoutParams = newLayoutParams
-//        }
-//
-//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     companion object OnboardingActivityConstantsRepository {
