@@ -19,15 +19,6 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\delet-dis\.android\avd\Nexus_10_API_25.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
             <type value="SERIAL_NUMBER" />
             <value value="192.168.1.103:38248" />
           </Key>
