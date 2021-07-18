@@ -28,7 +28,7 @@ class ChangeScaleInOnboarding {
     var mActivityTestRule = ActivityTestRule(OnboardingActivity::class.java)
 
     @Test
-    fun sliderInInterfaceScalePickFragmentValueChangerTest() {
+    fun changeScaleInOnboarding() {
         val getStartedButton = onView(
             allOf(
                 withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
@@ -63,14 +63,14 @@ class ChangeScaleInOnboarding {
             withId(R.id.interfaceScaleSeekBar)
         )
 
-        interfaceScaleSeekBar.perform(setValue(50))
-        interfaceScaleSeekBar.check(matches(withValue(50)))
+        interfaceScaleSeekBar.perform(setValue(4))
+        interfaceScaleSeekBar.check(matches(withValue(4)))
 
 //        interfaceScaleSeekBar.check(matches(withValue(3)))
 
 
 
-        interfaceScaleSeekBar.perform(setValue(50))
-        interfaceScaleSeekBar.check(matches(withValue(50)))
+        interfaceScaleSeekBar.perform(setValue(0))
+        interfaceScaleSeekBar.check(matches(withValue(0)))
     }
 }
