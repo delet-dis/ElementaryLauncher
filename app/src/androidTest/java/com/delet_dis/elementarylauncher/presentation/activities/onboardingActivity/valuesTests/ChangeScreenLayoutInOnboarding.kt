@@ -10,6 +10,7 @@ import androidx.test.rule.ActivityTestRule
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.extensions.childAtPosition
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.OnboardingActivity
+import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.navigationTests.forwards.NavigateToScreenLayoutPickFragmentTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.core.IsInstanceOf
@@ -28,20 +29,7 @@ class ChangeScreenLayoutInOnboarding {
 
     @Test
     fun changeScreenLayoutInOnboarding() {
-        val getStartedButton = onView(
-            allOf(
-                withId(R.id.getStartedButton), withText(R.string.getStartedButtonText),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.navigationOnboardingControllerContainerView),
-                        0
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        getStartedButton.perform(click())
+        NavigateToScreenLayoutPickFragmentTest().navigateToScreenLayoutPickFragment()
 
         val twoByTwoCard = onView(
             allOf(
