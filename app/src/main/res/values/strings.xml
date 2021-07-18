@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="appName" translatable="false">Elementary launcher</string>
+    <string name="appName" translatable="false">Elementary Launcher</string>
     <string name="getStartedButtonText">Get started</string>
     <string name="chooseInterfaceScaleText">Choose shortcut elements scale</string>
     <string name="nextButtonText">Next</string>

@@ -31,7 +31,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -40,8 +39,7 @@
 
         <activity
             android:name=".presentation.activities.launcherActivity.LauncherActivity"
-            android:theme="@style/LauncherActivityStyle"
-            tools:ignore="LockedOrientationActivity"/>
+            android:theme="@style/LauncherActivityStyle" />
     </application>
 
 </manifest>
