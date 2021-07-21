@@ -50,4 +50,8 @@
     <string name="settingsShowcaseDismissText">Got it</string>
     <string name="settingsShowcaseInfoText">Hold this widget to open an additional menu</string>
     <string name="actionPickingGoToHomescreenSelectionPreferencesText">Configure preferred home screen setting</string>
+    <string name="supportText">If you want to support the developer</string>
+    <string name="appVersion" translatable="false">v2.2-stable</string>
+    <string name="actionPickingAboutTheAppText">About the app</string>
+    <string name="supportLink" translatable="false">https://www.donationalerts.com/r/delet_dis</string>
 </resources>

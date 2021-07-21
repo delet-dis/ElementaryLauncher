@@ -39,6 +39,10 @@
         <activity
             android:name=".presentation.activities.launcherActivity.LauncherActivity"
             android:theme="@style/LauncherActivityStyle" />
+
+        <activity
+            android:name=".presentation.activities.aboutActivity.AboutActivity"
+            android:theme="@style/OnboardingActivityStyle" />
     </application>
 
 </manifest>

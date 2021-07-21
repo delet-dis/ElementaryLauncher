@@ -11,7 +11,9 @@
     <color name="defaultFontColor">@color/black</color>
     <color name="defaultFontSubColor">#B9000000</color>
 
-    <color name="dividerColor">#D3D3D3</color>
+    <color name="dividerColor">#B9B9B9</color>
+
+    <color name="subtextColor">#8A8080</color>
 
     <color name="white_half_transparent">#8DFFFFFF</color>
 </resources>

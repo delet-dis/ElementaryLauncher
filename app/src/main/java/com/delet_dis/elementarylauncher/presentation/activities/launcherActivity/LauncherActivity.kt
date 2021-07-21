@@ -2,6 +2,7 @@ package com.delet_dis.elementarylauncher.presentation.activities.launcherActivit
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +16,7 @@ import com.delet_dis.elementarylauncher.data.models.LayoutType
 import com.delet_dis.elementarylauncher.databinding.ActivityLauncherBinding
 import com.delet_dis.elementarylauncher.domain.repositories.ConstantsRepository
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
+import com.delet_dis.elementarylauncher.presentation.activities.aboutActivity.AboutActivity
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByThreeLayoutFragment.TwoByThreeLayoutFragment
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment.TwoByTwoLayoutFragment
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.recyclerViewAdapters.OnHomescreenActionsPickingAdapter
@@ -93,12 +95,25 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
     }
 
     private fun callHomescreenAction(action: HomescreenActionType) =
-        applicationContext.startActivity(
-            Intent(applicationContext, OnboardingActivity::class.java).putExtra(
-                ConstantsRepository.SCREEN_TO_NAVIGATE,
-                action.name
-            ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        )
+        if (action.isOnboardingPart) {
+            applicationContext.startActivity(
+                Intent(applicationContext, OnboardingActivity::class.java).putExtra(
+                    ConstantsRepository.SCREEN_TO_NAVIGATE,
+                    action.name
+                ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+        } else {
+            when (action) {
+                HomescreenActionType.HOMESCREEN_PICK -> {
+                    startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+                }
+                HomescreenActionType.ABOUT_APP -> {
+                    startActivity(Intent(this, AboutActivity::class.java))
+                }
+                else -> {
+                }
+            }
+        }
 
     private fun replaceFragment(fragmentToReplace: Fragment) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
