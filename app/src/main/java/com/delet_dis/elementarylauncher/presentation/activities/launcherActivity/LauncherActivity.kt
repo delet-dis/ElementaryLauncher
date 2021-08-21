@@ -23,11 +23,13 @@ import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.OnboardingActivity
 import com.delet_dis.elementarylauncher.presentation.views.clockView.ClockView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Class showing the main application screen with shortcuts.
  */
+@AndroidEntryPoint
 @Suppress("DEPRECATION")
 @ExperimentalCoroutinesApi
 class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {

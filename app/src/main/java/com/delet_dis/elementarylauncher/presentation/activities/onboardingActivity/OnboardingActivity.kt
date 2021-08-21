@@ -36,11 +36,13 @@ import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivi
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.SettingsActionPickingAdapter
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.viewModel.OnboardingActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Class showing the initial setup screen
  */
+@AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class OnboardingActivity : AppCompatActivity(),
     ActionsPickFragment.ParentActivityCallback {
