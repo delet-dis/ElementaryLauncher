@@ -26,7 +26,8 @@
             android:name=".presentation.activities.onboardingActivity.OnboardingActivity"
             android:configChanges="density|fontScale|keyboard|keyboardHidden|locale|orientation|screenLayout|screenSize"
             android:theme="@style/OnboardingActivityStyle"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,6 +40,10 @@
         <activity
             android:name=".presentation.activities.launcherActivity.LauncherActivity"
             android:theme="@style/LauncherActivityStyle" />
+
+        <activity
+            android:name=".presentation.activities.aboutActivity.AboutActivity"
+            android:theme="@style/OnboardingActivityStyle" />
     </application>
 
 </manifest>
