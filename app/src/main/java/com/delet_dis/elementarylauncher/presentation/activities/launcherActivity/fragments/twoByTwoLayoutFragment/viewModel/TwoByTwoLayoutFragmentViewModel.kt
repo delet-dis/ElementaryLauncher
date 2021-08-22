@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 class TwoByTwoLayoutFragmentViewModel(application: Application) : AndroidViewModel(application) {
@@ -18,13 +19,15 @@ class TwoByTwoLayoutFragmentViewModel(application: Application) : AndroidViewMod
     val databaseRecordingsLiveData: LiveData<Array<Card?>>
         get() = _databaseRecordingsLiveData
 
+    @Inject lateinit var databaseRepository: DatabaseRepository
+
     init {
         loadDatabaseRecordingsAsCards()
     }
 
     private fun loadDatabaseRecordingsAsCards() =
         viewModelScope.launch(Dispatchers.IO) {
-            DatabaseRepository(getApplication()).getNonEmptyDatabaseRecordingsAsCards()
+            databaseRepository.getNonEmptyDatabaseRecordingsAsCards()
                 .collect { arrayOfCards ->
                     _databaseRecordingsLiveData.postValue(arrayOfCards)
                 }

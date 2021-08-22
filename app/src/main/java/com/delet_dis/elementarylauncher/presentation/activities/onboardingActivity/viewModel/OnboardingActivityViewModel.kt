@@ -16,6 +16,7 @@ import com.delet_dis.elementarylauncher.domain.repositories.PackagesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 class OnboardingActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -36,6 +37,8 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
     val settingsActionsLiveData: LiveData<Array<SettingsActionType>>
         get() = _settingsActionsLiveData
 
+    @Inject lateinit var databaseRepository: DatabaseRepository
+
     fun loadApplicationsPackages() =
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
@@ -47,7 +50,7 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
 
     fun insertApp(packageName: String, position: Int) =
         viewModelScope.launch(Dispatchers.IO) {
-            DatabaseRepository(getApplication()).insertWithOverride(
+            databaseRepository.insertWithOverride(
                 App(packageName, position),
                 position
             )
@@ -57,7 +60,7 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
 
     fun insertWidget(widgetId: Int, position: Int) =
         viewModelScope.launch(Dispatchers.IO) {
-            DatabaseRepository(getApplication()).insertWithOverride(
+            databaseRepository.insertWithOverride(
                 Widget(widgetId, position),
                 position
             )
@@ -76,7 +79,7 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
 
     fun insertSettingsAction(action: String, position: Int) =
         viewModelScope.launch(Dispatchers.IO) {
-            DatabaseRepository(getApplication()).insertWithOverride(
+            databaseRepository.insertWithOverride(
                 SettingsAction(action, position),
                 position
             )
@@ -88,7 +91,7 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
         when (actionType) {
             ContactActionType.CARD -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    DatabaseRepository(getApplication()).insertWithOverride(
+                    databaseRepository.insertWithOverride(
                         Contact(uri, position),
                         position
                     )
@@ -98,7 +101,7 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
             }
             ContactActionType.CALL -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    DatabaseRepository(getApplication()).insertWithOverride(
+                    databaseRepository.insertWithOverride(
                         ContactCall(uri, position),
                         position
                     )
@@ -108,7 +111,7 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
             }
             ContactActionType.SMS -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    DatabaseRepository(getApplication()).insertWithOverride(
+                    databaseRepository.insertWithOverride(
                         ContactSMS(uri, position),
                         position
                     )
@@ -120,7 +123,7 @@ class OnboardingActivityViewModel(application: Application) : AndroidViewModel(a
 
     fun deleteAtPosition(position: Int) =
         viewModelScope.launch(Dispatchers.IO) {
-            DatabaseRepository(getApplication()).deleteAtPosition(position)
+            databaseRepository.deleteAtPosition(position)
 
             _isBottomSheetHidden.postValue(true)
         }
