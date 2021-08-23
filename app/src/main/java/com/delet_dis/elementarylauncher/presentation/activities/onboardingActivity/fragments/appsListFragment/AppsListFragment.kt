@@ -7,22 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.databinding.FragmentAppsListScreenBinding
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.appsListFragment.viewModel.AppsListFragmentViewModel
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.AppsPickingAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Fragment used to display the list of installed applications available to launch.
  */
+@AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class AppsListFragment : Fragment(), FragmentParentInterface {
     private lateinit var binding: FragmentAppsListScreenBinding
 
-    private lateinit var appListFragmentViewModel: AppsListFragmentViewModel
+    private val viewModel: AppsListFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +35,6 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
         return if (savedInstanceState == null) {
             binding = FragmentAppsListScreenBinding.inflate(layoutInflater)
 
-            appListFragmentViewModel = AppsListFragmentViewModel(requireActivity().application)
 
             binding.root
         } else {
@@ -49,7 +51,7 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
 
         initIsLoadingObserver()
 
-        with(appListFragmentViewModel) {
+        with(viewModel) {
             loadApplicationsPackages()
             applicationsPackagesLiveData
                 .observe(viewLifecycleOwner, { mutableList ->
@@ -75,7 +77,7 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
     }
 
     private fun initIsLoadingObserver() {
-        appListFragmentViewModel.isLoading.observe(viewLifecycleOwner, { isLoading ->
+        viewModel.isLoading.observe(viewLifecycleOwner, { isLoading ->
             if (isLoading) {
                 showListLoading()
             } else {

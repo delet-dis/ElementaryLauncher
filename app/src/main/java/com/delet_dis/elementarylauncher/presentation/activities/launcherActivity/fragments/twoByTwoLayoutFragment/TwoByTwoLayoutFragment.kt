@@ -5,20 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.delet_dis.elementarylauncher.databinding.FragmentTwoByTwoLayoutBinding
 import com.delet_dis.elementarylauncher.domain.helpers.createIntro
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment.viewModel.TwoByTwoLayoutFragmentViewModel
 import com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Fragment used to display a two-by-two grid of apps.
  */
+@AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class TwoByTwoLayoutFragment : Fragment() {
     private lateinit var binding: FragmentTwoByTwoLayoutBinding
 
-    private lateinit var twoByTwoLayoutFragmentViewModel: TwoByTwoLayoutFragmentViewModel
+    private val viewModel: TwoByTwoLayoutFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +30,6 @@ class TwoByTwoLayoutFragment : Fragment() {
     ): View? {
         return if (savedInstanceState == null) {
             binding = FragmentTwoByTwoLayoutBinding.inflate(layoutInflater)
-
-            twoByTwoLayoutFragmentViewModel =
-                TwoByTwoLayoutFragmentViewModel(requireActivity().application)
 
             binding.root
         } else {
@@ -45,7 +45,7 @@ class TwoByTwoLayoutFragment : Fragment() {
                 createIntro(this, requireActivity(), clockView)
             }
 
-            twoByTwoLayoutFragmentViewModel.databaseRecordingsLiveData.observe(viewLifecycleOwner)
+            viewModel.databaseRecordingsLiveData.observe(viewLifecycleOwner)
             { list ->
                 binding.cardsGroup.referencedIds.forEachIndexed { index, i ->
                     list[index]?.let { card ->

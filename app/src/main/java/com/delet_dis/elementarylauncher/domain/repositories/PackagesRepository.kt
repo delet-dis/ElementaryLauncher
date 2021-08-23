@@ -3,12 +3,17 @@ package com.delet_dis.elementarylauncher.domain.repositories
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 
-
-class PackagesRepository(private val context: Context) {
+@Module
+@InstallIn(SingletonComponent::class)
+class PackagesRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
     fun loadApplicationsPackages(): MutableList<ApplicationInfo> {
-
         val launchableInstalledApps: ArrayList<ApplicationInfo> = ArrayList()
 
         with(context) {
