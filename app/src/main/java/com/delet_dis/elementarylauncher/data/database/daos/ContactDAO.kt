@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ContactDAO {
+
     @Query("SELECT * FROM contact")
     fun getAllContactsAsList(): List<Contact>
 

@@ -1,9 +1,9 @@
 package com.delet_dis.elementarylauncher.presentation.views.clockView.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.delet_dis.elementarylauncher.data.broadcastReceivers.AlarmChangedBroadcastReceiver
 import com.delet_dis.elementarylauncher.data.broadcastReceivers.DateAndTimeChangedBroadcastReceiver
 import com.delet_dis.elementarylauncher.domain.helpers.formatToDigitalClock
@@ -12,15 +12,16 @@ import com.delet_dis.elementarylauncher.domain.helpers.getCurrentTime
 import com.delet_dis.elementarylauncher.domain.repositories.AlarmsRepository
 import dagger.Module
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 @Module
 @InstallIn(SingletonComponent::class)
 class ClockViewViewModel @Inject constructor(
-    application: Application,
+    @ApplicationContext private val context: Context,
     private val alarmsRepository: AlarmsRepository
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
     private val _dateLiveData = MutableLiveData(getCurrentDate())
     val dateLiveData: LiveData<String>
@@ -30,7 +31,7 @@ class ClockViewViewModel @Inject constructor(
     val timeLiveData: LiveData<String>
         get() = _timeLiveData
 
-    private val _isAlarmEnabled = MutableLiveData(AlarmsRepository(getApplication()).isAlarmEnabled)
+    private val _isAlarmEnabled = MutableLiveData(AlarmsRepository(context).isAlarmEnabled)
     val isAlarmEnabled: LiveData<Boolean>
         get() = _isAlarmEnabled
 
@@ -56,7 +57,7 @@ class ClockViewViewModel @Inject constructor(
             }
         }
 
-        getApplication<Application>().registerReceiver(
+        context.registerReceiver(
             dateAndTimeChangedBroadcastReceiver,
             DateAndTimeChangedBroadcastReceiver.intentFilter
         )
@@ -76,7 +77,7 @@ class ClockViewViewModel @Inject constructor(
             }
         }
 
-        getApplication<Application>().registerReceiver(
+        context.registerReceiver(
             alarmChangedBroadcastReceiver,
             AlarmChangedBroadcastReceiver.intentFilter
         )

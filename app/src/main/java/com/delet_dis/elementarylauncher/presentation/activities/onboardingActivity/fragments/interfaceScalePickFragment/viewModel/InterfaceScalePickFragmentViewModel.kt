@@ -7,7 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class InterfaceScalePickFragmentViewModel @Inject constructor(private val sharedPreferencesRepository: SharedPreferencesRepository) : ViewModel() {
+class InterfaceScalePickFragmentViewModel @Inject constructor(
+    private val sharedPreferencesRepository: SharedPreferencesRepository
+) : ViewModel() {
     fun setScale(sizeType: SizeType) =
         sharedPreferencesRepository.setScale(sizeType)
 }
