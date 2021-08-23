@@ -17,6 +17,7 @@ import javax.inject.Inject
 @Module
 @InstallIn(SingletonComponent::class)
 class SharedPreferencesRepository @Inject constructor(@ApplicationContext private val context: Context) {
+
     private fun getSharedPreferences(): SharedPreferences =
         context.getSharedPreferences(
             appSettings,

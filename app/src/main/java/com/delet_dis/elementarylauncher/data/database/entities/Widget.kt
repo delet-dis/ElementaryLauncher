@@ -7,6 +7,7 @@ import com.delet_dis.elementarylauncher.data.models.ActionType
 
 @Entity(indices = [Index(value = ["position"], unique = true)])
 data class Widget(
+
     var widgetId: Int? = null,
 
     @ColumnInfo(name = "position")

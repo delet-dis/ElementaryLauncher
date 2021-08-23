@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ContactSMSDAO {
+
     @Query("SELECT * FROM contactsms")
     fun getAllContactSMSAsList(): List<ContactSMS>
 

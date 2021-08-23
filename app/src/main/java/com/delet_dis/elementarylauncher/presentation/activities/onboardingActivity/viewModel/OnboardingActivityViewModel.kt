@@ -1,12 +1,12 @@
 package com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.viewModel
 
-import android.app.Application
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.delet_dis.elementarylauncher.data.database.entities.*
 import com.delet_dis.elementarylauncher.data.models.ContactActionType
@@ -14,6 +14,7 @@ import com.delet_dis.elementarylauncher.data.models.SettingsActionType
 import com.delet_dis.elementarylauncher.domain.repositories.DatabaseRepository
 import com.delet_dis.elementarylauncher.domain.repositories.PackagesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -22,10 +23,11 @@ import javax.inject.Inject
 @HiltViewModel
 @ExperimentalCoroutinesApi
 class OnboardingActivityViewModel @Inject constructor(
-    application: Application,
+    @ApplicationContext private val context: Context,
     private val databaseRepository: DatabaseRepository,
     private val packagesRepository: PackagesRepository
-) : AndroidViewModel(application) {
+) : ViewModel() {
+
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
@@ -137,7 +139,7 @@ class OnboardingActivityViewModel @Inject constructor(
         onFailureFunction: () -> Unit
     ) =
         if (ContextCompat.checkSelfPermission(
-                getApplication(),
+                context,
                 permissionToCheck
             ) == PackageManager.PERMISSION_GRANTED
         ) {

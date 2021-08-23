@@ -26,6 +26,7 @@ import java.io.IOException
  * Function used to cast any database Entity into Card class.
  */
 fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
+
     val cardToReturn = Card()
 
     when (inputDataClass) {

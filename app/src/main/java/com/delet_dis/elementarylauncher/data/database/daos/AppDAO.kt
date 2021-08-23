@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AppDAO {
+
     @Query("SELECT * FROM app")
     fun getAllAppsAsList(): List<App>
 

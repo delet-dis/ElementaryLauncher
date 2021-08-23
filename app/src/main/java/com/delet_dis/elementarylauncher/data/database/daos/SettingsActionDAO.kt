@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SettingsActionDAO {
+
     @Query("SELECT * FROM settingsaction")
     fun getAllSettingsActionsAsList(): List<SettingsAction>
 

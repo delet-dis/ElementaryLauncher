@@ -11,6 +11,7 @@ import javax.inject.Inject
 @Module
 @InstallIn(SingletonComponent::class)
 class AlarmsRepository @Inject constructor(@ApplicationContext private val context: Context) {
+
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     var nextAlarm: Long? =

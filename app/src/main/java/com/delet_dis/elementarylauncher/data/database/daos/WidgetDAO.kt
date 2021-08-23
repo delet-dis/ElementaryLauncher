@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WidgetDAO {
+
     @Query("SELECT * FROM widget")
     fun getAllWidgetsAsList(): List<Widget>
 
