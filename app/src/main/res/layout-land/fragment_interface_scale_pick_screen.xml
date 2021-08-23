@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.activities.onboardingActivity.fragments.InterfaceScalePickFragment">
+    tools:context=".presentation.activities.onboardingActivity.fragments.interfaceScalePickFragment.InterfaceScalePickFragment">
 
     <ImageButton
         android:id="@+id/backButton"

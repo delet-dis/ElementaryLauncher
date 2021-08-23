@@ -10,8 +10,17 @@ import com.delet_dis.elementarylauncher.domain.helpers.formatToDigitalClock
 import com.delet_dis.elementarylauncher.domain.helpers.getCurrentDate
 import com.delet_dis.elementarylauncher.domain.helpers.getCurrentTime
 import com.delet_dis.elementarylauncher.domain.repositories.AlarmsRepository
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 
-class ClockViewViewModel(application: Application) : AndroidViewModel(application) {
+@Module
+@InstallIn(SingletonComponent::class)
+class ClockViewViewModel @Inject constructor(
+    application: Application,
+    private val alarmsRepository: AlarmsRepository
+) : AndroidViewModel(application) {
 
     private val _dateLiveData = MutableLiveData(getCurrentDate())
     val dateLiveData: LiveData<String>
@@ -26,7 +35,7 @@ class ClockViewViewModel(application: Application) : AndroidViewModel(applicatio
         get() = _isAlarmEnabled
 
     private val _nextAlarmTriggerTime =
-        MutableLiveData(AlarmsRepository(getApplication()).nextAlarm?.let { nextAlarmTime ->
+        MutableLiveData(alarmsRepository.nextAlarm?.let { nextAlarmTime ->
             formatToDigitalClock(
                 nextAlarmTime
             )
@@ -56,14 +65,14 @@ class ClockViewViewModel(application: Application) : AndroidViewModel(applicatio
     private fun initAlarmChangedBroadcastReceiver() {
         val alarmChangedBroadcastReceiver = object : AlarmChangedBroadcastReceiver() {
             override fun onAlarmChanged() {
-                _nextAlarmTriggerTime.postValue(AlarmsRepository(getApplication())
+                _nextAlarmTriggerTime.postValue(alarmsRepository
                     .nextAlarm?.let { nextAlarmTime ->
                         formatToDigitalClock(
                             nextAlarmTime
                         )
 
                     })
-                _isAlarmEnabled.postValue(AlarmsRepository(getApplication()).isAlarmEnabled)
+                _isAlarmEnabled.postValue(alarmsRepository.isAlarmEnabled)
             }
         }
 

@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -36,11 +37,13 @@ import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivi
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.SettingsActionPickingAdapter
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.viewModel.OnboardingActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Class showing the initial setup screen
  */
+@AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class OnboardingActivity : AppCompatActivity(),
     ActionsPickFragment.ParentActivityCallback {
@@ -51,7 +54,7 @@ class OnboardingActivity : AppCompatActivity(),
 
     private lateinit var binding: ActivityOnboardingBinding
 
-    private lateinit var onboardingActivityViewModel: OnboardingActivityViewModel
+    private val viewModel: OnboardingActivityViewModel by viewModels()
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
@@ -84,7 +87,7 @@ class OnboardingActivity : AppCompatActivity(),
             uri?.let {
                 pickedItemId?.let { position ->
                     pickedContactAction?.let { contactActionType ->
-                        onboardingActivityViewModel.insertContact(
+                        viewModel.insertContact(
                             contactActionType,
                             uri.toString(),
                             position
@@ -106,12 +109,12 @@ class OnboardingActivity : AppCompatActivity(),
                     }
 
                     pickedItemId?.let { pickedItemId ->
-                        onboardingActivityViewModel.insertWidget(pair.second!!, pickedItemId)
+                        viewModel.insertWidget(pair.second!!, pickedItemId)
                     }
                 }
             } else {
                 pickedItemId?.let { pickedItemId ->
-                    onboardingActivityViewModel.deleteAtPosition(
+                    viewModel.deleteAtPosition(
                         pickedItemId
                     )
                 }
@@ -123,12 +126,12 @@ class OnboardingActivity : AppCompatActivity(),
             if (pair.first) {
                 if (pair.second != null) {
                     pickedItemId?.let { pickedItemId ->
-                        onboardingActivityViewModel.insertWidget(pair.second!!, pickedItemId)
+                        viewModel.insertWidget(pair.second!!, pickedItemId)
                     }
                 }
             } else {
                 pickedItemId?.let { pickedItemId ->
-                    onboardingActivityViewModel.deleteAtPosition(
+                    viewModel.deleteAtPosition(
                         pickedItemId
                     )
                 }
@@ -143,8 +146,6 @@ class OnboardingActivity : AppCompatActivity(),
         hostFragment =
             supportFragmentManager
                 .findFragmentById(binding.navigationOnboardingControllerContainerView.id)
-
-        onboardingActivityViewModel = OnboardingActivityViewModel(application)
 
         appWidgetManager = AppWidgetManager.getInstance(this)
 
@@ -237,7 +238,7 @@ class OnboardingActivity : AppCompatActivity(),
         }
 
     private fun initBottomSheetStateObserver() =
-        onboardingActivityViewModel.isBottomSheetHidden.observe(
+        viewModel.isBottomSheetHidden.observe(
             this@OnboardingActivity,
             { isBottomSheetHidden ->
                 if (isBottomSheetHidden) {
@@ -248,7 +249,7 @@ class OnboardingActivity : AppCompatActivity(),
             })
 
     private fun initLoadingObserver() =
-        onboardingActivityViewModel.isLoading.observe(this@OnboardingActivity, { isLoading ->
+        viewModel.isLoading.observe(this@OnboardingActivity, { isLoading ->
             if (isLoading) {
                 showBottomSheetLoading()
             } else {
@@ -295,7 +296,7 @@ class OnboardingActivity : AppCompatActivity(),
     }
 
     private fun callSubItemPicking(actionType: ActionType, itemPosition: Int) =
-        with(onboardingActivityViewModel) {
+        with(viewModel) {
             when (actionType) {
                 ActionType.APP -> {
                     loadApplicationsPackages()
@@ -368,7 +369,7 @@ class OnboardingActivity : AppCompatActivity(),
         }
 
     private fun checkForContactPermission(itemPosition: Int) =
-        onboardingActivityViewModel.checkForPermission(
+        viewModel.checkForPermission(
             Manifest.permission.READ_CONTACTS,
             ::pickContact
         ) { (::buildContactActionMaterialDialog)(itemPosition) }

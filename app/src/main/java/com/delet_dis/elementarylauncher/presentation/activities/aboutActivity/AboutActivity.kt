@@ -6,7 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.databinding.ActivityAboutBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AboutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAboutBinding
 
