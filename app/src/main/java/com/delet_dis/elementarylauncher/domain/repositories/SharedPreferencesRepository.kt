@@ -8,9 +8,15 @@ import com.delet_dis.elementarylauncher.domain.extensions.findLayoutType
 import com.delet_dis.elementarylauncher.domain.extensions.findScale
 import com.delet_dis.elementarylauncher.domain.extensions.getDouble
 import com.delet_dis.elementarylauncher.domain.extensions.putDouble
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 
-class SharedPreferencesRepository(private val context: Context) {
-
+@Module
+@InstallIn(SingletonComponent::class)
+class SharedPreferencesRepository @Inject constructor(@ApplicationContext private val context: Context) {
     private fun getSharedPreferences(): SharedPreferences =
         context.getSharedPreferences(
             appSettings,

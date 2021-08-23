@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/interfaceScalePickFragment"
-        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.InterfaceScalePickFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.interfaceScalePickFragment.InterfaceScalePickFragment"
         android:label="fragment_interface_scale_pick_screen"
         tools:layout="@layout/fragment_interface_scale_pick_screen">
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/screenLayoutPickFragment"
-        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.ScreenLayoutPickFragment"
+        android:name="com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.screenLayoutPickFragment.ScreenLayoutPickFragment"
         android:label="LayoutPickScreenFragment">
         <action
             android:id="@+id/action_layoutPickScreenFragment_to_interfaceScalePickFragment"

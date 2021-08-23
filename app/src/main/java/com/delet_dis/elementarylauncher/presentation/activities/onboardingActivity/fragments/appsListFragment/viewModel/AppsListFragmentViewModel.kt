@@ -1,17 +1,18 @@
 package com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.appsListFragment.viewModel
 
-import android.app.Application
 import android.content.pm.ApplicationInfo
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.delet_dis.elementarylauncher.domain.repositories.PackagesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AppsListFragmentViewModel(application: Application) : AndroidViewModel(application) {
-
+@HiltViewModel
+class AppsListFragmentViewModel @Inject constructor(private val packagesRepository: PackagesRepository) : ViewModel() {
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
@@ -24,7 +25,7 @@ class AppsListFragmentViewModel(application: Application) : AndroidViewModel(app
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             _applicationsPackagesLiveData.postValue(
-                PackagesRepository(getApplication()).loadApplicationsPackages()
+                packagesRepository.loadApplicationsPackages()
             )
             _isLoading.postValue(false)
         }
