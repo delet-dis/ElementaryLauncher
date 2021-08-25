@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/backgroundColor">
 
     <ImageButton
         android:id="@+id/backButton"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.09"
         app:srcCompat="@drawable/ic_back"
-        app:tint="@color/purple_500" />
+        app:tint="@color/backButtonBackgroundColor" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/twoByThreeCard"
@@ -35,6 +35,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/layoutCardBackgroundColor"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/twoByTwoCard"
@@ -72,6 +73,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/layoutCardBackgroundColor"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +117,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/purple_200"
+            android:buttonTint="@color/radioButtonColor"
             android:checked="true"
             android:layoutDirection="ltr" />
 
@@ -124,7 +126,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/purple_200"
+            android:buttonTint="@color/radioButtonColor"
             android:layoutDirection="rtl" />
     </RadioGroup>
 
@@ -150,7 +152,7 @@
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/chooseGridLayoutText"
         android:textAlignment="center"
-        android:textColor="@color/defaultFontColor"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,7 +165,7 @@
         android:layout_width="210dp"
         android:layout_height="64dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/nextButtonBackgroundColor"
         android:fontFamily="@font/manrope_medium"
         android:includeFontPadding="false"
         android:insetTop="0dp"
@@ -171,7 +173,7 @@
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:text="@string/nextButtonText"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/nextButtonTextColor"
         android:textSize="16sp"
         app:cornerRadius="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
