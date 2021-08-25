@@ -10,6 +10,7 @@ import android.content.pm.ApplicationInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -105,7 +106,15 @@ class OnboardingActivity : AppCompatActivity(),
                         appWidgetManager.getAppWidgetInfo(pair.second!!)
 
                     if (appWidgetInfo.configure != null) {
-                        widgetsConfiguringContract.launch(pair.second)
+                        try {
+                            widgetsConfiguringContract.launch(pair.second)
+                        } catch (exception: SecurityException) {
+                            Toast.makeText(
+                                applicationContext,
+                                applicationContext.getString(R.string.widgetInstallingError),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
 
                     pickedItemId?.let { pickedItemId ->

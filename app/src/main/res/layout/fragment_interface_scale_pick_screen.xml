@@ -5,7 +5,7 @@
     android:id="@+id/mainConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/backgroundColor"
     tools:context=".presentation.activities.onboardingActivity.fragments.interfaceScalePickFragment.InterfaceScalePickFragment">
 
     <ImageButton
@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back"
-        app:tint="@color/purple_500" />
+        app:tint="@color/backButtonBackgroundColor" />
 
     <com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
         android:id="@+id/exampleCard"
@@ -56,7 +56,7 @@
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/chooseInterfaceScaleText"
         android:textAlignment="center"
-        android:textColor="@color/defaultFontColor"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/interfaceScaleSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,11 +69,11 @@
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="268dp"
         android:layout_height="wrap_content"
-        android:progressBackgroundTint="@color/purple_500"
-        android:progressTint="@color/purple_500"
-        android:secondaryProgressTint="@color/purple_500"
+        android:progressBackgroundTint="@color/seekBarProgressTintColor"
+        android:progressTint="@color/seekBarProgressTintColor"
+        android:secondaryProgressTint="@color/seekBarProgressTintColor"
         android:thumb="@drawable/seekbar_thumb"
-        android:thumbTint="@color/purple_200"
+        android:thumbTint="@color/seekBarThumbColor"
         app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,7 @@
         android:layout_width="210dp"
         android:layout_height="64dp"
         android:layout_marginTop="42dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/nextButtonBackgroundColor"
         android:fontFamily="@font/manrope_medium"
         android:includeFontPadding="false"
         android:insetTop="0dp"
@@ -93,7 +93,7 @@
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:text="@string/nextButtonText"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/nextButtonTextColor"
         android:textSize="16sp"
         app:cornerRadius="80dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -7,7 +7,7 @@
                 android:height="6dp"
                 android:width="6dp" />
 
-            <solid android:color="@color/purple_200" />
+            <solid android:color="@color/seekBarTickColor" />
             <corners android:radius="3dp"/>
         </shape>
     </item>

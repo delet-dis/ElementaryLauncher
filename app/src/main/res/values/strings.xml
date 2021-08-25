@@ -54,4 +54,5 @@
     <string name="appVersion" translatable="false">v2.2-stable</string>
     <string name="actionPickingAboutTheAppText">About the app</string>
     <string name="supportLink" translatable="false">https://www.donationalerts.com/r/delet_dis</string>
+    <string name="widgetInstallingError">Widget installing error</string>
 </resources>

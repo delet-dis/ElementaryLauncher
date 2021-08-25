@@ -8,12 +8,44 @@
 
     <color name="purpleLight">#E8DCF9</color>
 
-    <color name="defaultFontColor">@color/black</color>
-    <color name="defaultFontSubColor">#B9000000</color>
+    <color name="whiteHalfTransparent">#8DFFFFFF</color>
+
+    <color name="backgroundColor">@color/white</color>
+    <color name="textColor">@color/black</color>
+    <color name="subtextColor">#8A8080</color>
+
+    <color name="nextButtonTextColor">@color/purple_500</color>
+    <color name="nextButtonBackgroundColor">@color/purple_200</color>
+
+    <color name="backButtonBackgroundColor">@color/purple_500</color>
+
+    <color name="bottomSheetBackgroundColor">@color/white</color>
+
+    <color name="progressIndicatorIndicatorColor">@color/purple_500</color>
+    <color name="progressIndicatorProgressTint">@color/purple_500</color>
 
     <color name="dividerColor">#B9B9B9</color>
 
-    <color name="subtextColor">#8A8080</color>
+    <color name="circularProgressBarColor">@color/purple_500</color>
 
-    <color name="white_half_transparent">#8DFFFFFF</color>
+    <color name="cardBackgroundColor">@color/white</color>
+    <color name="widgetCardBackgroundColor">@color/white</color>
+
+    <color name="alarmColor">#4A4A4A</color>
+    <color name="blackSubtextColor">#B9000000</color>
+
+    <color name="seekBarProgressTintColor">@color/purple_500</color>
+    <color name="seekBarThumbColor">@color/purple_200</color>
+    <color name="seekBarTickColor">@color/purple_200</color>
+
+    <color name="layoutCardBackgroundColor">@color/white</color>
+
+    <color name="radioButtonColor">@color/purple_200</color>
+
+    <color name="skipButtonTextColor">@color/purple_500</color>
+    <color name="skipButtonBackgroundColor">@color/white</color>
+
+    <color name="recyclerViewItemBackgroundColor">@color/purpleLight</color>
+
+    <color name="introMaskColor">@color/whiteHalfTransparent</color>
 </resources>

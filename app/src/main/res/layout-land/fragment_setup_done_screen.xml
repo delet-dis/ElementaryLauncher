@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/backgroundColor">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/halfScreenGuideline2"
+        android:id="@+id/halfScreenGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back"
-        app:tint="@color/purple_500" />
+        app:tint="@color/backButtonBackgroundColor" />
 
     <ImageView
         android:id="@+id/finishImage"
@@ -38,7 +38,7 @@
         android:contentDescription="@string/finishImageDescription"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@+id/halfScreenGuideline2"
+        app:layout_constraintEnd_toStartOf="@+id/halfScreenGuideline"
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,20 +53,20 @@
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/finishSetupText"
         android:textAlignment="center"
-        android:textColor="@color/defaultFontColor"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
-        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@+id/finishButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/halfScreenGuideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/halfScreenGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/finishButton"
         android:layout_width="210dp"
         android:layout_height="64dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/nextButtonBackgroundColor"
         android:fontFamily="@font/manrope_medium"
         android:includeFontPadding="false"
         android:insetTop="0dp"
@@ -74,11 +74,11 @@
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:text="@string/finishButtonText"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/nextButtonTextColor"
         android:textSize="16sp"
         app:cornerRadius="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/halfScreenGuideline2"
+        app:layout_constraintStart_toStartOf="@+id/halfScreenGuideline"
         app:layout_constraintTop_toBottomOf="@+id/finishHint" />
 </androidx.constraintlayout.widget.ConstraintLayout>
