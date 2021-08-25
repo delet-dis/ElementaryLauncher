@@ -12,7 +12,7 @@ import com.delet_dis.elementarylauncher.R
 
 fun createIntro(fragment: Fragment, activity: Activity, viewToShape: View) =
     fragment.materialIntro {
-        maskColor = activity.getColor(R.color.white_half_transparent)
+        maskColor = activity.getColor(R.color.introMaskColor)
         delayMillis = 300
 
         isFadeInAnimationEnabled = true
@@ -25,7 +25,7 @@ fun createIntro(fragment: Fragment, activity: Activity, viewToShape: View) =
 
         isInfoEnabled = true
         infoText = activity.getString(R.string.settingsShowcaseInfoText)
-        infoTextColor = activity.getColor(R.color.defaultFontColor)
+        infoTextColor = activity.getColor(R.color.textColor)
         infoTextSize = 20f
         infoTextAlignment = View.TEXT_ALIGNMENT_CENTER
         infoCardBackgroundColor = activity.getColor(R.color.white)

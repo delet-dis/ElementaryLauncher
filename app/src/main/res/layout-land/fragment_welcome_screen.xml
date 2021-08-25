@@ -35,7 +35,7 @@
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/appName"
         android:textAlignment="center"
-        android:textColor="@color/defaultFontColor"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/getStartedButton"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/backgroundColor">
 
     <ImageButton
         android:id="@+id/backButton"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back"
-        app:tint="@color/purple_500" />
+        app:tint="@color/backButtonBackgroundColor" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actionsPickingRecycler"
@@ -54,7 +54,7 @@
         android:fontFamily="@font/manrope_semibold"
         android:text="@string/chooseActionsForHomeScreenText"
         android:textAlignment="center"
-        android:textColor="@color/defaultFontColor"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/nextButtonBackgroundColor"
         android:fontFamily="@font/manrope_medium"
         android:includeFontPadding="false"
         android:insetTop="0dp"
@@ -75,7 +75,7 @@
         android:maxHeight="90dp"
         android:minHeight="64dp"
         android:text="@string/nextButtonText"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/nextButtonTextColor"
         android:textSize="16sp"
         app:cornerRadius="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
