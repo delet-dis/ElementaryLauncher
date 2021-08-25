@@ -26,7 +26,7 @@
         android:id="@+id/bottomSheetLayout"
         android:layout_width="match_parent"
         android:layout_height="550dp"
-        android:background="@drawable/linear_layout_rounded_corners"
+        android:background="@drawable/bottom_sheet_background"
         android:nestedScrollingEnabled="true"
         android:orientation="vertical"
         app:behavior_hideable="true"
@@ -43,7 +43,7 @@
             android:fontFamily="@font/manrope_semibold"
             android:includeFontPadding="true"
             android:text="@string/bottomSheetActionPickingText"
-            android:textColor="@color/defaultFontColor"
+            android:textColor="@color/textColor"
             android:textSize="20sp" />
 
         <View

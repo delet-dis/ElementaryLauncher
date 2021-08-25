@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/backgroundColor">
 
     <TextView
         android:id="@+id/textView"
@@ -14,7 +14,7 @@
         android:includeFontPadding="false"
         android:text="@string/actionPickingAppsListPickText"
         android:textAlignment="center"
-        android:textColor="@color/defaultFontColor"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/itemPickRecycler"
         app:layout_constraintStart_toEndOf="@+id/backButton"
@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back"
-        app:tint="@color/purple_500" />
+        app:tint="@color/backButtonBackgroundColor" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemPickRecycler"
@@ -54,7 +54,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/purple_500"
+        android:indeterminateTint="@color/circularProgressBarColor"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/itemPickRecycler"
         app:layout_constraintEnd_toEndOf="parent"
