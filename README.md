@@ -33,13 +33,14 @@ This project takes advantage of best practices, many popular libraries and tools
         * [Palette](https://developer.android.com/training/material/palette-colors) -  colors selecting
         * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) -  using multiple screens inside activity
         * [ViewBinding](https://developer.android.com/topic/libraries/view-binding) -  getting links to interface elements
+    * [Hilt](https://dagger.dev/hilt/) - dependency injection
     * [Firebase crashlytics](https://firebase.google.com/docs/crashlytics) - crash tracking
 * Modern Architecture
     * Layers architecture
     * MVVM
 * CI 
-  * [GitHub Actions](https://github.com/features/actions)
-  * Automatic code analyzing by 3rd party online tools
+    * [GitHub Actions](https://github.com/features/actions)
+    * Automatic code analyzing by 3rd party online tools
 * UI
     * [Material design](https://material.io/design)
 
@@ -56,7 +57,6 @@ All interaction occurs through the `ViewModel` of each `Activity` / `Fragment`, 
 
 Repositories, in turn, interact with the data services and broadcast receivers layer
 
-> In fact, everything works through the `AndroidViewModel`, but this method differs only in that it can receive the `Application` inside itself. This is used when a `Context` is needed.
 ### 🛬 OnboardingActivity
 <img src="https://user-images.githubusercontent.com/47276603/122662600-6dbc9900-d1be-11eb-8063-7fb7b08e646c.png" width="600" hspace="5" vspace ="10">
 
