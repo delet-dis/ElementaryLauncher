@@ -4,7 +4,30 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/Elementary-launcher/app/src/main/res/layout/recyclerview_item_action.xml" value="0.2056159420289855" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_airplane.xml" value="0.32037037037037036" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_alarm.xml" value="0.32222222222222224" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_app.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_app_shortcut.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_app_widget.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_back.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_battery_saver.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_bluetooth.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_clear.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_contact.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_contact_call.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_contact_sms.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_geolocation.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_home.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_info.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_launcher_background.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_logo.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_mobile_data.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_scale.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_settings.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_setup_done.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_storage.xml" value="0.32037037037037036" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_wifi.xml" value="0.32037037037037036" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/linear_layout_rounded_corners.xml" value="0.32222222222222224" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/seekbar_thumb.xml" value="0.32222222222222224" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/seekbar_tickmark.xml" value="0.34074074074074073" />
@@ -30,7 +53,7 @@
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_actions_pick_screen.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_apps_list_screen.xml" value="0.15301724137931033" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_interface_scale_pick_screen.xml" value="0.283373786407767" />
-        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_layout_pick_screen.xml" value="0.17083333333333334" />
+        <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_layout_pick_screen.xml" value="0.33" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_set_as_homescreen_screen.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_setup_done_screen.xml" value="0.18125" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/layout/fragment_two_by_three_layout.xml" value="0.15301724137931033" />

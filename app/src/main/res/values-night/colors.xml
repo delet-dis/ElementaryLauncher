@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="backgroundColor">@color/darkGray</color>
+    <color name="textColor">@color/white</color>
+    <color name="subtextColor">#CFCACA</color>
+
+    <color name="nextButtonTextColor">@color/purple500Dark</color>
+    <color name="nextButtonBackgroundColor">@color/purple200Dark</color>
+
+    <color name="backButtonBackgroundColor">@color/purple500Dark</color>
+
+    <color name="bottomSheetBackgroundColor">@color/darkGray</color>
+
+    <color name="progressIndicatorIndicatorColor">@color/purple500Dark</color>
+    <color name="progressIndicatorProgressTint">@color/purple500Dark</color>
+
+    <color name="dividerColor">#B9B9B9</color>
+
+    <color name="circularProgressBarColor">@color/purple500Dark</color>
+
+    <color name="cardBackgroundColor">@color/darkGray</color>
+    <color name="widgetCardBackgroundColor">@color/darkGray</color>
+
+    <color name="alarmColor">@color/blackHalfTransparent</color>
+    <color name="clockSubtextColor">#B9CDCDCD</color>
+
+    <color name="seekBarProgressTintColor">@color/purple500Dark</color>
+    <color name="seekBarThumbColor">@color/purple200Dark</color>
+    <color name="seekBarTickColor">@color/purple200Dark</color>
+
+    <color name="layoutCardBackgroundColor">@color/darkGray</color>
+
+    <color name="radioButtonColor">@color/purple200Dark</color>
+
+    <color name="skipButtonTextColor">@color/purple500Dark</color>
+    <color name="skipButtonBackgroundColor">@color/darkGray</color>
+
+    <color name="recyclerViewItemBackgroundColor">@color/purpleLightDark</color>
+
+    <color name="introMaskColor">@color/blackHalfTransparent</color>
+
+    <color name="settingsIconsColor">#FFFFFF</color>
+</resources>
