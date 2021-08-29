@@ -33,7 +33,7 @@
     <color name="radioButtonColor">@color/purple200Dark</color>
 
     <color name="skipButtonTextColor">@color/purple500Dark</color>
-    <color name="skipButtonBackgroundColor">@color/darkGray</color>
+    <color name="skipButtonBackgroundColor">#202020</color>
 
     <color name="recyclerViewItemBackgroundColor">@color/purpleLightDark</color>
 
