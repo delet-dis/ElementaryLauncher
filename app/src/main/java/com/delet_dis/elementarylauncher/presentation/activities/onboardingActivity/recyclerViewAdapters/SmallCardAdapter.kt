@@ -41,7 +41,7 @@ class SmallCardAdapter(private val values: List<Card>, val clickListener: (Int) 
         private val binding: CardItemSmallBinding =
             CardItemSmallBinding.bind(view)
 
-        private val defaultColor = view.context.getColor(R.color.white)
+        private val defaultColor = view.context.getColor(R.color.paletteDefaultColor)
 
         fun bind(data: Card) = with(binding) {
             cardView.setOnClickListener {

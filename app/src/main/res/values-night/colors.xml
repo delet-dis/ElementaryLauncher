@@ -40,4 +40,8 @@
     <color name="introMaskColor">@color/blackHalfTransparent</color>
 
     <color name="settingsIconsColor">#FFFFFF</color>
+
+    <color name="paletteDefaultColor">@color/cardBackgroundColor</color>
+
+    <color name="imageCardBackgroundColor">#434343</color>
 </resources>

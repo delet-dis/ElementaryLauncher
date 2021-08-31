@@ -7,7 +7,6 @@ import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.net.Uri
 import android.provider.ContactsContract
 import androidx.core.content.ContextCompat
@@ -95,7 +94,10 @@ private fun mapEntityToSettingsAction(
 
         icon = this?.imageId?.let { imageId ->
             ContextCompat.getDrawable(context, imageId)?.toBitmap()
-                ?.addPadding(50, 50, 50, 50, Color.WHITE)
+                ?.addPadding(
+                    50, 50, 50, 50,
+                    context.getColor(R.color.imageCardBackgroundColor)
+                )
                 ?.toDrawable(context.resources)
         }
 
