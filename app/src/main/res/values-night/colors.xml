@@ -41,7 +41,7 @@
 
     <color name="settingsIconsColor">#FFFFFF</color>
 
-    <color name="paletteDefaultColor">@color/cardBackgroundColor</color>
+    <color name="paletteDefaultColor">#292929</color>
 
     <color name="imageCardBackgroundColor">#434343</color>
 </resources>

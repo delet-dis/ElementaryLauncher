@@ -28,7 +28,7 @@ fun createIntro(fragment: Fragment, activity: Activity, viewToShape: View) =
         infoTextColor = activity.getColor(R.color.textColor)
         infoTextSize = 20f
         infoTextAlignment = View.TEXT_ALIGNMENT_CENTER
-        infoCardBackgroundColor = activity.getColor(R.color.white)
+        infoCardBackgroundColor = activity.getColor(R.color.cardBackgroundColor)
 
         isDotViewEnabled = true
         isDotAnimationEnabled = true
