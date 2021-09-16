@@ -95,7 +95,7 @@ class ShortcutCardView @JvmOverloads constructor(
                 if (palette != null) {
                     cardView.setCardBackgroundColor(
                         palette.getLightVibrantColor(
-                            context.getColor(R.color.white)
+                            context.getColor(R.color.cardBackgroundColor)
                         )
                     )
                 }
