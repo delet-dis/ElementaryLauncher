@@ -79,7 +79,7 @@ class SharedPreferencesRepository @Inject constructor(@ApplicationContext privat
     private fun getNumberOfRows(): Int =
         getSharedPreferences().getInt(numberOfRows, 0)
 
-    companion object SharedPreferencesConstantsRepository {
+    private companion object SharedPreferencesConstantsRepository {
         const val temporarilyPickedLayoutType = "TEMPORARILY_PICKED_LAYOUT_TYPE"
         const val appSettings = "APP_SETTINGS"
         const val scaleCoefficient = "SCALE_COEFFICIENT"

@@ -21,6 +21,7 @@ class ActionsPickFragmentViewModel @Inject constructor(
     private val databaseRepository: DatabaseRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository
 ) : ViewModel() {
+
     private val _databaseRecordingsLiveData = MutableLiveData<List<Card>>()
     val databaseRecordingsLiveData: LiveData<List<Card>>
         get() = _databaseRecordingsLiveData

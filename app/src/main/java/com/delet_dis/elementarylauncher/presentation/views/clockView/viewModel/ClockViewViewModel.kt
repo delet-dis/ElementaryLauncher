@@ -30,7 +30,7 @@ class ClockViewViewModel @Inject constructor(
     val timeLiveData: LiveData<String>
         get() = _timeLiveData
 
-    private val _isAlarmEnabled = MutableLiveData(AlarmsRepository(getApplication()).isAlarmEnabled)
+    private val _isAlarmEnabled = MutableLiveData(alarmsRepository.isAlarmEnabled)
     val isAlarmEnabled: LiveData<Boolean>
         get() = _isAlarmEnabled
 

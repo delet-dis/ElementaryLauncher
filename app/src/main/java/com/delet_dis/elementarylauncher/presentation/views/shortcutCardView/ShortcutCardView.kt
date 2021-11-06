@@ -193,7 +193,7 @@ class ShortcutCardView @JvmOverloads constructor(
         }
     }
 
-    private object AppCardViewConstantsRepository {
+    private companion object AppCardViewConstantsRepository {
         const val guidelineAnimationDuration: Long = 300
         const val textAnimationDuration: Long = 200
         const val defaultIconSize = 55

@@ -10,6 +10,7 @@ import javax.inject.Inject
 class ScreenLayoutPickFragmentViewModel @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository
 ) : ViewModel() {
+
     fun setLayoutType(layoutType: LayoutType) =
         sharedPreferencesRepository.setLayoutType(layoutType)
 

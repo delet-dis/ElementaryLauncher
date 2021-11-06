@@ -440,7 +440,7 @@ class OnboardingActivity : AppCompatActivity(),
             ?.navigate((currentFragment as FragmentParentInterface).getFragmentId())
     }
 
-    companion object OnboardingActivityConstantsRepository {
+    private companion object OnboardingActivityConstantsRepository {
         const val widgetHostId = 100
         const val progressbarAnimationDuration: Long = 460
     }

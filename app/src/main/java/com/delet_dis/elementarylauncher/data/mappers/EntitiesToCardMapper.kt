@@ -271,7 +271,7 @@ private fun getContactName(contactUri: Uri, context: Context): String? {
             contactName =
                 notNullCursor.getString(
                     notNullCursor
-                        .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                        .getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME)
                 )
         }
 
@@ -292,12 +292,12 @@ private fun getContactPhoneNumber(contactUri: Uri, context: Context): String? {
 
             val contactId: String = notNullCursor.getString(
                 notNullCursor
-                    .getColumnIndex(ContactsContract.Contacts._ID)
+                    .getColumnIndexOrThrow(ContactsContract.Contacts._ID)
             )
             val hasNumber: String =
                 notNullCursor.getString(
                     notNullCursor
-                        .getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
+                        .getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER)
                 )
 
             if (hasNumber.toInt() == 1) {
@@ -311,7 +311,7 @@ private fun getContactPhoneNumber(contactUri: Uri, context: Context): String? {
                 while (numbers.moveToNext()) {
                     contactPhone =
                         numbers.getString(
-                            numbers.getColumnIndex(
+                            numbers.getColumnIndexOrThrow(
                                 ContactsContract
                                     .CommonDataKinds.Phone.NUMBER
                             )
@@ -337,7 +337,7 @@ private fun getContactId(contactUri: Uri, context: Context): Long? {
         if (notNullCursor.moveToFirst()) {
             id = notNullCursor.getString(
                 notNullCursor
-                    .getColumnIndex(ContactsContract.Contacts._ID)
+                    .getColumnIndexOrThrow(ContactsContract.Contacts._ID)
             )
         }
         cursor.close()

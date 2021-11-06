@@ -12,7 +12,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AppsListFragmentViewModel @Inject constructor(private val packagesRepository: PackagesRepository) : ViewModel() {
+class AppsListFragmentViewModel @Inject constructor(private val packagesRepository: PackagesRepository) :
+    ViewModel() {
+
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = _isLoading

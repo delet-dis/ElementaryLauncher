@@ -15,7 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 @ExperimentalCoroutinesApi
-class TwoByTwoLayoutFragmentViewModel @Inject constructor(private val databaseRepository: DatabaseRepository) : ViewModel() {
+class TwoByTwoLayoutFragmentViewModel @Inject constructor(private val databaseRepository: DatabaseRepository) :
+    ViewModel() {
+
     private val _databaseRecordingsLiveData = MutableLiveData<Array<Card?>>()
     val databaseRecordingsLiveData: LiveData<Array<Card?>>
         get() = _databaseRecordingsLiveData
