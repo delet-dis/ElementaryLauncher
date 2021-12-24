@@ -25,10 +25,10 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun initSupportButtonOnClickListener() = with(binding) {
-        supportButton.setOnClickListener {
+        privacyPolicyButton.setOnClickListener {
             startActivity(
                 Intent(Intent.ACTION_VIEW)
-                    .setData(Uri.parse(getString(R.string.supportLink)))
+                    .setData(Uri.parse(getString(R.string.privacyPolicyLink)))
             )
         }
     }

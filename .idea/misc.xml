@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.3312820512820513" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/Elementary-launcher/app/src/main/res/layout/recyclerview_item_action.xml" value="0.2056159420289855" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.32037037037037036" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/ElementaryLauncher/app/src/main/res/drawable/ic_airplane.xml" value="0.32037037037037036" />
@@ -106,11 +107,13 @@
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/Elementarylauncher/app/src/main/res/layout/two_by_three_recyclerview_item.xml" value="0.4" />
         <entry key="..\:/Users/delet-dis/Documents/projects/Android/Elementarylauncher/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/maksa/Documents/PetProjects/Elementary-launcher/app/src/main/res/layout/fragment_actions_pick_screen.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout-land/activity_about.xml" value="0.21075837742504408" />
+        <entry key="app/src/main/res/layout/activity_about.xml" value="0.18478260869565216" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

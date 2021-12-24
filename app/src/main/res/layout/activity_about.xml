@@ -33,7 +33,7 @@
         android:textAlignment="center"
         android:textColor="@color/subtextColor"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/supportButton"
+        app:layout_constraintBottom_toTopOf="@+id/privacyPolicyButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,7 @@
         app:srcCompat="@drawable/ic_logo" />
 
     <Button
-        android:id="@+id/supportButton"
+        android:id="@+id/privacyPolicyButton"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -84,8 +84,6 @@
         android:includeFontPadding="false"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
         android:text="@string/supportText"
         android:textColor="@color/nextButtonTextColor"
         android:textSize="16sp"

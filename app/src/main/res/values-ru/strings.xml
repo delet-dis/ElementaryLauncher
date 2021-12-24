@@ -47,7 +47,7 @@
     <string name="settingsShowcaseDismissText">Понятно</string>
     <string name="settingsShowcaseInfoText">Зажмите этот виджет, чтобы открыть дополнительное меню</string>
     <string name="actionPickingGoToHomescreenSelectionPreferencesText">Настроить предпочтительный домашний экран</string>
-    <string name="supportText">Если вы желаете поддержать разработтчика</string>
+    <string name="supportText">Политика конфиденциальности</string>
     <string name="actionPickingAboutTheAppText">О приложении</string>
     <string name="widgetInstallingError">Ошибка установки виджета</string>
 </resources>

@@ -33,10 +33,10 @@
         android:textAlignment="center"
         android:textColor="@color/subtextColor"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/supportButton"
+        app:layout_constraintBottom_toTopOf="@+id/privacyPolicyButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/halfScreenGuideline"
         app:layout_constraintTop_toBottomOf="@+id/appName"
         app:layout_constraintVertical_chainStyle="packed" />
 
@@ -53,7 +53,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/appVersion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/halfScreenGuideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
@@ -65,7 +65,7 @@
         android:contentDescription="@string/appLogoContentDescription"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/halfScreenGuideline"
         app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -73,7 +73,7 @@
         app:srcCompat="@drawable/ic_logo" />
 
     <Button
-        android:id="@+id/supportButton"
+        android:id="@+id/privacyPolicyButton"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -82,19 +82,17 @@
         android:includeFontPadding="false"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
         android:text="@string/supportText"
         android:textColor="@color/nextButtonTextColor"
         android:textSize="16sp"
         app:cornerRadius="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/halfScreenGuideline"
         app:layout_constraintTop_toBottomOf="@+id/appVersion" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/halfScreenGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

@@ -135,7 +135,7 @@ class ShortcutCardView @JvmOverloads constructor(
         )
 
         with(valueAnimatorForFirstGuideline) {
-            duration = AppCardViewConstantsRepository.guidelineAnimationDuration
+            duration = guidelineAnimationDuration
 
             interpolator = AccelerateDecelerateInterpolator()
 
@@ -157,7 +157,7 @@ class ShortcutCardView @JvmOverloads constructor(
         )
 
         with(valueAnimatorForSecondGuideline) {
-            duration = AppCardViewConstantsRepository.guidelineAnimationDuration
+            duration = guidelineAnimationDuration
 
             interpolator = AccelerateDecelerateInterpolator()
 
@@ -178,12 +178,12 @@ class ShortcutCardView @JvmOverloads constructor(
         val valueAnimator =
             ValueAnimator.ofFloat(
                 cardText.textSize,
-                AppCardViewConstantsRepository.defaultIconSize * scale /
-                        AppCardViewConstantsRepository.scaleCorrectionCoefficient
+                defaultIconSize * scale /
+                        scaleCorrectionCoefficient
             )
 
         with(valueAnimator) {
-            duration = AppCardViewConstantsRepository.textAnimationDuration
+            duration = textAnimationDuration
 
             this.addUpdateListener {
                 cardText.setTextSize(TypedValue.COMPLEX_UNIT_PX, animatedValue as Float)
