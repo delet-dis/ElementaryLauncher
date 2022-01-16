@@ -53,6 +53,6 @@
     <string name="supportText">Privacy policy</string>
     <string name="appVersion" translatable="false">v2.2-stable</string>
     <string name="actionPickingAboutTheAppText">About the app</string>
-    <string name="privacyPolicyLink" translatable="false">https://pastebin.com/raw/PBRSv6XN</string>
+    <string name="privacyPolicyLink" translatable="false">https://efimov.ga/index.php/apps/cms_pico/pico/elementary_launcher_privacy_policy</string>
     <string name="widgetInstallingError">Widget installing error</string>
 </resources>
