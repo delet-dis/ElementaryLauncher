@@ -8,6 +8,8 @@
 [![codebeat badge](https://codebeat.co/badges/2f55c8e1-58ae-4e35-a454-27602b58e910)](https://codebeat.co/projects/github-com-delet-dis-elementarylauncher-main)
 [![CodeFactor](https://www.codefactor.io/repository/github/delet-dis/elementarylauncher/badge)](https://www.codefactor.io/repository/github/delet-dis/elementarylauncher)
 
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="auto" width="130"></a>](https://play.google.com/store/apps/details?id=com.delet_dis.elementarylauncher)
+
 Elementary launcher is an [Android](https://en.wikipedia.org/wiki/Android_(operating_system)) app that helps people with vision problems interact with their home screen.
 
 The goal of project is to make easy to access, use and customize launcher that replaces home screen.
@@ -88,7 +90,7 @@ Repositories, in turn, interact with the data services and broadcast receivers l
 <img src="https://user-images.githubusercontent.com/47276603/119395063-33fe8c80-bcfd-11eb-8016-ab6206b28834.jpg" width="200" hspace="5" vspace ="10">
 
 ## Contributors
-[<a href="url"><img src="https://static.thenounproject.com/avatars/ranahpixel/resized/150/2a44fad30b5889a8d4c63cdad028997c.png" height="auto" width="50" style="border-radius:50%"></a>](https://thenounproject.com/ranahpixel/)
+[<img src="https://static.thenounproject.com/avatars/ranahpixel/resized/150/2a44fad30b5889a8d4c63cdad028997c.png" height="auto" width="50" style="border-radius:50%"></a>](https://thenounproject.com/ranahpixel/)
 ## License
 ```
 MIT License
