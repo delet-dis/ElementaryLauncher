@@ -83,7 +83,7 @@ class OnboardingActivity : AppCompatActivity(),
         }
     }
 
-    private var pickContactContract: ActivityResultLauncher<Void>? =
+    private var pickContactContract: ActivityResultLauncher<Void?> =
         registerForActivityResult(ActivityResultContracts.PickContact()) { uri ->
             uri?.let {
                 pickedItemId?.let { position ->

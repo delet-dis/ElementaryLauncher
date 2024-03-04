@@ -11,7 +11,7 @@ import androidx.activity.result.contract.ActivityResultContract
  */
 class WidgetPickingContract : ActivityResultContract<Int, Pair<Boolean, Int?>>() {
 
-    override fun createIntent(context: Context, input: Int?): Intent =
+    override fun createIntent(context: Context, input: Int): Intent =
         Intent(AppWidgetManager.ACTION_APPWIDGET_PICK).apply {
             putExtra(
                 AppWidgetManager.EXTRA_APPWIDGET_ID,

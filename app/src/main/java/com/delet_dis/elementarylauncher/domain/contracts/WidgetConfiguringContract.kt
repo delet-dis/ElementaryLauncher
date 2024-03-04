@@ -12,11 +12,9 @@ import androidx.activity.result.contract.ActivityResultContract
  */
 class WidgetConfiguringContract : ActivityResultContract<Int, Pair<Boolean, Int?>>() {
 
-    override fun createIntent(context: Context, input: Int?): Intent {
+    override fun createIntent(context: Context, input: Int): Intent {
         val appWidgetInfo: AppWidgetProviderInfo? =
-            input?.let { notNullInput ->
-                AppWidgetManager.getInstance(context).getAppWidgetInfo(notNullInput)
-            }
+            AppWidgetManager.getInstance(context).getAppWidgetInfo(input)
 
         return Intent(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE).apply {
             if (appWidgetInfo != null) {
