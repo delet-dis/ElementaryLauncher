@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import com.codertainment.materialintro.shape.Focus
 import com.codertainment.materialintro.shape.FocusGravity
 import com.codertainment.materialintro.shape.ShapeType
-import com.codertainment.materialintro.utils.materialIntro
+import com.codertainment.materialintro.view.materialIntro
 import com.delet_dis.elementarylauncher.R
 
 fun createIntro(fragment: Fragment, activity: Activity, viewToShape: View) =
