@@ -27,10 +27,6 @@ android {
         viewBinding true
     }
 
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
 
     buildTypes {
         release {
@@ -46,6 +42,10 @@ android {
         jvmTarget = '11'
     }
     namespace 'com.delet_dis.elementarylauncher'
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {
