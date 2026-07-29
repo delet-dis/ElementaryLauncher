@@ -1,10 +1,6 @@
 package com.delet_dis.elementarylauncher.presentation.views.shortcutCardView
 
 import android.animation.ValueAnimator
-import android.appwidget.AppWidgetHost
-import android.appwidget.AppWidgetHostView
-import android.appwidget.AppWidgetManager
-import android.appwidget.AppWidgetProviderInfo
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -19,6 +15,7 @@ import com.delet_dis.elementarylauncher.data.models.Card
 import com.delet_dis.elementarylauncher.data.models.SizeType
 import com.delet_dis.elementarylauncher.databinding.CardItemBigBinding
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
+import com.delet_dis.elementarylauncher.domain.widgets.LauncherWidgetHost
 
 
 class ShortcutCardView @JvmOverloads constructor(
@@ -26,9 +23,6 @@ class ShortcutCardView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-
-    private lateinit var widgetHost: AppWidgetHost
-    private lateinit var widgetManager: AppWidgetManager
 
     private val binding: CardItemBigBinding
 
@@ -57,6 +51,11 @@ class ShortcutCardView @JvmOverloads constructor(
     private fun applyCard(card: Card) =
         with(binding) {
             cardView.visibility = View.VISIBLE
+            for (index in cardView.childCount - 1 downTo 0) {
+                if (cardView.getChildAt(index) !== cardConstraint) {
+                    cardView.removeViewAt(index)
+                }
+            }
 
             if (card.isWidget) {
                 cardConstraint.visibility = View.GONE
@@ -65,6 +64,7 @@ class ShortcutCardView @JvmOverloads constructor(
                     addWidget(widgetId)
                 }
             } else {
+                cardConstraint.visibility = View.VISIBLE
                 card.name?.let { name ->
                     cardText.text = name
                 }
@@ -103,20 +103,16 @@ class ShortcutCardView @JvmOverloads constructor(
     }
 
     private fun addWidget(widgetId: Int) = with(binding) {
-        widgetHost = AppWidgetHost(context.applicationContext, binding.cardView.id)
-        widgetManager = AppWidgetManager.getInstance(context.applicationContext)
-
-        val appWidgetInfo: AppWidgetProviderInfo =
-            widgetManager.getAppWidgetInfo(widgetId)
-
-        val hostView: AppWidgetHostView =
-            widgetHost.createView(context.applicationContext, widgetId, appWidgetInfo)
-
-        hostView.setAppWidget(widgetId, appWidgetInfo)
-
-        cardView.addView(hostView)
-
-        widgetHost.startListening()
+        val hostView = LauncherWidgetHost.get(context).createView(context, widgetId)
+        if (hostView == null) {
+            cardConstraint.visibility = View.VISIBLE
+            cardText.text = context.getString(R.string.widgetUnavailable)
+            cardSubText.text = ""
+            cardImage.setImageResource(R.drawable.ic_app_widget)
+            cardView.setOnClickListener(null)
+        } else {
+            cardView.addView(hostView)
+        }
     }
 
     private fun applySize(sizeType: SizeType) = with(binding) {

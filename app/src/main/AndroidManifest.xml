@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission
-        android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <uses-permission android:name="android.permission.APPWIDGET_LIST" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <application
         android:name=".ElementaryLauncherApplication"
         android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/appName"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/ElementaryLauncherTheme"
-        tools:replace="android:supportsRtl,android:allowBackup,icon,label">
+        android:theme="@style/ElementaryLauncherTheme">
 
         <activity
             android:name=".presentation.activities.onboardingActivity.OnboardingActivity"
-            android:configChanges="density|fontScale|keyboard|keyboardHidden|locale|orientation|screenLayout|screenSize"
             android:theme="@style/OnboardingActivityStyle"
-            tools:ignore="LockedOrientationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

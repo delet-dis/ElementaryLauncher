@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.data.database.entities.App
-import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.data.mappers.mapEntityToCard
 import com.delet_dis.elementarylauncher.data.models.SizeType
 import com.delet_dis.elementarylauncher.databinding.FragmentInterfaceScalePickScreenBinding
@@ -22,46 +21,29 @@ import dagger.hilt.android.AndroidEntryPoint
  * Fragment used to display the scale setting for shortcut elements.
  */
 @AndroidEntryPoint
-class InterfaceScalePickFragment : Fragment(), FragmentParentInterface {
-    private lateinit var binding: FragmentInterfaceScalePickScreenBinding
+class InterfaceScalePickFragment : Fragment() {
+    private var _binding: FragmentInterfaceScalePickScreenBinding? = null
+    private val binding get() = checkNotNull(_binding)
 
     private val viewModel: InterfaceScalePickFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        return if (savedInstanceState == null) {
-            binding = FragmentInterfaceScalePickScreenBinding.inflate(layoutInflater)
-
-            binding.root
-        } else {
-            view
-        }
-    }
+    ): View = FragmentInterfaceScalePickScreenBinding.inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            with(binding) {
-                initExampleCard(this)
-
-                applySeekBarPreferences()
-
-                initSeekBarOnChangeListener()
-
-                initBackButtonOnClickListener()
-
-                initNextButtonParams()
-            }
+        with(binding) {
+            initExampleCard(this)
+            applySeekBarPreferences()
+            initSeekBarOnChangeListener()
+            initBackButtonOnClickListener()
+            initNextButtonParams()
         }
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        onCreate(savedInstanceState)
     }
 
     private fun initBackButtonOnClickListener() =
@@ -135,7 +117,8 @@ class InterfaceScalePickFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    override fun getFragmentId(): Int {
-        return R.id.interfaceScalePickFragment
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

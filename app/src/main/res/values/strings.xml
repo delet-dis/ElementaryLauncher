@@ -15,7 +15,6 @@
     <string name="cardAppImageDescription">Action image</string>
     <string name="bottomSheetActionPickingText">Pick an action</string>
     <string name="actionPickingAppText">App</string>
-    <string name="actionPickingAppShortcutText">App action</string>
     <string name="actionImageDescription">Image of picking shortcut action</string>
     <string name="actionPickingWidgetText">Widget</string>
     <string name="actionPickingContactText">Contact</string>
@@ -47,12 +46,15 @@
     <string name="actionPickingScalePickText">Configure shortcut scale</string>
     <string name="actionPickingLayoutPickText">Configure homescreen layout</string>
     <string name="actionPickingAppsListPickText">Apps list</string>
-    <string name="settingsShowcaseDismissText">Got it</string>
     <string name="settingsShowcaseInfoText">Hold this widget to open an additional menu</string>
     <string name="actionPickingGoToHomescreenSelectionPreferencesText">Configure preferred home screen setting</string>
     <string name="supportText">Privacy policy</string>
-    <string name="appVersion" translatable="false">v2.2-stable</string>
+    <string name="appVersion" translatable="false">v2.6</string>
     <string name="actionPickingAboutTheAppText">About the app</string>
     <string name="privacyPolicyLink" translatable="false">https://elementary-launcher.efimov.dev</string>
     <string name="widgetInstallingError">Widget installing error</string>
+    <string name="widgetUnavailable">Widget unavailable</string>
+    <string name="appUnavailable">App unavailable</string>
+    <string name="contactUnavailable">Contact unavailable</string>
+    <string name="ok">OK</string>
 </resources>

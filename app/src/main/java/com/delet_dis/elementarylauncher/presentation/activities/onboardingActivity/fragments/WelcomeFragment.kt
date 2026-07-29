@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
-import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.databinding.FragmentWelcomeScreenBinding
 import com.delet_dis.elementarylauncher.domain.extensions.checkIfAppIsDefaultLauncher
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
@@ -16,31 +15,24 @@ import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRep
 /**
  * Fragment showing the welcome screen.
  */
-class WelcomeFragment : Fragment(), FragmentParentInterface {
-    private lateinit var binding: FragmentWelcomeScreenBinding
+class WelcomeFragment : Fragment() {
+    private var _binding: FragmentWelcomeScreenBinding? = null
+    private val binding get() = checkNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return if (savedInstanceState == null) {
-            binding = FragmentWelcomeScreenBinding.inflate(layoutInflater)
-
-            binding.root
-        } else {
-            view
-        }
-    }
+    ): View = FragmentWelcomeScreenBinding.inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         checkIfSetupIsDone()
 
-        if (savedInstanceState == null) {
-            initNextButtonOnClickListener()
-        }
+        initNextButtonOnClickListener()
     }
 
     private fun checkIfSetupIsDone() {
@@ -61,7 +53,8 @@ class WelcomeFragment : Fragment(), FragmentParentInterface {
             }
         }
 
-    override fun getFragmentId(): Int {
-        return R.id.welcomeFragment
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

@@ -2,24 +2,24 @@ package com.delet_dis.elementarylauncher.presentation.activities.onboardingActiv
 
 import android.Manifest
 import android.animation.ObjectAnimator
-import android.appwidget.AppWidgetHost
 import android.appwidget.AppWidgetManager
-import android.appwidget.AppWidgetProviderInfo
 import android.content.Intent
 import android.content.pm.ApplicationInfo
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delet_dis.elementarylauncher.R
-import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.data.models.ActionType
 import com.delet_dis.elementarylauncher.data.models.ContactActionType
 import com.delet_dis.elementarylauncher.data.models.HomescreenActionType
@@ -31,6 +31,7 @@ import com.delet_dis.elementarylauncher.domain.extensions.findPickedFragmentProg
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
 import com.delet_dis.elementarylauncher.domain.helpers.buildPermissionAlertDialog
 import com.delet_dis.elementarylauncher.domain.repositories.ConstantsRepository
+import com.delet_dis.elementarylauncher.domain.widgets.LauncherWidgetHost
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.LauncherActivity
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.actionsPickFragment.ActionsPickFragment
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.ActionsPickingAdapter
@@ -59,13 +60,12 @@ class OnboardingActivity : AppCompatActivity(),
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
-    private lateinit var appWidgetManager: AppWidgetManager
-
-    private lateinit var appWidgetHost: AppWidgetHost
+    private val appWidgetHost by lazy { LauncherWidgetHost.get(this) }
 
     private var hostFragment: Fragment? = null
 
     private var isAvailableToSaveShortcutsSettings = true
+    private var pendingWidgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
 
     private val requestContactsPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -100,73 +100,63 @@ class OnboardingActivity : AppCompatActivity(),
 
     private var widgetsContract =
         registerForActivityResult(WidgetPickingContract()) { pair ->
-            if (pair.first) {
-                if (pair.second != null) {
-                    val appWidgetInfo: AppWidgetProviderInfo =
-                        appWidgetManager.getAppWidgetInfo(pair.second!!)
+            val widgetId = pair.second
+                ?.takeIf { it != AppWidgetManager.INVALID_APPWIDGET_ID }
+                ?: pendingWidgetId
+            val providerInfo = appWidgetHost.providerInfo(widgetId)
 
-                    if (appWidgetInfo.configure != null) {
-                        try {
-                            widgetsConfiguringContract.launch(pair.second)
-                        } catch (exception: SecurityException) {
-                            Toast.makeText(
-                                applicationContext,
-                                applicationContext.getString(R.string.widgetInstallingError),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
-                    pickedItemId?.let { pickedItemId ->
-                        viewModel.insertWidget(pair.second!!, pickedItemId)
+            if (pair.first && providerInfo != null) {
+                if (providerInfo.configure == null) {
+                    savePickedWidget(widgetId)
+                } else {
+                    try {
+                        widgetsConfiguringContract.launch(widgetId)
+                    } catch (_: SecurityException) {
+                        showWidgetErrorAndCleanup(widgetId)
+                    } catch (_: android.content.ActivityNotFoundException) {
+                        showWidgetErrorAndCleanup(widgetId)
                     }
                 }
             } else {
-                pickedItemId?.let { pickedItemId ->
-                    viewModel.deleteAtPosition(
-                        pickedItemId
-                    )
-                }
+                cleanupAbandonedWidget(widgetId)
             }
         }
 
     private var widgetsConfiguringContract =
         registerForActivityResult(WidgetConfiguringContract()) { pair ->
-            if (pair.first) {
-                if (pair.second != null) {
-                    pickedItemId?.let { pickedItemId ->
-                        viewModel.insertWidget(pair.second!!, pickedItemId)
-                    }
-                }
+            val widgetId = pair.second
+                ?.takeIf { it != AppWidgetManager.INVALID_APPWIDGET_ID }
+                ?: pendingWidgetId
+            if (pair.first && appWidgetHost.providerInfo(widgetId) != null) {
+                savePickedWidget(widgetId)
             } else {
-                pickedItemId?.let { pickedItemId ->
-                    viewModel.deleteAtPosition(
-                        pickedItemId
-                    )
-                }
+                cleanupAbandonedWidget(widgetId)
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
-
-        hostFragment =
-            supportFragmentManager
-                .findFragmentById(binding.navigationOnboardingControllerContainerView.id)
-
-        appWidgetManager = AppWidgetManager.getInstance(this)
-
-        appWidgetHost = AppWidgetHost(
-            this,
-            widgetHostId
-        )
-
         setContentView(binding.root)
 
+        hostFragment = supportFragmentManager
+            .findFragmentById(binding.navigationOnboardingControllerContainerView.id)
+        pickedItemId = savedInstanceState?.getInt(STATE_PICKED_ITEM_ID, -1)?.takeIf { it >= 0 }
+        pendingWidgetId = savedInstanceState?.getInt(
+            STATE_PENDING_WIDGET_ID,
+            AppWidgetManager.INVALID_APPWIDGET_ID
+        ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
+
+        applyWindowInsets()
+        initBackCallback()
+
         if (intent.extras?.getString(ConstantsRepository.SCREEN_TO_NAVIGATE) != null) {
-            navigateToIntentExtrasFragment()
+            binding.progressIndicator.visibility = View.INVISIBLE
+            if (savedInstanceState == null) {
+                navigateToIntentExtrasFragment()
+            }
         } else {
             checkIfOnboardingPassed()
         }
@@ -182,6 +172,57 @@ class OnboardingActivity : AppCompatActivity(),
         initLoadingObserver()
 
         initBottomSheetStateObserver()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        appWidgetHost.startListening()
+    }
+
+    override fun onStop() {
+        appWidgetHost.stopListening()
+        super.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        pickedItemId?.let { outState.putInt(STATE_PICKED_ITEM_ID, it) }
+        outState.putInt(STATE_PENDING_WIDGET_ID, pendingWidgetId)
+        super.onSaveInstanceState(outState)
+    }
+
+    private fun applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.mainLayout) { view, insets ->
+            val safe = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            view.setPadding(safe.left, safe.top, safe.right, safe.bottom)
+            insets
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomSheetLayout) { view, insets ->
+            val safe = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            view.setPadding(safe.left, 0, safe.right, safe.bottom)
+            insets
+        }
+    }
+
+    private fun initBackCallback() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() = handleBackNavigation()
+        })
+    }
+
+    private fun handleBackNavigation() {
+        if (!isOnboardingPassed(applicationContext)) {
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            } else if (hostFragment?.findNavController()?.popBackStack() != true) {
+                finish()
+            }
+        } else if (isAvailableToSaveShortcutsSettings) {
+            finish()
+        }
     }
 
     private fun navigateToIntentExtrasFragment() =
@@ -273,18 +314,6 @@ class OnboardingActivity : AppCompatActivity(),
             progress
         ).setDuration(progressbarAnimationDuration).start()
 
-    override fun onBackPressed() {
-        if (!isOnboardingPassed(applicationContext)) {
-            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            } else {
-                super.onBackPressed()
-            }
-        } else if (isAvailableToSaveShortcutsSettings) {
-            finish()
-        }
-    }
-
     override fun callItemPicking(itemId: Int) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
@@ -301,7 +330,7 @@ class OnboardingActivity : AppCompatActivity(),
     }
 
     override fun backFragmentButtonPress() {
-        onBackPressed()
+        handleBackNavigation()
     }
 
     private fun callSubItemPicking(actionType: ActionType, itemPosition: Int) =
@@ -330,7 +359,8 @@ class OnboardingActivity : AppCompatActivity(),
                 ActionType.WIDGET -> {
                     pickedItemId = itemPosition
 
-                    val pickedWidgetId = appWidgetHost.allocateAppWidgetId()
+                    val pickedWidgetId = appWidgetHost.allocateId()
+                    pendingWidgetId = pickedWidgetId
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
                     widgetsContract.launch(pickedWidgetId)
@@ -428,20 +458,30 @@ class OnboardingActivity : AppCompatActivity(),
             R.string.phonePermissionRequiredMessage
         ) { (::callActionPickPositiveMaterialDialogButtonFunction)(itemId) }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
+    private fun savePickedWidget(widgetId: Int) {
+        pickedItemId?.let { position ->
+            viewModel.insertWidget(widgetId, position)
+        }
+        pendingWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
+    }
 
-        val currentFragment =
-            hostFragment
-                ?.childFragmentManager
-                ?.primaryNavigationFragment
+    private fun cleanupAbandonedWidget(widgetId: Int) {
+        appWidgetHost.deleteId(widgetId)
+        pendingWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
+    }
 
-        hostFragment?.findNavController()
-            ?.navigate((currentFragment as FragmentParentInterface).getFragmentId())
+    private fun showWidgetErrorAndCleanup(widgetId: Int) {
+        Toast.makeText(
+            applicationContext,
+            getString(R.string.widgetInstallingError),
+            Toast.LENGTH_SHORT
+        ).show()
+        cleanupAbandonedWidget(widgetId)
     }
 
     private companion object OnboardingActivityConstantsRepository {
-        const val widgetHostId = 100
         const val progressbarAnimationDuration: Long = 460
+        const val STATE_PICKED_ITEM_ID = "picked_item_id"
+        const val STATE_PENDING_WIDGET_ID = "pending_widget_id"
     }
 }

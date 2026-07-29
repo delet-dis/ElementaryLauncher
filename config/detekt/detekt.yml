@@ -1,0 +1,29 @@
+build:
+  maxIssues: 0
+
+complexity:
+  ComplexCondition:
+    threshold: 5
+  LongParameterList:
+    functionThreshold: 8
+    constructorThreshold: 8
+  TooManyFunctions:
+    thresholdInFiles: 20
+    thresholdInClasses: 35
+
+naming:
+  # The published application ID contains an underscore and cannot be renamed.
+  PackageNaming:
+    active: false
+
+style:
+  # Existing numeric UI dimensions and enum values are clearer inline.
+  MagicNumber:
+    active: false
+  # Import style is cosmetic and does not affect the release safety gate.
+  WildcardImport:
+    active: false
+  NewLineAtEndOfFile:
+    active: false
+  ReturnCount:
+    max: 3

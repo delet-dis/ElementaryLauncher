@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
-import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.databinding.FragmentSetupDoneScreenBinding
 import com.delet_dis.elementarylauncher.domain.extensions.checkIfAppIsDefaultLauncher
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
@@ -19,22 +18,17 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * Fragment notifying the end of the first setup.
  */
 @ExperimentalCoroutinesApi
-class SetupDoneFragment : Fragment(), FragmentParentInterface {
-    private lateinit var binding: FragmentSetupDoneScreenBinding
+class SetupDoneFragment : Fragment() {
+    private var _binding: FragmentSetupDoneScreenBinding? = null
+    private val binding get() = checkNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return if (savedInstanceState == null) {
-            binding = FragmentSetupDoneScreenBinding.inflate(layoutInflater)
-
-            binding.root
-        } else {
-            view
-        }
-    }
+    ): View = FragmentSetupDoneScreenBinding.inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,7 +61,8 @@ class SetupDoneFragment : Fragment(), FragmentParentInterface {
             }
         }
 
-    override fun getFragmentId(): Int {
-        return R.id.setupDoneFragment
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.delet_dis.elementarylauncher.R
-import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.databinding.FragmentActionsPickScreenBinding
 import com.delet_dis.elementarylauncher.domain.extensions.checkIfAppIsDefaultLauncher
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
@@ -25,8 +24,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  */
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class ActionsPickFragment : Fragment(), FragmentParentInterface {
-    private lateinit var binding: FragmentActionsPickScreenBinding
+class ActionsPickFragment : Fragment() {
+    private var _binding: FragmentActionsPickScreenBinding? = null
+    private val binding get() = checkNotNull(_binding)
 
     private lateinit var parentActivityCallback: ParentActivityCallback
 
@@ -36,15 +36,9 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return if (savedInstanceState == null) {
-            binding = FragmentActionsPickScreenBinding.inflate(layoutInflater)
-
-            binding.root
-        } else {
-            view
-        }
-    }
+    ): View = FragmentActionsPickScreenBinding.inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,19 +49,12 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            initActionsPickingRecycler()
-
-            initDatabaseRecordingsLiveDataObserver()
-
-            initIsAvailableToEndFirstSetupObserver()
-
-            initBackButtonOnClickListener()
-
-            initNextButtonOnClickListener()
-
-            checkIfAppIsAlreadyPickedAsHomescreen()
-        }
+        initActionsPickingRecycler()
+        initDatabaseRecordingsLiveDataObserver()
+        initIsAvailableToEndFirstSetupObserver()
+        initBackButtonOnClickListener()
+        initNextButtonOnClickListener()
+        checkIfAppIsAlreadyPickedAsHomescreen()
     }
 
     private fun initBackButtonOnClickListener() =
@@ -162,7 +149,9 @@ class ActionsPickFragment : Fragment(), FragmentParentInterface {
         fun backFragmentButtonPress()
     }
 
-    override fun getFragmentId(): Int {
-        return R.id.actionsPickFragment
+    override fun onDestroyView() {
+        parentActivityCallback.setAvailabilityToPressBackButton(true)
+        _binding = null
+        super.onDestroyView()
     }
 }

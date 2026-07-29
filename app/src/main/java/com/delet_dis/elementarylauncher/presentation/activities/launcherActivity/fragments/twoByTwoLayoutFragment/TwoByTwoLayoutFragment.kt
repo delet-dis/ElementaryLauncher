@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import com.delet_dis.elementarylauncher.databinding.FragmentTwoByTwoLayoutBinding
 import com.delet_dis.elementarylauncher.domain.helpers.createIntro
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment.viewModel.TwoByTwoLayoutFragmentViewModel
+import com.delet_dis.elementarylauncher.presentation.views.clockView.ClockView
+import com.delet_dis.elementarylauncher.presentation.views.clockView.viewModel.ClockViewViewModel
 import com.delet_dis.elementarylauncher.presentation.views.shortcutCardView.ShortcutCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,40 +21,43 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class TwoByTwoLayoutFragment : Fragment() {
-    private lateinit var binding: FragmentTwoByTwoLayoutBinding
+    private var _binding: FragmentTwoByTwoLayoutBinding? = null
+    private val binding get() = checkNotNull(_binding)
 
     private val viewModel: TwoByTwoLayoutFragmentViewModel by viewModels()
+    private val clockViewModel: ClockViewViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return if (savedInstanceState == null) {
-            binding = FragmentTwoByTwoLayoutBinding.inflate(layoutInflater)
-
-            binding.root
-        } else {
-            view
-        }
-    }
+    ): View = FragmentTwoByTwoLayoutBinding.inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            binding.clockView?.let { clockView ->
-                createIntro(this, requireActivity(), clockView)
-            }
+        binding.clockView?.let { clockView ->
+            clockView.bind(
+                viewLifecycleOwner,
+                clockViewModel,
+                requireActivity() as ClockView.ParentActivityCallback
+            )
+            createIntro(this, requireActivity(), clockView)
+        }
 
-            viewModel.databaseRecordingsLiveData.observe(viewLifecycleOwner)
-            { list ->
-                binding.cardsGroup.referencedIds.forEachIndexed { index, i ->
-                    list[index]?.let { card ->
-                        requireView().findViewById<ShortcutCardView>(i).card = card
-                    }
+        viewModel.databaseRecordingsLiveData.observe(viewLifecycleOwner) { list ->
+            binding.cardsGroup.referencedIds.forEachIndexed { index, id ->
+                list.getOrNull(index)?.let { card ->
+                    view.findViewById<ShortcutCardView>(id).card = card
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

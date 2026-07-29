@@ -15,24 +15,21 @@ class ActionsPickingAdapter(
     val clickListener: (ActionType) -> Unit
 ) : RecyclerView.Adapter<ActionsPickingAdapter.ActionHolder>() {
 
-    private lateinit var binding: RecyclerviewItemActionBinding
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ActionHolder {
-        binding = RecyclerviewItemActionBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+    ): ActionHolder =
+        ActionHolder(
+            RecyclerviewItemActionBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-
-        return ActionHolder(binding)
-    }
 
     override fun onBindViewHolder(holder: ActionHolder, position: Int) {
         with(values[position]) {
-            with(binding) {
+            with(holder.binding) {
                 actionImage.setImageDrawable(
                     ContextCompat.getDrawable(
                         holder.itemView.context,
@@ -43,11 +40,11 @@ class ActionsPickingAdapter(
                 actionName.text = holder.itemView.context.getString(stringId)
             }
         }
-        binding.actionCard.setOnClickListener { clickListener(values[position]) }
+        holder.binding.actionCard.setOnClickListener { clickListener(values[position]) }
     }
 
     override fun getItemCount(): Int = values.size
 
-    inner class ActionHolder(binding: RecyclerviewItemActionBinding) :
+    class ActionHolder(val binding: RecyclerviewItemActionBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

@@ -10,19 +10,14 @@ import com.delet_dis.elementarylauncher.data.mappers.mapEntityToCard
 import com.delet_dis.elementarylauncher.data.models.ActionType
 import com.delet_dis.elementarylauncher.data.models.Card
 import com.delet_dis.elementarylauncher.domain.extensions.concatenate
-import dagger.Module
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-@Module
-@InstallIn(SingletonComponent::class)
 @ExperimentalCoroutinesApi
 class DatabaseRepository @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val appDAO: AppDAO,
     private val contactCallDAO: ContactCallDAO,
     private val contactDAO: ContactDAO,

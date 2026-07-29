@@ -1,32 +1,12 @@
-buildscript {
-    ext.kotlin_version = '2.1.0'
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.12.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.4.1'
-
-        def nav_version = '2.5.0'
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
-        classpath 'com.google.firebase:perf-plugin:1.4.2'
-
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.56.2'
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.firebase.performance) apply false
+    alias(libs.plugins.hilt) apply false
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register('clean', Delete) {
+    delete rootProject.layout.buildDirectory
 }

@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delet_dis.elementarylauncher.R
-import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.databinding.FragmentAppsListScreenBinding
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.fragments.appsListFragment.viewModel.AppsListFragmentViewModel
 import com.delet_dis.elementarylauncher.presentation.activities.onboardingActivity.recyclerViewAdapters.AppsPickingAdapter
@@ -22,8 +21,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  */
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class AppsListFragment : Fragment(), FragmentParentInterface {
-    private lateinit var binding: FragmentAppsListScreenBinding
+class AppsListFragment : Fragment() {
+    private var _binding: FragmentAppsListScreenBinding? = null
+    private val binding get() = checkNotNull(_binding)
 
     private val viewModel: AppsListFragmentViewModel by viewModels()
 
@@ -31,16 +31,9 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return if (savedInstanceState == null) {
-            binding = FragmentAppsListScreenBinding.inflate(layoutInflater)
-
-
-            binding.root
-        } else {
-            view
-        }
-    }
+    ): View = FragmentAppsListScreenBinding.inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,16 +54,12 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
                             mutableList as MutableList<ApplicationInfo>
                         ) { applicationInfo ->
 
-                            with(requireActivity()) {
-                                startActivity(
-                                    Intent(
-                                        requireContext().packageManager.getLaunchIntentForPackage(
-                                            applicationInfo.packageName
-                                        )
-                                    )
-                                )
-                                finish()
-                            }
+                            requireContext().packageManager
+                                .getLaunchIntentForPackage(applicationInfo.packageName)
+                                ?.let { launchIntent ->
+                                    runCatching { startActivity(launchIntent) }
+                                        .onSuccess { requireActivity().finish() }
+                                }
                         }
                 })
         }
@@ -114,7 +103,8 @@ class AppsListFragment : Fragment(), FragmentParentInterface {
             }
         }
 
-    override fun getFragmentId(): Int {
-        return R.id.appsListFragment
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

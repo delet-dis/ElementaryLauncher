@@ -1,10 +1,12 @@
 package com.delet_dis.elementarylauncher.data.mappers
 
+import android.Manifest
 import android.appwidget.AppWidgetManager
+import android.content.ActivityNotFoundException
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -14,7 +16,12 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.delet_dis.elementarylauncher.R
 import com.delet_dis.elementarylauncher.data.database.EntitiesParent
-import com.delet_dis.elementarylauncher.data.database.entities.*
+import com.delet_dis.elementarylauncher.data.database.entities.App
+import com.delet_dis.elementarylauncher.data.database.entities.Contact
+import com.delet_dis.elementarylauncher.data.database.entities.ContactCall
+import com.delet_dis.elementarylauncher.data.database.entities.ContactSMS
+import com.delet_dis.elementarylauncher.data.database.entities.SettingsAction
+import com.delet_dis.elementarylauncher.data.database.entities.Widget
 import com.delet_dis.elementarylauncher.data.models.Card
 import com.delet_dis.elementarylauncher.domain.extensions.addPadding
 import com.delet_dis.elementarylauncher.domain.extensions.findSettingsAction
@@ -22,350 +29,252 @@ import com.delet_dis.elementarylauncher.domain.extensions.getResizedDrawable
 import java.io.IOException
 
 /**
- * Function used to cast any database Entity into Card class.
+ * Casts a persisted shortcut into a display Card without assuming its external target still exists.
  */
 fun mapEntityToCard(inputDataClass: EntitiesParent, context: Context): Card {
-    val cardToReturn = Card()
-
+    val card = Card()
     when (inputDataClass) {
-        is App -> {
-            mapEntityToApp(context, inputDataClass, cardToReturn)
-        }
-
-        is Contact -> {
-            mapEntityToContact(context, inputDataClass, cardToReturn)
-        }
-
-        is ContactCall -> {
-            mapEntityToContactCall(context, inputDataClass, cardToReturn)
-        }
-
-        is ContactSMS -> {
-            mapEntityToContactSMS(context, inputDataClass, cardToReturn)
-        }
-
-        is SettingsAction -> {
-            mapEntityToSettingsAction(context, inputDataClass, cardToReturn)
-        }
-
-        is Widget -> {
-            mapEntityToWidget(context, inputDataClass, cardToReturn)
-        }
+        is App -> mapEntityToApp(context, inputDataClass, card)
+        is Contact -> mapEntityToContact(context, inputDataClass, card)
+        is ContactCall -> mapEntityToContactCall(context, inputDataClass, card)
+        is ContactSMS -> mapEntityToContactSms(context, inputDataClass, card)
+        is SettingsAction -> mapEntityToSettingsAction(context, inputDataClass, card)
+        is Widget -> mapEntityToWidget(context, inputDataClass, card)
     }
-
-    return cardToReturn
+    return card
 }
 
-private fun mapEntityToWidget(
-    context: Context,
-    inputDataClass: Widget,
-    cardToReturn: Card
-) {
-    val packageManager = context.packageManager
+private fun mapEntityToWidget(context: Context, entity: Widget, card: Card) = with(card) {
+    position = entity.position
+    isWidget = true
+    widgetId = entity.widgetId
 
-    val appWidgetProviderInfo =
-        inputDataClass.widgetId?.let { widgetId ->
-            AppWidgetManager.getInstance(context).getAppWidgetInfo(
-                widgetId
-            )
-        }
-
-    appWidgetProviderInfo?.let { providerInfo ->
-        val processingApplicationInfo =
-            packageManager.getApplicationInfo(providerInfo.provider.packageName, 0)
-
-        with(cardToReturn) {
-            name = processingApplicationInfo.loadLabel(packageManager).toString()
-            icon = processingApplicationInfo.loadIcon(packageManager)
-            position = inputDataClass.position
-            isWidget = true
-            widgetId = inputDataClass.widgetId
-        }
-    }
+    val provider = entity.widgetId?.let {
+        AppWidgetManager.getInstance(context).getAppWidgetInfo(it)
+    } ?: return@with
+    val applicationInfo = getApplicationInfo(context, provider.provider.packageName) ?: return@with
+    name = applicationInfo.loadLabel(context.packageManager).toString()
+    icon = applicationInfo.loadIcon(context.packageManager)
 }
 
 private fun mapEntityToSettingsAction(
     context: Context,
-    inputDataClass: SettingsAction,
-    cardToReturn: Card
-) = with(cardToReturn) {
-    with(inputDataClass.actionName?.let { actionName -> findSettingsAction(actionName) }) {
-        name = this?.stringId?.let { stringId -> context.getString(stringId) }
-
-        icon = this?.imageId?.let { imageId ->
-            ContextCompat.getDrawable(context, imageId)?.toBitmap()
-                ?.addPadding(
-                    50, 50, 50, 50,
-                    context.getColor(R.color.imageCardBackgroundColor)
-                )
-                ?.toDrawable(context.resources)
-        }
-
-        position = inputDataClass.position
-
-        onClickAction = {
-            context.startActivity(
-                Intent(inputDataClass.actionName)
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    entity: SettingsAction,
+    card: Card
+) = with(card) {
+    val action = entity.actionName?.let(::findSettingsAction)
+    name = action?.stringId?.let(context::getString)
+    icon = action?.imageId?.let { imageId ->
+        ContextCompat.getDrawable(context, imageId)?.toBitmap()
+            ?.addPadding(
+                50,
+                50,
+                50,
+                50,
+                context.getColor(R.color.imageCardBackgroundColor)
             )
+            ?.toDrawable(context.resources)
+    }
+    position = entity.position
+    onClickAction = {
+        entity.actionName?.let { safeStartActivity(context, Intent(it)) }
+    }
+}
+
+private fun mapEntityToContactSms(context: Context, entity: ContactSMS, card: Card) {
+    val uri = Uri.parse(entity.contactURI)
+    val fetchedName = getContactName(uri, context)
+    applyContactPresentation(context, card, uri, fetchedName, entity.position)
+    card.name = context.getString(R.string.actionSMSPrefix) +
+        (fetchedName ?: context.getString(R.string.contactUnavailable))
+    card.onClickAction = {
+        getContactPhoneNumber(uri, context)?.let { phone ->
+            safeStartActivity(context, Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:$phone")))
         }
     }
 }
 
-private fun mapEntityToContactSMS(
-    context: Context,
-    inputDataClass: ContactSMS,
-    cardToReturn: Card
-) {
-    val uri: Uri = Uri.parse(inputDataClass.contactURI)
-
-    val fetchedName = getContactName(
-        uri,
-        context
-    )
-
-    with(cardToReturn) {
-        name =
-            context.getString(R.string.actionSMSPrefix) + fetchedName
-
-        text = getCardTextBasedOnName(fetchedName)
-
-        getContactPhoto(uri, context)?.let { bitmap ->
-            icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
-        }
-
-        position = inputDataClass.position
-
-        onClickAction = {
-            val phoneToCall = getContactPhoneNumber(uri, context)
-
-            val callIntent = Intent(Intent.ACTION_VIEW)
-
-            callIntent.data = Uri.parse("sms:$phoneToCall")
-            callIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-            context.startActivity(callIntent)
+private fun mapEntityToContactCall(context: Context, entity: ContactCall, card: Card) {
+    val uri = Uri.parse(entity.contactURI)
+    val fetchedName = getContactName(uri, context)
+    applyContactPresentation(context, card, uri, fetchedName, entity.position)
+    card.name = context.getString(R.string.actionCallPrefix) +
+        (fetchedName ?: context.getString(R.string.contactUnavailable))
+    card.onClickAction = {
+        getContactPhoneNumber(uri, context)?.let { phone ->
+            launchPhoneCall(context, phone)
         }
     }
 }
 
-private fun mapEntityToContactCall(
-    context: Context,
-    inputDataClass: ContactCall,
-    cardToReturn: Card
-) {
-    val uri: Uri = Uri.parse(inputDataClass.contactURI)
-
-    val fetchedName = getContactName(
-        uri,
-        context
-    )
-
-    with(cardToReturn) {
-        name = context.getString(R.string.actionCallPrefix) + fetchedName
-
-        text = getCardTextBasedOnName(fetchedName)
-
-        getContactPhoto(uri, context)?.let { bitmap ->
-            icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
-        }
-
-        position = inputDataClass.position
-
-        onClickAction = {
-            val phoneToCall = getContactPhoneNumber(uri, context)
-
-            val callIntent = Intent(Intent.ACTION_CALL)
-
-            callIntent.data = Uri.parse("tel:$phoneToCall")
-            callIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-            context.startActivity(callIntent)
+private fun mapEntityToContact(context: Context, entity: Contact, card: Card) {
+    val uri = Uri.parse(entity.contactURI)
+    val fetchedName = getContactName(uri, context)
+    applyContactPresentation(context, card, uri, fetchedName, entity.position)
+    card.name = fetchedName ?: context.getString(R.string.contactUnavailable)
+    card.onClickAction = {
+        if (hasContactPermission(context)) {
+            safeStartActivity(context, Intent(Intent.ACTION_VIEW, uri))
         }
     }
 }
 
-private fun mapEntityToContact(
+private fun applyContactPresentation(
     context: Context,
-    inputDataClass: Contact,
-    cardToReturn: Card
-) {
-    val uri: Uri = Uri.parse(inputDataClass.contactURI)
+    card: Card,
+    uri: Uri,
+    name: String?,
+    position: Int?
+) = with(card) {
+    text = getCardTextBasedOnName(name)
+    getContactPhoto(uri, context)?.let { bitmap ->
+        icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
+    }
+    this.position = position
+}
 
-    val fetchedName = getContactName(
-        uri,
-        context
-    )
-
-    with(cardToReturn) {
-        name = fetchedName
-
-        text = getCardTextBasedOnName(fetchedName)
-
-        getContactPhoto(uri, context)?.let { bitmap ->
-            icon = bitmap.toDrawable(context.resources).getResizedDrawable(2f)
-        }
-
-        position = inputDataClass.position
-
+private fun mapEntityToApp(context: Context, entity: App, card: Card) {
+    val applicationInfo = entity.packageName?.let { getApplicationInfo(context, it) }
+    with(card) {
+        name = displayNameOrPlaceholder(
+            applicationInfo?.loadLabel(context.packageManager),
+            context.getString(R.string.appUnavailable)
+        )
+        icon = applicationInfo?.loadIcon(context.packageManager)
+            ?: ContextCompat.getDrawable(context, R.drawable.ic_app)
+        position = entity.position
         onClickAction = {
-            val contactCardIntent = Intent(Intent.ACTION_VIEW)
+            entity.packageName
+                ?.let(context.packageManager::getLaunchIntentForPackage)
+                ?.let { safeStartActivity(context, it) }
+        }
+    }
+}
 
-            contactCardIntent.data = Uri.withAppendedPath(
-                ContactsContract.Contacts.CONTENT_URI,
-                getContactId(uri, context).toString()
+internal fun displayNameOrPlaceholder(label: CharSequence?, placeholder: String): String =
+    label?.toString()?.takeIf(String::isNotBlank) ?: placeholder
+
+private fun getApplicationInfo(context: Context, packageName: String) =
+    try {
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            context.packageManager.getApplicationInfo(
+                packageName,
+                PackageManager.ApplicationInfoFlags.of(0)
             )
-            contactCardIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-            context.startActivity(contactCardIntent)
-        }
-    }
-}
-
-private fun mapEntityToApp(
-    context: Context,
-    inputDataClass: App,
-    cardToReturn: Card
-) {
-    val packageManager = context.packageManager
-
-    val processingApplicationInfo =
-        inputDataClass.packageName?.let { packageName ->
-            packageManager.getApplicationInfo(packageName, 0)
-        }
-
-    with(cardToReturn) {
-        name = processingApplicationInfo?.loadLabel(packageManager).toString()
-        icon = processingApplicationInfo?.loadIcon(packageManager)
-        position = inputDataClass.position
-
-        onClickAction = {
-            context.startActivity(inputDataClass.packageName?.let { packageName ->
-                packageManager.getLaunchIntentForPackage(
-                    packageName
-                )
-            })
-        }
-    }
-}
-
-private fun getCardTextBasedOnName(inputString: String?): String {
-    if (inputString != null) {
-        return if (inputString.length >= 2) {
-            inputString.subSequence(0, 2).toString()
         } else {
-            inputString.subSequence(0, 1).toString()
+            @Suppress("DEPRECATION")
+            context.packageManager.getApplicationInfo(packageName, 0)
         }
+    } catch (_: PackageManager.NameNotFoundException) {
+        null
     }
-    return ""
+
+internal fun chooseCallAction(hasCallPermission: Boolean, directCallAvailable: Boolean): String =
+    if (hasCallPermission && directCallAvailable) Intent.ACTION_CALL else Intent.ACTION_DIAL
+
+private fun launchPhoneCall(context: Context, phone: String) {
+    val uri = Uri.parse("tel:$phone")
+    val hasPermission = ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.CALL_PHONE
+    ) == PackageManager.PERMISSION_GRANTED
+    val directCallAvailable = context.packageManager.hasSystemFeature(
+        PackageManager.FEATURE_TELEPHONY
+    )
+    val action = chooseCallAction(hasPermission, directCallAvailable)
+
+    if (!safeStartActivity(context, Intent(action, uri)) && action == Intent.ACTION_CALL) {
+        safeStartActivity(context, Intent(Intent.ACTION_DIAL, uri))
+    }
 }
+
+private fun safeStartActivity(context: Context, intent: Intent): Boolean {
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    return try {
+        context.startActivity(intent)
+        true
+    } catch (_: ActivityNotFoundException) {
+        // External targets can disappear at any time; the card remains as a safe placeholder.
+        false
+    } catch (_: SecurityException) {
+        // Permissions and exported state can also change after the card was persisted.
+        false
+    }
+}
+
+private fun getCardTextBasedOnName(input: String?): String = input
+    ?.take(2)
+    .orEmpty()
+
+private fun hasContactPermission(context: Context): Boolean =
+    ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.READ_CONTACTS
+    ) == PackageManager.PERMISSION_GRANTED
 
 private fun getContactName(contactUri: Uri, context: Context): String? {
-    var contactName: String? = null
-
-    val cursor: Cursor? = context.contentResolver
-        .query(contactUri, null, null, null, null)
-
-    cursor?.let { notNullCursor ->
-        if (notNullCursor.moveToFirst()) {
-            contactName =
-                notNullCursor.getString(
-                    notNullCursor
-                        .getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME)
-                )
+    if (!hasContactPermission(context)) return null
+    return try {
+        context.contentResolver.query(
+            contactUri,
+            arrayOf(ContactsContract.Contacts.DISPLAY_NAME),
+            null,
+            null,
+            null
+        )?.use { cursor ->
+            if (cursor.moveToFirst()) cursor.getString(0) else null
         }
-
-        cursor.close()
+    } catch (_: SecurityException) {
+        null
     }
-
-    return contactName
 }
 
 private fun getContactPhoneNumber(contactUri: Uri, context: Context): String? {
-    var contactPhone: String? = null
-
-    val cursor: Cursor? = context.contentResolver
-        .query(contactUri, null, null, null, null)
-
-    cursor?.let { notNullCursor ->
-        if (notNullCursor.moveToFirst()) {
-
-            val contactId: String = notNullCursor.getString(
-                notNullCursor
-                    .getColumnIndexOrThrow(ContactsContract.Contacts._ID)
-            )
-            val hasNumber: String =
-                notNullCursor.getString(
-                    notNullCursor
-                        .getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER)
-                )
-
-            if (hasNumber.toInt() == 1) {
-                val numbers: Cursor = context.contentResolver.query(
-                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                    null,
-                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
-                    null,
-                    null
-                )!!
-                while (numbers.moveToNext()) {
-                    contactPhone =
-                        numbers.getString(
-                            numbers.getColumnIndexOrThrow(
-                                ContactsContract
-                                    .CommonDataKinds.Phone.NUMBER
-                            )
-                        )
-                }
-                numbers.close()
-            }
+    if (!hasContactPermission(context)) return null
+    return try {
+        val contactId = getContactId(contactUri, context) ?: return null
+        context.contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER),
+            "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = ?",
+            arrayOf(contactId.toString()),
+            null
+        )?.use { numbers ->
+            if (numbers.moveToFirst()) numbers.getString(0) else null
         }
-
-        cursor.close()
+    } catch (_: SecurityException) {
+        null
     }
-
-    return contactPhone
 }
 
 private fun getContactId(contactUri: Uri, context: Context): Long? {
-    val cursor: Cursor? = context.contentResolver
-        .query(contactUri, null, null, null, null)
-
-    var id: String? = null
-
-    cursor?.let { notNullCursor ->
-        if (notNullCursor.moveToFirst()) {
-            id = notNullCursor.getString(
-                notNullCursor
-                    .getColumnIndexOrThrow(ContactsContract.Contacts._ID)
-            )
+    if (!hasContactPermission(context)) return null
+    return try {
+        context.contentResolver.query(
+            contactUri,
+            arrayOf(ContactsContract.Contacts._ID),
+            null,
+            null,
+            null
+        )?.use { cursor ->
+            if (cursor.moveToFirst()) cursor.getLong(0) else null
         }
-        cursor.close()
+    } catch (_: SecurityException) {
+        null
     }
-
-    return id?.toLong()
 }
 
-
 private fun getContactPhoto(contactUri: Uri, context: Context): Bitmap? {
-    var photo: Bitmap? = null
-    try {
-        val inputStream = ContactsContract.Contacts.openContactPhotoInputStream(
+    if (!hasContactPermission(context)) return null
+    return try {
+        val contactId = getContactId(contactUri, context) ?: return null
+        ContactsContract.Contacts.openContactPhotoInputStream(
             context.contentResolver,
-            getContactId(contactUri, context)?.let { contactId ->
-                ContentUris.withAppendedId(
-                    ContactsContract.Contacts.CONTENT_URI,
-                    contactId
-                )
-            }
-        )
-        if (inputStream != null) {
-            photo = BitmapFactory.decodeStream(inputStream)
-            inputStream.close()
-        }
-    } catch (e: IOException) {
-        e.printStackTrace()
+            ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId)
+        )?.use(BitmapFactory::decodeStream)
+    } catch (_: IOException) {
+        null
+    } catch (_: SecurityException) {
+        null
     }
-
-    return photo
 }

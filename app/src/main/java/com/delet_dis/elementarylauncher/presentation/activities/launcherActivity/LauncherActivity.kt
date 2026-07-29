@@ -1,9 +1,12 @@
 package com.delet_dis.elementarylauncher.presentation.activities.launcherActivity
 
 import android.content.Intent
+import android.content.ActivityNotFoundException
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,6 +19,7 @@ import com.delet_dis.elementarylauncher.data.models.LayoutType
 import com.delet_dis.elementarylauncher.databinding.ActivityLauncherBinding
 import com.delet_dis.elementarylauncher.domain.repositories.ConstantsRepository
 import com.delet_dis.elementarylauncher.domain.repositories.SharedPreferencesRepository
+import com.delet_dis.elementarylauncher.domain.widgets.LauncherWidgetHost
 import com.delet_dis.elementarylauncher.presentation.activities.aboutActivity.AboutActivity
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByThreeLayoutFragment.TwoByThreeLayoutFragment
 import com.delet_dis.elementarylauncher.presentation.activities.launcherActivity.fragments.twoByTwoLayoutFragment.TwoByTwoLayoutFragment
@@ -30,21 +34,20 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * Class showing the main application screen with shortcuts.
  */
 @AndroidEntryPoint
-@Suppress("DEPRECATION")
 @ExperimentalCoroutinesApi
 class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
     private lateinit var binding: ActivityLauncherBinding
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private val widgetHost by lazy { LauncherWidgetHost.get(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         binding = ActivityLauncherBinding.inflate(layoutInflater)
-
-        recalculateWindowInsets()
-
         setContentView(binding.root)
+        applyWindowInsets()
 
         with(binding) {
             itemPickRecycler.layoutManager = LinearLayoutManager(
@@ -57,6 +60,24 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
 
             setOutOfBottomSheetClickListener()
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                }
+            }
+        })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        widgetHost.startListening()
+    }
+
+    override fun onStop() {
+        widgetHost.stopListening()
+        super.onStop()
     }
 
     override fun onResume() {
@@ -64,24 +85,36 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         inflateHomescreenLayout()
     }
 
-    private fun inflateHomescreenLayout() =
-        when (SharedPreferencesRepository(applicationContext).getLayoutType()) {
-            LayoutType.TWO_BY_THREE -> {
-                replaceFragment(TwoByThreeLayoutFragment())
-            }
-
-            LayoutType.TWO_BY_TWO -> {
-                replaceFragment(TwoByTwoLayoutFragment())
-            }
+    private fun inflateHomescreenLayout() {
+        val currentFragment = supportFragmentManager.findFragmentById(
+            binding.navigationLauncherControllerContainerView.id
+        )
+        val desiredFragment = when (SharedPreferencesRepository(applicationContext).getLayoutType()) {
+            LayoutType.TWO_BY_THREE -> TwoByThreeLayoutFragment()
+            LayoutType.TWO_BY_TWO -> TwoByTwoLayoutFragment()
         }
 
-    private fun recalculateWindowInsets() =
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
-            val systemGestureInsets = insets.systemGestureInsets
-            WindowInsetsCompat.Builder()
-                .setSystemWindowInsets(insets.systemWindowInsets)
-                .setSystemGestureInsets(systemGestureInsets).build()
+        if (currentFragment?.javaClass != desiredFragment.javaClass) {
+            replaceFragment(desiredFragment)
         }
+    }
+
+    private fun applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.mainLayout) { view, insets ->
+            val safe = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            view.setPadding(safe.left, safe.top, safe.right, safe.bottom)
+            insets
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomSheetLayout) { view, insets ->
+            val safe = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            view.setPadding(safe.left, 0, safe.right, safe.bottom)
+            insets
+        }
+    }
 
     override fun callHomescreenBottomSheet() {
         binding.itemPickRecycler.adapter = OnHomescreenActionsPickingAdapter(
@@ -107,7 +140,13 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         } else {
             when (action) {
                 HomescreenActionType.HOMESCREEN_PICK -> {
-                    startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+                    try {
+                        startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+                    } catch (_: ActivityNotFoundException) {
+                        runCatching { startActivity(Intent(Settings.ACTION_SETTINGS)) }
+                    } catch (_: SecurityException) {
+                        runCatching { startActivity(Intent(Settings.ACTION_SETTINGS)) }
+                    }
                 }
                 HomescreenActionType.ABOUT_APP -> {
                     startActivity(Intent(this, AboutActivity::class.java))
@@ -121,7 +160,7 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         supportFragmentManager.commit {
-            setCustomAnimations(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
+            setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
             setReorderingAllowed(true)
             replace(
                 binding.navigationLauncherControllerContainerView.id,
@@ -139,9 +178,4 @@ class LauncherActivity : AppCompatActivity(), ClockView.ParentActivityCallback {
             }
         }
 
-    override fun onBackPressed() {
-        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        }
-    }
 }

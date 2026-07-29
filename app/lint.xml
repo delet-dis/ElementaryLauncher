@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- API 37 is a preview platform; API 36 is the intentional production target. -->
+    <issue id="OldTargetApi,GradleDependency,AndroidGradlePluginVersion" severity="ignore" />
+
+    <!-- Reviewed visual/performance warnings in existing artwork and Views layouts. -->
+    <issue id="VectorRaster,VectorPath,IconLocation,Overdraw" severity="ignore" />
+
+    <!-- Style-only KTX suggestions do not affect correctness or release safety. -->
+    <issue id="UseKtx" severity="ignore" />
+</lint>

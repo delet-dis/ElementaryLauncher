@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.delet_dis.elementarylauncher.R
-import com.delet_dis.elementarylauncher.data.interfaces.FragmentParentInterface
 import com.delet_dis.elementarylauncher.data.models.LayoutType
 import com.delet_dis.elementarylauncher.databinding.FragmentLayoutPickScreenBinding
 import com.delet_dis.elementarylauncher.domain.extensions.isOnboardingPassed
@@ -19,8 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
  * Fragment used to display the layout setting for home screen.
  */
 @AndroidEntryPoint
-class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
-    private lateinit var binding: FragmentLayoutPickScreenBinding
+class ScreenLayoutPickFragment : Fragment() {
+    private var _binding: FragmentLayoutPickScreenBinding? = null
+    private val binding get() = checkNotNull(_binding)
 
     private val viewModel: ScreenLayoutPickFragmentViewModel by viewModels()
 
@@ -28,30 +28,18 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return if (savedInstanceState == null) {
-            binding = FragmentLayoutPickScreenBinding.inflate(layoutInflater)
-
-            binding.root
-        } else {
-            view
-        }
-    }
+    ): View = FragmentLayoutPickScreenBinding.inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            initRadioButtonsListener()
-
-            loadTempRadioConfiguration()
-
-            initLayoutCardsListeners()
-
-            initBackButtonOnClickListener()
-
-            initNextButtonParams()
-        }
+        initRadioButtonsListener()
+        loadTempRadioConfiguration()
+        initLayoutCardsListeners()
+        initBackButtonOnClickListener()
+        initNextButtonParams()
     }
 
     private fun initBackButtonOnClickListener() =
@@ -136,7 +124,8 @@ class ScreenLayoutPickFragment : Fragment(), FragmentParentInterface {
         }
     }
 
-    override fun getFragmentId(): Int {
-        return R.id.screenLayoutPickFragment
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

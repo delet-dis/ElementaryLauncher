@@ -16,7 +16,7 @@ import com.delet_dis.elementarylauncher.data.database.entities.*
         ContactSMS::class,
         SettingsAction::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class ShortcutsDatabase : RoomDatabase() {
     abstract fun appDao(): AppDAO

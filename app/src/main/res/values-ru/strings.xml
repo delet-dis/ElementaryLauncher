@@ -14,7 +14,6 @@
     <string name="cardAppImageDescription">Иконка действия</string>
     <string name="bottomSheetActionPickingText">Выберите действие</string>
     <string name="actionPickingAppText">Приложение</string>
-    <string name="actionPickingAppShortcutText">Действие приложения</string>
     <string name="actionImageDescription">Изображение выбираемого действия ярлыка</string>
     <string name="actionPickingWidgetText">Виджет</string>
     <string name="actionPickingContactText">Контакт</string>
@@ -44,10 +43,13 @@
     <string name="actionPickingScalePickText">Настроить размер элементов ярлыка</string>
     <string name="actionPickingLayoutPickText">Настроить сетку домашнего экрана</string>
     <string name="actionPickingAppsListPickText">Список приложений</string>
-    <string name="settingsShowcaseDismissText">Понятно</string>
     <string name="settingsShowcaseInfoText">Зажмите этот виджет, чтобы открыть дополнительное меню</string>
     <string name="actionPickingGoToHomescreenSelectionPreferencesText">Настроить предпочтительный домашний экран</string>
     <string name="supportText">Политика конфиденциальности</string>
     <string name="actionPickingAboutTheAppText">О приложении</string>
     <string name="widgetInstallingError">Ошибка установки виджета</string>
+    <string name="widgetUnavailable">Виджет недоступен</string>
+    <string name="appUnavailable">Приложение недоступно</string>
+    <string name="contactUnavailable">Контакт недоступен</string>
+    <string name="ok">ОК</string>
 </resources>
